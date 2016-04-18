@@ -16,7 +16,9 @@ import { Link } from 'react-router';
 
         render() {
         return (
-                <div>
+                <div className="menuBarContainer">
+                
+                
       <Link to="/" className="mainMenuItem" >
         Home
       </Link>

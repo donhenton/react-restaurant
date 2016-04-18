@@ -1,0 +1,11 @@
+/* typography ---------------------- */
+
+
+ @for $i from 1 through 5 {
+    h#{$i} {
+         font-size: 3px * (5 - $i) +12px;
+    }
+} 
+
+
+/* typography ---------------------- */

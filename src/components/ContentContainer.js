@@ -8,7 +8,7 @@ export default class ContentContainer extends Component {
         
   render() {
     return (
-      <div>      
+      <div className="mainContainer">      
       <MenuBar />
       <div>
        {this.props.children}

@@ -1,5 +1,7 @@
 
 
+ @import "components/reset";
+ @import "components/typography";
 
 
 body
@@ -28,7 +30,29 @@ body
     @include componentMixin(blue);
 }
 
-.mainMenuItem
+
+.mainContainer
 {
-    margin: 50px  ;
+     margin-left: 50px;
+     
+       .menuBarContainer
+      {
+          margin-bottom: 5px;
+          border-bottom: 3px solid #c0c0c0;
+          padding-bottom: 10px;
+          
+          
+          a.mainMenuItem
+            {
+                 
+                margin-right: 50px;
+                text-decoration: none;
+                
+            }
+
+          
+          
+      }
+         
+     
 }
