@@ -1,3 +1,13 @@
+/**
+ * 
+ * @type Module gulp|Module gulp
+ * 
+ * 
+ * gulp dev --production
+ * gulp release --production
+ * will contingently minify js, no flag leaves js assembled.
+ * 
+ */
 
 
 var gulp = require('gulp');
@@ -17,6 +27,9 @@ var gutil = require('gulp-util');
 var server = require('gulp-server-livereload');
 var livereload = require('gulp-livereload');
 var gulpsync = require('gulp-sync')(gulp);
+var gulpif = require("gulp-if");
+var argv = require('yargs').argv;
+var rename = require("gulp-rename");
 
 
 var notify = require("./build_utils/build_utils").notify;
@@ -72,7 +85,8 @@ gulp.task('clean', function (  ) {
 gulp.task('build', function () {
     Bundle()
             .pipe(source('bundle.js'))
-            .pipe(streamify(uglify()))
+            .pipe(gulpif(argv.production, streamify(uglify())))
+       //     .pipe(gulpif(argv.production, rename({suffix: '.min'})))
             .pipe(gulp.dest(targetLocation))
             .on('finish', function ( ) {
                 gutil.log("build bundle end");
