@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import App from './components/app';
 import { Router, browserHistory } from 'react-router';
-
-import reducers from './reducers';
+import { createRoutes } from './routes/routes';
 
 
 ReactDOM.render(
  
-    <App />
+    <Router routes={createRoutes()} history={browserHistory} />
    
   , document.querySelector('.container'));
