@@ -1,7 +1,7 @@
 
 
- @import "components/reset";
- @import "components/typography";
+@import "components/reset";
+@import "components/typography";
 
 
 body
@@ -9,11 +9,11 @@ body
     padding: 20px;
     margin: 20px;
 }
- 
+
 
 @mixin componentMixin ($color)
 {
-   border: thin solid $color;
+    border: thin solid $color;
     color: $color;
     margin: 10px;
     padding: 10px;
@@ -33,26 +33,122 @@ body
 
 .mainContainer
 {
-     margin-left: 50px;
-     
-       .menuBarContainer
-      {
-          margin-bottom: 5px;
-          border-bottom: 3px solid #c0c0c0;
-          padding-bottom: 10px;
-          
-          
-          a.mainMenuItem
-            {
-                 
-                margin-right: 50px;
-                text-decoration: none;
-                
-            }
+    margin-left: 50px;
 
-          
-          
-      }
-         
-     
+    .menuBarContainer
+    {
+        margin-bottom: 5px;
+        border-bottom: 3px solid #c0c0c0;
+        padding-bottom: 10px;
+
+
+        a.mainMenuItem
+        {
+
+            margin-right: 50px;
+            text-decoration: none;
+
+        }
+
+
+
+    }
+
+
+}
+.restaurantListContainer,.editRestaurantContainer
+{
+    float: left;
+    padding:1.5%;
+  
+    margin: 40px;
+    
+}
+ 
+.editRestaurantContainer
+{
+    
+    
+}
+
+.restaurantListContainer
+{
+      border: 4px #ccc double;
+    
+} 
+
+
+
+.displayTable
+{
+
+    margin-top: 20px;
+    width: 35%;
+
+    .tableItem
+    {
+        padding: 10px;
+        text-align: center;
+        border: thin solid #3498db;
+    }
+
+    .editButton {
+        background: #3498db;
+        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+        background-image: -o-linear-gradient(top, #3498db, #2980b9);
+        background-image: linear-gradient(to bottom, #3498db, #2980b9);
+        -webkit-border-radius: 28;
+        -moz-border-radius: 28;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 12px;
+        padding: 5px 10px ;
+        text-decoration: none;
+
+
+        &:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+
+
+    }
+
+    .deleteButton {
+        background: #d93434;
+        background-image: -webkit-linear-gradient(top, #d93434, #b82b2b);
+        background-image: -moz-linear-gradient(top, #d93434, #b82b2b);
+        background-image: -ms-linear-gradient(top, #d93434, #b82b2b);
+        background-image: -o-linear-gradient(top, #d93434, #b82b2b);
+        background-image: linear-gradient(to bottom, #d93434, #b82b2b);
+        -webkit-border-radius: 28;
+        -moz-border-radius: 28;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #ffffff;
+        font-size: 12px;
+        padding: 5px 10px;
+        text-decoration: none;
+
+
+        &:hover {
+            background: #fc3c3c;
+            background-image: -webkit-linear-gradient(top, #fc3c3c, #d93434);
+            background-image: -moz-linear-gradient(top, #fc3c3c, #d93434);
+            background-image: -ms-linear-gradient(top, #fc3c3c, #d93434);
+            background-image: -o-linear-gradient(top, #fc3c3c, #d93434);
+            background-image: linear-gradient(to bottom, #fc3c3c, #d93434);
+            text-decoration: none;
+        }      
+
+    }
+
 }
