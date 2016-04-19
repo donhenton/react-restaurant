@@ -18,7 +18,8 @@ export default class ListService
 
     processMessage(data,envelope)
     {
-        console.log("process "+JSON.stringify(envelope));
+       //  console.log("list service recieved "+JSON.stringify(envelope));
+        
 
     }
 }
@@ -28,12 +29,15 @@ export function getData()
     return {items: [
                 {id: 1,
                   name: 'manny',
+                  party: 'Democrat',
                   age:35} ,
                 {id: 2,
                   name: 'moe',
+                  party: 'Republican',
                   age: 15},
                 {id: 3,
                   name: 'jack',
+                  party: 'Communist',
                   age: 46}]};
   
 }

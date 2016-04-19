@@ -61,7 +61,7 @@ body
     float: left;
     padding:1.5%;
 
-    margin: 40px;
+    margin: 10px;
 
 }
 
@@ -82,28 +82,52 @@ body
 .displayTable
 {
 
+    
+    
     margin-top: 20px;
-    width: 35%;
+    width: 700px;
 
-    .tableItem
+   
+    .tableBtn
+    {
+        padding: 5px;
+        text-align: center;
+        border: thin solid #3498db;
+        width:75px;
+    }
+    .tableName
+    {
+        padding: 10px;
+        
+        border: thin solid #3498db;
+    }
+        .tableAge
+    {
+        padding: 10px;
+        text-align: center;
+        border: thin solid #3498db;
+    } 
+    .tableParty
     {
         padding: 10px;
         text-align: center;
         border: thin solid #3498db;
     }
-
- 
-
 }
 
 
 .editRestaurantContainer
 {
     border: $default-border; 
-    width: 400px;
+    width: 300px;
     td
+    {   height: 45px;
+         
+    }
+    input.inputName
     {
-        padding: 10px 20px;
+        border: thin solid #3498db;
+        width:175px;
     }
 
 }

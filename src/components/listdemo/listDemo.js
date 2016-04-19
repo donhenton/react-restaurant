@@ -31,7 +31,11 @@ export default class ListDemo extends Component {
                     <div className='restaurantListContainer'>
                     <table className="displayTable">
                         <thead>
-                        <tr><th>Name</th><th>Delete</th><th>Edit</th></tr>
+                        <tr>
+                        <th>Name</th> 
+                        <th>Age</th> 
+                        <th>Party</th> 
+                        <th>Delete</th><th>Edit</th></tr>
                         </thead>
 
                     <tbody>
