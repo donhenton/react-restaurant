@@ -21,9 +21,22 @@ export default class ListService
         console.log("process "+JSON.stringify(envelope));
 
     }
-
-
-
 }
+
+export function getData()
+{
+    return {items: [
+                {id: 1,
+                  name: 'manny',
+                  age:35} ,
+                {id: 2,
+                  name: 'moe',
+                  age: 15},
+                {id: 3,
+                  name: 'jack',
+                  age: 46}]};
+  
+}
+
 
 

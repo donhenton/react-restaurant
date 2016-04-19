@@ -2,7 +2,8 @@ import React from 'react';
 import { Component } from 'react';
 import Container from './../ContentContainer';
 import ListItem from './listItem';
-
+import EditForm from './editForm';
+import {getData} from './services/listService'
 
 export default class ListDemo extends Component {
         
@@ -10,18 +11,12 @@ export default class ListDemo extends Component {
   {
       super();
       
-      this.state = {items: [
-                {id: 1,
-                  name: 'manny',
-                  age:35} ,
-                {id: 2,
-                  name: 'moe',
-                  age: 15},
-                {id: 3,
-                  name: 'jack',
-                  age: 46}]}
+     
   }
-  
+  componentWillMount()
+  {
+       this.state = getData();
+  }
  
   
         
@@ -53,7 +48,7 @@ export default class ListDemo extends Component {
                     </table>
                     </div>
                     <div className="editRestaurantContainer">
-                    get a job
+                    <EditForm />
                     </div>
             </div>
            
