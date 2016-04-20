@@ -15,31 +15,52 @@ export default class EditForm extends Component {
      
   }
   
-   processMessage(data,envelope)
+   processSelectItem(data,envelope)
     {
          
          let  copyState =   
          {itemDisplay: data, itemData: data,backup: data};
-     //    console.log("editForm recieved copy "+JSON.stringify(copyState));
          this.setState(copyState);
-        // let selectNode = this.refs['partySelect'];
-        // selectNode.value = data.party;
+ 
+
+    }
+    
+      processSaveComplete(data,envelope)
+    {
+         
+          
+         this.setState(this.getBlankData());
+ 
 
     }
   
   componentWillMount()
   {
       
-      this.state = {itemDisplay: cleanDisplay(EMPTY_DATA), itemData: EMPTY_DATA,backup: EMPTY_DATA};
-      console.log(" willmount " + JSON.stringify(this.state));
+      this.state = this.getBlankData();
+     // console.log(" willmount " + JSON.stringify(this.state));
       let me = this;
         this.subscription = postal.subscribe({
             channel: "restaurants",
             topic: "select.Item",
             callback: function (data, envelope) {
-                me.processMessage(data,envelope)
+                me.processSelectItem(data,envelope)
             }
         }); 
+        
+         this.subscription = postal.subscribe({
+            channel: "restaurants",
+            topic: "item.save.request.complete",
+            callback: function (data, envelope) {
+                me.processSaveComplete(data,envelope)
+            }
+        }); 
+        
+  }
+  
+  getBlankData()
+  {
+      return {itemDisplay: cleanDisplay(EMPTY_DATA), itemData: EMPTY_DATA,backup: EMPTY_DATA};
   }
   
   componentDidMount()
@@ -60,18 +81,22 @@ export default class EditForm extends Component {
       
   }
   
+    processAge(ev)
+  {
+     let  copyState = JSON.parse(JSON.stringify( this.state ));  
+     copyState.itemDisplay.age = ev.target.value;
+     copyState.itemData.age = ev.target.value;
+     this.setState(copyState);
+      
+  }
+  
   processParty(ev)
   {
       let  copyState = JSON.parse(JSON.stringify( this.state ));  
       copyState.itemDisplay.party = ev.target.value;
       copyState.itemData.party = ev.target.value;
       this.setState(copyState);
-//      console.log("party 1 " +JSON.stringify(this.state))
-//      this.state.itemDisplay.party = e.target.value;
-//      console.log("party " +this.state.itemDisplay.party)
-//      this.state.itemData.party = e.target.value;
-//      let selectNode = ReactDOM.findDOMNode(this.refs['partySelect']);
-//      selectNode.value = e.target.value;
+ 
   }
   
   
@@ -91,7 +116,7 @@ export default class EditForm extends Component {
       console.log("save "+ id +" "+JSON.stringify(e.target));
         postal.publish({
         channel: "restaurants",
-        topic: "save.edit.Item",
+        topic: "item.save.request",
         data: this.state.itemData 
     });
   }
@@ -110,8 +135,9 @@ componentDidUpdate(e){
                 <tbody>
                 <tr><th>Id:</th><td>{this.state.itemDisplay.id}</td></tr>
                 <tr><th>Name:</th><td><input type='text' className="inputName" value={this.state.itemDisplay.name} onChange={this.processName.bind(this)} /></td></tr>
-                <tr><th>Age:</th><td>{this.state.itemDisplay.age}</td></tr>
-                <tr><th>Party:</th><td>{this.state.itemDisplay.party}</td></tr>
+                <tr><th>Age:</th><td><input type='text' className="inputAge" value={this.state.itemDisplay.age} onChange={this.processAge.bind(this)} /></td></tr>
+                 
+                
  
                 <tr><th>Party 2:</th><td> 
                     <select ref="partySelect" value={this.state.itemDisplay.party} onChange={this.processParty.bind(this)} >

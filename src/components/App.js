@@ -2,17 +2,18 @@ import React from 'react';
 import { Component } from 'react';
 import ListService from './listdemo/services/listService';
 
+export const LIST_SERVICE = new ListService();
 export default class App extends Component {
         
   constructor()
   {
       super();
-      this.service = new ListService();
+       
   }
         
   render() {
     return (
-      <div className="container p-y-1">
+      <div className="mainAppContainer">
         {this.props.children}
       </div>
     );
