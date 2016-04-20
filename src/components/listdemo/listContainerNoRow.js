@@ -106,6 +106,9 @@ export default class ListContainerNoRow extends Component {
             <h2>List Demonstration</h2>
             <div className='grouping'>
                     <div className='restaurantListContainer'>
+                    <div>
+                    <button className="editButton addButton">Add Record</button>
+                    </div>
                     <table className="displayTable">
                         <thead>
                         <tr>
