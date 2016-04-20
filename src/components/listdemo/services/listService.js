@@ -8,14 +8,20 @@ export default class ListService
             
             console.log("did setup in ListService");
                let me = this;
-               this.subscription = postal.subscribe({
+                postal.subscribe({
                channel: "restaurants",
                        topic: "item.save.request",
                        callback: function (data, envelope) {
                        me.processSaveRequest(data, envelope)
                        }
               });
-            
+             postal.subscribe({
+               channel: "restaurants",
+                       topic: "item.add.request",
+                       callback: function (data, envelope) {
+                       me.processAddRequest(data, envelope)
+                       }
+              });
             
             this.data =
             {items: [
@@ -31,6 +37,24 @@ export default class ListService
                     name: 'jack',
                     party: 'Communist',
                     age: 46}]};
+
+        }
+        
+        
+         processAddRequest(newRecord, envelope)
+        {
+            let me = this;
+            var idArray = this.data.items.map((o) => o.id);
+            
+            var maxId = Math.max.apply(null,idArray);
+            newRecord.id = maxId + 1;
+            this.data.items.push(newRecord);
+            postal.publish({
+                channel: "restaurants",
+                topic: "item.save.request.complete",
+                data: me.getData()
+            });
+
 
         }
 

@@ -8,6 +8,7 @@ import postal from 'postal';
 import Immutable from 'immutable';
 import {LIST_SERVICE} from './../App';
 import classnames from 'classnames';
+import {EMPTY_DATA,cleanDisplay} from './services/utils'
 
 export default class ListContainerNoRow extends Component {
         
@@ -23,6 +24,7 @@ export default class ListContainerNoRow extends Component {
        
        this.state =  LIST_SERVICE.getData();
        this.state["inEditMode"] = false;
+       this.state["inAddMode"] = false;
        console.log("component will mount list no row "+this.state.inEditMode)
         this.subscription = postal.subscribe({
             channel: "restaurants",
@@ -44,24 +46,24 @@ export default class ListContainerNoRow extends Component {
   processEditCancel(newItems,env)
   {
         
-       this.setState({'inEditMode': false})
+       this.resetAddEditState();
   }
  
   processSaveComplete(newItems,env)
   {
         let me = this;
-        console.log("process save complete "+this.state.inEditMode)
+      //  console.log("process save complete "+this.state.inEditMode)
        //set state merges the requested items with the current state
        //so inEditMode is false at this point false was set in componentWill Mount
         me.setState(newItems);
-        me.setState({'inEditMode': false})
+       this.resetAddEditState();
   }
   
   
   displayEditFormCSS()
   {
-      console.log("display css "+this.state.inEditMode);
-      if (this.state.inEditMode)
+      //console.log("display css "+this.state.inEditMode);
+      if (this.state.inEditMode || this.state.inAddMode)
       {
          return "editRestaurantContainer";
       }
@@ -72,22 +74,47 @@ export default class ListContainerNoRow extends Component {
       
   }
   
-  editItem(item,ev)
+  addItem(ev)
   {
-       //the function is a callback once state is complete
-       this.setState({'inEditMode': true},function( )
+      this.setState({'inAddMode': true,'inEditMode':false},function( )
        {
-           console.log("edit "+item.id+" edit mode "+this.state.inEditMode);
+        console.log("in add item")
+        postal.publish({
+            channel: "restaurants",
+            topic: "select.Item",
+            addEditState:  this.determineEditState(),
+            data:    EMPTY_DATA
+        });
+           
+           
        })
+      
+      
+  }
+  
+  resetAddEditState()
+  {
+      this.setState({inAddMode: false, inEditMode: false});
+  }
+  
+        editItem(item, ev)
+        {
+        //the function is a callback once state is complete
+        this.setState({'inAddMode': false, 'inEditMode':true}, function()
+        {
+        console.log("edit " + item.id + " edit mode " + this.state.inEditMode);
+                postal.publish({
+                channel: "restaurants",
+                        topic: "select.Item",
+                        addEditState:  this.determineEditState(),
+                        data:  item
+                });
+        })
        
        
        
        
-       postal.publish({
-         channel: "restaurants",
-         topic: "select.Item",
-         data:  item 
-     });
+     
   }
  
   deleteItem(e)
@@ -95,7 +122,17 @@ export default class ListContainerNoRow extends Component {
      // console.log(this.state.item.id +" "+JSON.stringify(e.target))
   }
   
-  
+  determineEditState()
+  {
+      if (this.state.inEditMode)
+      {
+          return "EDIT"
+      }
+      if (this.state.inAddMode)
+      {
+          return "ADD";
+      }
+  }
         
   render() {
     return (
@@ -107,7 +144,7 @@ export default class ListContainerNoRow extends Component {
             <div className='grouping'>
                     <div className='restaurantListContainer'>
                     <div>
-                    <button className="editButton addButton">Add Record</button>
+                    <button onClick={this.addItem.bind(this)} className="editButton addButton">Add Record</button>
                     </div>
                     <table className="displayTable">
                         <thead>
@@ -145,7 +182,7 @@ export default class ListContainerNoRow extends Component {
             
             
                     <div className={this.displayEditFormCSS()}>
-                    <EditForm embedded="noRow" />
+                    <EditForm addEditStateViaProps={this.determineEditState() }/>
                     </div>
             </div>
            

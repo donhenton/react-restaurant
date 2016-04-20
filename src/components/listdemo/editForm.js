@@ -21,7 +21,8 @@ export default class EditForm extends Component {
          let  copyState =   
          {itemDisplay: data, itemData: data,backup: data};
          this.setState(copyState);
- 
+        // console.log("envelope: "+JSON.stringify(envelope));
+         this.setState({"addEditStateViaMessage": envelope.addEditState});
 
     }
     
@@ -51,6 +52,13 @@ export default class EditForm extends Component {
          this.subscription = postal.subscribe({
             channel: "restaurants",
             topic: "item.save.request.complete",
+            callback: function (data, envelope) {
+                me.processSaveComplete(data,envelope)
+            }
+        }); 
+         this.subscription = postal.subscribe({
+            channel: "restaurants",
+            topic: "item.add.request.complete",
             callback: function (data, envelope) {
                 me.processSaveComplete(data,envelope)
             }
@@ -122,10 +130,17 @@ export default class EditForm extends Component {
  saveItem(id,e)
   {
       e.preventDefault();
-      console.log("save "+ id +" "+JSON.stringify(e.target));
+      let topicRequest = "item.save.request";
+      if (this.state.addEditStateViaMessage === "ADD")
+      {
+        topicRequest = "item.add.request";
+      }
+      
+      
+     // console.log("save "+ id +" "+JSON.stringify(topicRequest));
         postal.publish({
         channel: "restaurants",
-        topic: "item.save.request",
+        topic: topicRequest,
         data: this.state.itemData 
     });
   }
@@ -137,12 +152,21 @@ componentDidUpdate(e){
 }
  
   render() {
+      
+      var stateBanner;
+      if (this.state.addEditStateViaMessage === "EDIT")
+      {
+        stateBanner = <tr><th>Id:</th><td>{this.state.itemDisplay.id}</td></tr>
+      }
+      
+      
       return (
-              
+            <section>
+            <div>Props: {this.props.addEditStateViaProps} Message: {this.state.addEditStateViaMessage}</div>
            <form id='editForm' noValidate>
                 <table>
                 <tbody>
-                <tr><th>Id:</th><td>{this.state.itemDisplay.id}</td></tr>
+                {stateBanner}
                 <tr><th>Name:</th><td><input type='text' className="inputName" value={this.state.itemDisplay.name} onChange={this.processName.bind(this)} /></td></tr>
                 <tr><th>Age:</th><td><input type='text' className="inputAge" value={this.state.itemDisplay.age} onChange={this.processAge.bind(this)} /></td></tr>
                  
@@ -169,7 +193,7 @@ componentDidUpdate(e){
            
            
            </form>
-                    
+            </section>        
                     
                     )
       

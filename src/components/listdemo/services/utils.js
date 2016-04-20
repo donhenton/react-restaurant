@@ -17,7 +17,7 @@ export default class Utils
 export const EMPTY_DATA = {id: -1,
                   name: '',
                   party: 'Communist',
-                  age: -1};
+                  age: 21};
               
 export function cleanDisplay  (d)  
 {
