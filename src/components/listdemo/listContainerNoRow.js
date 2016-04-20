@@ -122,11 +122,11 @@ export default class ListContainerNoRow extends Component {
                         this.state.items.map((item,i) => (
                     <tr key={item.id}>
                 
-                    <td className="tableName"> {item.name} </td>
-                    <td className="tableAge"> {item.age} </td>
-                    <td className="tableParty"> {item.party} </td>
-                    <td className="tableBtn"> <button className="deleteButton" onClick={this.deleteItem.bind(this,item)}>Delete</button> </td>
-                    <td className="tableBtn"> <button className="editButton"   onClick={this.editItem.bind(this,item)}>Edit</button> </td>
+                    <td className="tableName">{item.name}</td>
+                    <td className="tableAge">{item.age}</td>
+                    <td className="tableParty">{item.party}</td>
+                    <td className="tableBtn"><button className="deleteButton" onClick={this.deleteItem.bind(this,item)}>Delete</button></td>
+                    <td className="tableBtn"><button className="editButton"   onClick={this.editItem.bind(this,item)}>Edit</button></td>
                 </tr>  
                           
                         ))

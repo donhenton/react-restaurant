@@ -1,3 +1,4 @@
 https://facebook.github.io/react/docs/component-api.html#setstate
 https://github.com/facebook/immutable-js/wiki/Immutable-as-React-state
 http://brewhouse.io/blog/2015/03/24/best-practices-for-component-state-in-reactjs.html
+https://github.com/JedWatson/classnames
