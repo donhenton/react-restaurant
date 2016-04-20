@@ -28,9 +28,14 @@ export function cleanDisplay  (d)
     }
     retVal.name = d.name;
     retVal.party = d.party;
+     
     if (d.age && d.age < 1)
     {
         retVal.age = "";
+    }
+    else
+    {
+        retVal.age = d.age +"";
     }
     
     return retVal;
