@@ -64,7 +64,7 @@ export default class ListService
         
       getData()
       {
-           return this.data;
+           return   JSON.parse(JSON.stringify( this.data )); 
       }
         
 }

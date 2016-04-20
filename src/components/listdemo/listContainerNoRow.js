@@ -7,6 +7,7 @@ import ListService from './services/listService'
 import postal from 'postal';
 import Immutable from 'immutable';
 import {LIST_SERVICE} from './../App';
+import classnames from 'classnames';
 
 export default class ListContainerNoRow extends Component {
         
@@ -19,8 +20,10 @@ export default class ListContainerNoRow extends Component {
   componentWillMount()
   {
        let me = this;
+       
        this.state =  LIST_SERVICE.getData();
-     
+       this.state["inEditMode"] = false;
+       console.log("component will mount list no row "+this.state.inEditMode)
         this.subscription = postal.subscribe({
             channel: "restaurants",
             topic: "item.save.request.complete",
@@ -28,18 +31,58 @@ export default class ListContainerNoRow extends Component {
                 me.processSaveComplete(data,envelope)
             }
         }); 
+        
+        this.subscription = postal.subscribe({
+            channel: "restaurants",
+            topic: "item.edit.cancel",
+            callback: function (data, envelope) {
+                me.processEditCancel(data,envelope)
+            }
+        }); 
+  }
+  
+  processEditCancel(newItems,env)
+  {
+        
+       this.setState({'inEditMode': false})
   }
  
   processSaveComplete(newItems,env)
   {
         let me = this;
-    
+        console.log("process save complete "+this.state.inEditMode)
+       //set state merges the requested items with the current state
+       //so inEditMode is false at this point false was set in componentWill Mount
         me.setState(newItems);
+        me.setState({'inEditMode': false})
+  }
+  
+  
+  displayEditFormCSS()
+  {
+      console.log("display css "+this.state.inEditMode);
+      if (this.state.inEditMode)
+      {
+         return "editRestaurantContainer";
+      }
+      else
+      {
+          return "editRestaurantContainer hidden"; 
+      }
+      
   }
   
   editItem(item,ev)
   {
-       console.log("edit "+item.id+" "+JSON.stringify(ev.target));
+       //the function is a callback once state is complete
+       this.setState({'inEditMode': true},function( )
+       {
+           console.log("edit "+item.id+" edit mode "+this.state.inEditMode);
+       })
+       
+       
+       
+       
        postal.publish({
          channel: "restaurants",
          topic: "select.Item",
@@ -98,7 +141,7 @@ export default class ListContainerNoRow extends Component {
             
             
             
-                    <div className="editRestaurantContainer">
+                    <div className={this.displayEditFormCSS()}>
                     <EditForm embedded="noRow" />
                     </div>
             </div>

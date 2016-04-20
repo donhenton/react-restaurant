@@ -26,6 +26,10 @@ export function cleanDisplay  (d)
     {
         retVal.id = "";
     }
+    else
+    {
+        return retVal.id + "";
+    }
     retVal.name = d.name;
     retVal.party = d.party;
      

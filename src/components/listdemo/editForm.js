@@ -104,10 +104,19 @@ export default class EditForm extends Component {
   cancelItem(e)
   {
       e.preventDefault();
-      let  copyState = JSON.parse(JSON.stringify( this.state ));
-      copyState.itemDisplay  = cleanDisplay(copyState.backup);
-      copyState.itemData  = copyState.backup;
-      this.setState(copyState);
+      let me = this;
+//      let  copyState = JSON.parse(JSON.stringify( this.state ));
+//      copyState.itemDisplay  = cleanDisplay(copyState.backup);
+//      copyState.itemData  = copyState.backup;
+//      this.setState(copyState);
+      this.setState(this.getBlankData());
+        postal.publish({
+        channel: "restaurants",
+        topic: "item.edit.cancel",
+        data: {} 
+    });
+      
+      
      // console.log("cancel "+this.state.itemData.id +" "+JSON.stringify(e.target))
   }
  saveItem(id,e)
@@ -139,7 +148,7 @@ componentDidUpdate(e){
                  
                 
  
-                <tr><th>Party 2:</th><td> 
+                <tr><th>Party:</th><td> 
                     <select ref="partySelect" value={this.state.itemDisplay.party} onChange={this.processParty.bind(this)} >
                     <option value="Democrat">Democrat</option>
                     <option value="Republican">Republican</option>

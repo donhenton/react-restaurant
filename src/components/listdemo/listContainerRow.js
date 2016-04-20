@@ -6,7 +6,7 @@ import EditForm from './editForm';
 import {getData} from './services/listService'
 import postal from 'postal';
 import Immutable from 'immutable';
- 
+//http://brewhouse.io/blog/2015/03/24/best-practices-for-component-state-in-reactjs.html 
 
 export default class ListContainerRow extends Component {
         
