@@ -3,6 +3,7 @@ import { Component } from 'react';
 import postal from 'postal';
 import {EMPTY_DATA,cleanDisplay} from './services/utils'
 import ReactDOM from 'react-dom';
+import Immutable from 'immutable';
 
 export default class EditForm extends Component {
    

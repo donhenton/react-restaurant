@@ -1,4 +1,5 @@
 import postal from 'postal';
+import Immutable from 'immutable';
 export default class ListService
 {
 

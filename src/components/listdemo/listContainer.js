@@ -8,7 +8,7 @@ import postal from 'postal';
 import Immutable from 'immutable';
  
 
-export default class ListDemo extends Component {
+export default class ListContainer extends Component {
         
   constructor()
   {

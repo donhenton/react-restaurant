@@ -5,7 +5,7 @@ import { Route, IndexRoute } from 'react-router';
 import App from './../components/App';
 import Page1 from './../components/pages/page1';
 import Page2 from './../components/pages/page2';
-import ListDemo from './../components/listdemo/listDemo'; 
+import ListContainer from './../components/listdemo/listContainer'; 
 
 export const createRoutes = () => (
   <Route path="/" component={App} >
@@ -17,6 +17,6 @@ export const createRoutes = () => (
     <Route path="page2/:id"  >
       <IndexRoute component={Page2} />
     </Route>
-    <Route path="listdemo" component={ListDemo} />
+    <Route path="listdemo" component={ListContainer} />
   </Route>
 );

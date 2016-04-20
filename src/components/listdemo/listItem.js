@@ -1,6 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import postal from 'postal';
+import Immutable from 'immutable';
 
 export default class ListItem extends Component {
    
