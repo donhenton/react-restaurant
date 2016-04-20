@@ -21,7 +21,7 @@ export default class ListItem extends Component {
  
   editItem(id)
   {
-      console.log("edit "+id+" "+this.state.item.id);
+      //console.log("edit "+id+" "+this.state.item.id);
       postal.publish({
         channel: "restaurants",
         topic: "select.Item",
