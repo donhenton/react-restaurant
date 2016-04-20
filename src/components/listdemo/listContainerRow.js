@@ -31,30 +31,34 @@ export default class ListContainerRow extends Component {
             channel: "restaurants",
             topic: "save.edit.Item",
             callback: function (data, envelope) {
-                me.processMessage(data,envelope)
+                me.processSaveEditMessage(data,envelope)
             }
         }); 
   }
  
-  processMessage(data,env)
+  processSaveEditMessage(data,env)
   {
-        let me = this;
-        let  copyState = JSON.parse(JSON.stringify(me.state.items ));  
-        let newState =  copyState.map((d ) => {
+         
+      
+          me.setState((previousState, currentProps) =>
+          {
+
+              let newState =  previousState.items.map((d ) => {
               if (d.id == data.id)
               {
-                  console.log('got a hit')
                   return data;
               }
               else
               {
                   return d;
               }
+          });
+          
+          return {items: newState};
+          
         })
+              
         
-         console.log('new State '+JSON.stringify(newState))
-        //this.keyMap[data.id] = data;
-        me.setState({items: newState});
   }
         
   render() {
