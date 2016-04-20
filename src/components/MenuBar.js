@@ -28,10 +28,12 @@ import { Link } from 'react-router';
       <Link to={`/page2/${this.id}`} className="mainMenuItem" >
         Page2 with 20
       </Link>
-      <Link to="/listdemo" className="mainMenuItem" >
-        List Demo
+      <Link to="/listdemoRow" className="mainMenuItem" >
+        List Demo with Row
       </Link>
-      
+      <Link to="/listdemoNoRow" className="mainMenuItem" >
+        List Demo with No Row
+      </Link>
       
       </div>
 

@@ -8,7 +8,7 @@ import postal from 'postal';
 import Immutable from 'immutable';
  
 
-export default class ListContainer extends Component {
+export default class ListContainerNoRow extends Component {
         
   constructor()
   {
@@ -56,6 +56,23 @@ export default class ListContainer extends Component {
         //this.keyMap[data.id] = data;
         me.setState({items: newState});
   }
+  
+  editItem(item,ev)
+  {
+       console.log("edit "+item.id+" "+JSON.stringify(ev.target));
+       postal.publish({
+         channel: "restaurants",
+         topic: "select.Item",
+         data:  item 
+     });
+  }
+ 
+  deleteItem(e)
+  {
+     // console.log(this.state.item.id +" "+JSON.stringify(e.target))
+  }
+  
+  
         
   render() {
     return (
@@ -77,11 +94,18 @@ export default class ListContainer extends Component {
 
                     <tbody>
 
-                    {
+                   {
 
                         this.state.items.map((item,i) => (
-
-                         <ListItem key={item.id} item={item} />
+                    <tr key={item.id}>
+                
+                    <td className="tableName"> {item.name} </td>
+                    <td className="tableAge"> {item.age} </td>
+                    <td className="tableParty"> {item.party} </td>
+                    <td className="tableBtn"> <button className="deleteButton" onClick={this.deleteItem.bind(this,item)}>Delete</button> </td>
+                    <td className="tableBtn"> <button className="editButton"   onClick={this.editItem.bind(this,item)}>Edit</button> </td>
+                </tr>  
+                          
                         ))
 
 
@@ -89,8 +113,13 @@ export default class ListContainer extends Component {
                     </tbody>
                     </table>
                     </div>
+            
+                   
+            
+            
+            
                     <div className="editRestaurantContainer">
-                    <EditForm />
+                    <EditForm embedded="noRow" />
                     </div>
             </div>
            

@@ -19,7 +19,7 @@ export default class EditForm extends Component {
     {
          
          let  copyState =   
-         {itemDisplay: data, itemData: data};
+         {itemDisplay: data, itemData: data,backup: data};
      //    console.log("editForm recieved copy "+JSON.stringify(copyState));
          this.setState(copyState);
         // let selectNode = this.refs['partySelect'];
@@ -30,8 +30,8 @@ export default class EditForm extends Component {
   componentWillMount()
   {
       
-      this.state = {itemDisplay: cleanDisplay(EMPTY_DATA), itemData: EMPTY_DATA};
-      console.log(" willmount " + this.state.itemDisplay.party);
+      this.state = {itemDisplay: cleanDisplay(EMPTY_DATA), itemData: EMPTY_DATA,backup: EMPTY_DATA};
+      console.log(" willmount " + JSON.stringify(this.state));
       let me = this;
         this.subscription = postal.subscribe({
             channel: "restaurants",
@@ -79,7 +79,11 @@ export default class EditForm extends Component {
   cancelItem(e)
   {
       e.preventDefault();
-      console.log("cancel "+this.state.itemData.id +" "+JSON.stringify(e.target))
+      let  copyState = JSON.parse(JSON.stringify( this.state ));
+      copyState.itemDisplay  = cleanDisplay(copyState.backup);
+      copyState.itemData  = copyState.backup;
+      this.setState(copyState);
+     // console.log("cancel "+this.state.itemData.id +" "+JSON.stringify(e.target))
   }
  saveItem(id,e)
   {
