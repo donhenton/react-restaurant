@@ -22,6 +22,13 @@ export default class ListService
                        me.processAddRequest(data, envelope)
                        }
               });
+             postal.subscribe({
+               channel: "restaurants",
+                       topic: "item.delete.request",
+                       callback: function (data, envelope) {
+                       me.processDeleteRequest(data, envelope)
+                       }
+              });  
             
             this.data =
             {items: [
@@ -40,14 +47,39 @@ export default class ListService
 
         }
         
+         processDeleteRequest(deletedRecord, envelope)
+        {
+            let me = this;
+             
+            
+             this.data.items = this.data.items.filter((x) => x.id != deletedRecord.id)
+            
+            postal.publish({
+                channel: "restaurants",
+                topic: "item.save.request.complete",
+                data: me.getData()
+            });
+
+
+        }
+        
+        
         
          processAddRequest(newRecord, envelope)
         {
             let me = this;
-            var idArray = this.data.items.map((o) => o.id);
+            if (this.data.items.length == 0)
+            {
+                newRecord.id = 1;
+            }
+            else
+            {
+                
             
-            var maxId = Math.max.apply(null,idArray);
-            newRecord.id = maxId + 1;
+                var idArray = this.data.items.map((o) => o.id);
+                var maxId = Math.max.apply(null,idArray);
+                newRecord.id = maxId + 1;
+            }
             this.data.items.push(newRecord);
             postal.publish({
                 channel: "restaurants",

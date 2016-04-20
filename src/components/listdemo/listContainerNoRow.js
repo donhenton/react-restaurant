@@ -117,9 +117,16 @@ export default class ListContainerNoRow extends Component {
      
   }
  
-  deleteItem(e)
+  deleteItem(item,e)
   {
-     // console.log(this.state.item.id +" "+JSON.stringify(e.target))
+ 
+      
+     // console.log("save "+ id +" "+JSON.stringify(topicRequest));
+        postal.publish({
+        channel: "restaurants",
+        topic: "item.delete.request" ,
+        data: item
+    });
   }
   
   determineEditState()
