@@ -23,6 +23,14 @@ export default class EditForm extends Component {
          this.setState(copyState);
         // console.log("envelope: "+JSON.stringify(envelope));
          this.setState({"addEditStateViaMessage": envelope.addEditState});
+         if (envelope.replyTo)
+         {
+             this.setState({replyTo: envelope.replyTo})
+         }
+         else
+         {
+             this.setState({replyTo: null})
+         }
 
    }
     
@@ -39,6 +47,7 @@ export default class EditForm extends Component {
   {
       
       this.state = this.getBlankData();
+      this.state.replyTo = null;
      // console.log(" willmount " + JSON.stringify(this.state));
       let me = this;
         this.subscription = postal.subscribe({
@@ -112,17 +121,25 @@ export default class EditForm extends Component {
   cancelItem(e)
   {
       e.preventDefault();
-      let me = this;
-//      let  copyState = JSON.parse(JSON.stringify( this.state ));
-//      copyState.itemDisplay  = cleanDisplay(copyState.backup);
-//      copyState.itemData  = copyState.backup;
-//      this.setState(copyState);
+      let me = this.state.replyTo;
+ 
       this.setState(this.getBlankData());
+      
+      //general cancel 
         postal.publish({
         channel: "restaurants",
         topic: "item.edit.cancel",
         data: {} 
     });
+    
+    //direct to list item to shut down the temp subscription
+        postal.publish({
+        channel: "restaurants",
+        topic: this.state.replyTo,
+        edit_action: "CANCEL",
+        data: {} 
+    });
+   
       
       
      // console.log("cancel "+this.state.itemData.id +" "+JSON.stringify(e.target))
@@ -130,19 +147,21 @@ export default class EditForm extends Component {
  saveItem(id,e)
   {
       e.preventDefault();
+       
       let topicRequest = "item.save.request";
       if (this.state.addEditStateViaMessage === "ADD")
       {
         topicRequest = "item.add.request";
-      }
-      
-      
-     // console.log("save "+ id +" "+JSON.stringify(topicRequest));
-        postal.publish({
+      } 
+      var envelope = {
         channel: "restaurants",
+        replyTo: this.state.replyTo,
+        edit_action: "SAVE",
         topic: topicRequest,
         data: this.state.itemData 
-    });
+      }
+
+        postal.publish(envelope);
   }
   
 componentDidUpdate(e){

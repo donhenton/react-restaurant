@@ -94,7 +94,8 @@ export default class ListService
         processSaveRequest(newRecord, envelope)
         {
             let me = this;
-            console.log("did save "+JSON.stringify(newRecord))
+            var replyTo = envelope.replyTo ? envelope.replyTo: null;
+            console.log("did save "+JSON.stringify(newRecord)+ " replyTo "+replyTo)
             this.data.items = this.data.items.map((d,i) => {
                 
                if (d.id == newRecord.id)
@@ -108,14 +109,26 @@ export default class ListService
                 
                 
             })
+            //let the list know if needed, as well as the edit form
             
-            
-            
-            postal.publish({
+            var destEnvelope ={
                 channel: "restaurants",
+                replyTo: replyTo,
                 topic: "item.save.request.complete",
                 data: me.getData()
-            });
+            }
+            
+            postal.publish(destEnvelope);
+
+            //let the row element know to update
+            var singleRecordUpdate = {
+                replyTo: null,
+                data: newRecord,
+                topic: replyTo,
+                channel: "restaurants"
+            }
+            
+            postal.publish(singleRecordUpdate);
 
 
         }

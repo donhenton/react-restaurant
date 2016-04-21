@@ -9,7 +9,7 @@ export default class ListItem extends Component {
   constructor()
   {
       super();
-       
+      this.tempSubscription = null;
      
   }
   
@@ -17,21 +17,11 @@ export default class ListItem extends Component {
   {
       let me = this;
       this.state = {item: this.props.item};
-       this.subscription = postal.subscribe({
-            channel: "restaurants",
-            topic: "item.save.request.complete",
-            callback: function (data, envelope) {
-               // me.processSaveComplete(data,envelope)
-            }
-        }); 
+      
+      this.tempTopicId = "item.edit.action-"+this.props.item.id;
+      
         
-        this.subscription = postal.subscribe({
-            channel: "restaurants",
-            topic: "item.edit.cancel",
-            callback: function (data, envelope) {
-               // me.processEditCancel(data,envelope)
-            }
-        }); 
+       
       
   }
   
@@ -43,8 +33,28 @@ export default class ListItem extends Component {
   editItem()
   {
       //console.log("edit "+id+" "+this.state.item.id);
+      let me = this;
+      this.tempSubscription = postal.subscribe({
+            channel: "restaurants",
+            topic: this.tempTopicId,
+            callback: function (data, envelope) {
+               console.log("got message on "+envelope.topic+" in listItem unsubscribing temp");
+               if (envelope.edit_action && envelope.edit_action == "CANCEL")
+               {
+                 
+               }
+               else
+               {
+                    me.setState({item: data});
+               }
+               me.tempSubscription.unsubscribe();
+               
+            }
+        }); 
+      //tell editform and list continer that you are editing
       postal.publish({
         channel: "restaurants",
+        replyTo: this.tempTopicId,
         topic: "select.Item",
         addEditState:  "EDIT",
         data: this.state.item 
