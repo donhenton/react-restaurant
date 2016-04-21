@@ -67,6 +67,7 @@ export default class ListService
         
          processAddRequest(newRecord, envelope)
         {
+            console.log("did add "+JSON.stringify(newRecord))
             let me = this;
             if (this.data.items.length == 0)
             {

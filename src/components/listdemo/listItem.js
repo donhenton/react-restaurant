@@ -40,11 +40,11 @@ export default class ListItem extends Component {
               
           <tr>
                 
-                    <td className="tableName"> {this.state.item.name} </td>
-                    <td className="tableAge"> {this.state.item.age} </td>
-                    <td className="tableParty"> {this.state.item.party} </td>
-                    <td className="tableBtn"> <button className="deleteButton" onClick={this.deleteItem.bind(this)}>Delete</button> </td>
-                    <td className="tableBtn"> <button className="editButton"   onClick={this.editItem.bind(this,this.state.item.id)}>Edit</button> </td>
+                    <td className="tableName">{this.state.item.name}</td>
+                    <td className="tableAge">{this.state.item.age}</td>
+                    <td className="tableParty">{this.state.item.party}</td>
+                    <td className="tableBtn"><button className="deleteButton" onClick={this.deleteItem.bind(this)}>Delete</button></td>
+                    <td className="tableBtn"><button className="editButton"   onClick={this.editItem.bind(this,this.state.item.id)}>Edit</button></td>
                 </tr>          
                     
                     

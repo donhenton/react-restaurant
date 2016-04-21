@@ -3,9 +3,10 @@ import { Component } from 'react';
 import Container from './../ContentContainer';
 import ListItem from './listItem';
 import EditForm from './editForm';
-import {getData} from './services/listService'
+import {LIST_SERVICE} from './../App';
 import postal from 'postal';
 import Immutable from 'immutable';
+import {EMPTY_DATA,cleanDisplay} from './services/utils'
 //http://brewhouse.io/blog/2015/03/24/best-practices-for-component-state-in-reactjs.html 
 
 export default class ListContainerRow extends Component {
@@ -19,47 +20,92 @@ export default class ListContainerRow extends Component {
   componentWillMount()
   {
        let me = this;
-       this.state = getData();
-       console.log("type of "+JSON.stringify(this.state))
-//        this.state.items.map(function(d,i)
-//        {
-//            me.keyMap[d.id] = d;
-//        })
-//       
        
-         this.subscription = postal.subscribe({
+       this.state =  LIST_SERVICE.getData();
+       this.state["inEditMode"] = false;
+       this.state["inAddMode"] = false;
+        this.subscription = postal.subscribe({
             channel: "restaurants",
-            topic: "save.edit.Item",
+            topic: "item.save.request.complete",
             callback: function (data, envelope) {
-                me.processSaveEditMessage(data,envelope)
+                me.processSaveComplete(data,envelope)
             }
         }); 
-  }
- 
-  processSaveEditMessage(data,env)
-  {
-         
-      
-          me.setState((previousState, currentProps) =>
-          {
-
-              let newState =  previousState.items.map((d ) => {
-              if (d.id == data.id)
-              {
-                  return data;
-              }
-              else
-              {
-                  return d;
-              }
-          });
-          
-          return {items: newState};
-          
-        })
-              
+        
+        this.subscription = postal.subscribe({
+            channel: "restaurants",
+            topic: "item.edit.cancel",
+            callback: function (data, envelope) {
+                me.processEditCancel(data,envelope)
+            }
+        }); 
         
   }
+ 
+    processEditCancel(newItems,env)
+     {
+
+          this.resetAddEditState();
+     }
+
+     processSaveComplete(newItems,env)
+     {
+           let me = this;
+         //  console.log("process save complete "+this.state.inEditMode)
+          //set state merges the requested items with the current state
+          //so inEditMode is false at this point false was set in componentWill Mount
+           me.setState(newItems);
+          this.resetAddEditState();
+     }
+ 
+    resetAddEditState()
+     {
+         this.setState({inAddMode: false, inEditMode: false});
+     }
+ 
+    displayEditFormCSS()
+  {
+      //console.log("display css "+this.state.inEditMode);
+      if (this.state.inEditMode || this.state.inAddMode)
+      {
+         return "editRestaurantContainer";
+      }
+      else
+      {
+          return "editRestaurantContainer hidden"; 
+      }
+      
+  }
+  
+   determineEditState()
+  {
+      if (this.state.inEditMode)
+      {
+          return "EDIT"
+      }
+      if (this.state.inAddMode)
+      {
+          return "ADD";
+      }
+  }      
+  
+  addItem(ev)
+  {
+      this.setState({'inAddMode': true,'inEditMode':false},function( )
+       {
+        console.log("in add item")
+        postal.publish({
+            channel: "restaurants",
+            topic: "select.Item",
+            addEditState:  this.determineEditState(),
+            data:    EMPTY_DATA
+        });
+           
+           
+       })
+      
+      
+  }      
         
   render() {
     return (
@@ -70,6 +116,9 @@ export default class ListContainerRow extends Component {
             <h2>List Demonstration</h2>
             <div className='grouping'>
                     <div className='restaurantListContainer'>
+                    <div>
+                    <button onClick={this.addItem.bind(this)} className="editButton addButton">Add Record</button>
+                    </div>
                     <table className="displayTable">
                         <thead>
                         <tr>
@@ -93,9 +142,11 @@ export default class ListContainerRow extends Component {
                     </tbody>
                     </table>
                     </div>
-                    <div className="editRestaurantContainer">
-                    <EditForm />
+            
+                     <div className={this.displayEditFormCSS()}>
+                    <EditForm addEditStateViaProps={this.determineEditState() }/>
                     </div>
+                     
             </div>
            
       </Container>
