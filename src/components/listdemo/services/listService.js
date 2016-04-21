@@ -51,7 +51,7 @@ export default class ListService
         {
             let me = this;
              
-            
+            console.log("listservice delete "+deletedRecord.name);
              this.data.items = this.data.items.filter((x) => x.id != deletedRecord.id)
             
             postal.publish({

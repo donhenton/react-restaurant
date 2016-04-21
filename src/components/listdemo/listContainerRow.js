@@ -67,7 +67,8 @@ export default class ListContainerRow extends Component {
      processSaveComplete(newItems,env)
      {
            let me = this;
-         //  console.log("process save complete "+this.state.inEditMode)
+         
+          console.log("listcontainerrow delete "+newItems.length);
           //set state merges the requested items with the current state
           //so inEditMode is false at this point false was set in componentWill Mount
            me.setState(newItems);
@@ -129,7 +130,7 @@ export default class ListContainerRow extends Component {
       
       <Container>
       
-            <h2>List Demonstration</h2>
+            <h2>List Demonstration With Row Object</h2>
             <div className='grouping'>
                     <div className='restaurantListContainer'>
                     <div>

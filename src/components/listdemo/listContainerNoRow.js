@@ -147,7 +147,7 @@ export default class ListContainerNoRow extends Component {
       
       <Container>
       
-            <h2>List Demonstration</h2>
+            <h2>List Demonstration With No Row Object</h2>
             <div className='grouping'>
                     <div className='restaurantListContainer'>
                     <div>
