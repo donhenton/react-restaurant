@@ -16,7 +16,7 @@ export default class EditForm extends Component {
   }
   
    processSelectItem(data,envelope)
-    {
+   {
          
          let  copyState =   
          {itemDisplay: data, itemData: data,backup: data};
@@ -24,7 +24,7 @@ export default class EditForm extends Component {
         // console.log("envelope: "+JSON.stringify(envelope));
          this.setState({"addEditStateViaMessage": envelope.addEditState});
 
-    }
+   }
     
       processSaveComplete(data,envelope)
     {

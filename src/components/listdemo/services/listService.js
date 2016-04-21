@@ -94,6 +94,7 @@ export default class ListService
         processSaveRequest(newRecord, envelope)
         {
             let me = this;
+            console.log("did save "+JSON.stringify(newRecord))
             this.data.items = this.data.items.map((d,i) => {
                 
                if (d.id == newRecord.id)

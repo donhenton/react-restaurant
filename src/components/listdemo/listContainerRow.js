@@ -24,7 +24,7 @@ export default class ListContainerRow extends Component {
        this.state =  LIST_SERVICE.getData();
        this.state["inEditMode"] = false;
        this.state["inAddMode"] = false;
-        this.subscription = postal.subscribe({
+       postal.subscribe({
             channel: "restaurants",
             topic: "item.save.request.complete",
             callback: function (data, envelope) {
@@ -32,13 +32,29 @@ export default class ListContainerRow extends Component {
             }
         }); 
         
-        this.subscription = postal.subscribe({
+        postal.subscribe({
             channel: "restaurants",
             topic: "item.edit.cancel",
             callback: function (data, envelope) {
                 me.processEditCancel(data,envelope)
             }
         }); 
+        
+        postal.subscribe({
+            channel: "restaurants",
+            topic: "select.Item",
+            callback: function (data, envelope) {
+                
+                me.setState({'inAddMode': false,'inEditMode':true},function( )
+                    {
+                            console.log("in select item")
+             
+           
+           
+                    })
+                
+               }
+            }); 
         
   }
  
@@ -97,7 +113,7 @@ export default class ListContainerRow extends Component {
         postal.publish({
             channel: "restaurants",
             topic: "select.Item",
-            addEditState:  this.determineEditState(),
+            addEditState:  "ADD",
             data:    EMPTY_DATA
         });
            
