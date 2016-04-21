@@ -48,6 +48,7 @@
     "babel-preset-stage-1": "^6.1.18",
     "classnames": "^2.2.3",
     "immutable": "^3.8.1",
+    "jquery": "^2.2.3",
     "lodash": "^3.10.1",
     "postal": "^1.0.8",
     "react": "^0.14.8",
