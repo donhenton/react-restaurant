@@ -42,11 +42,24 @@ body
         padding-bottom: 10px;
 
 
-        @import "components/menu";
+        a.mainMenuItem
+        {
 
+            margin-right: 50px;
+            text-decoration: none;
+            color: darkslategrey;
 
+            &:visited,&:hover
+                {
+                color: darkslategrey;
 
     }
+
+        }
+
+
+
+}
 
 
 }
@@ -214,4 +227,3 @@ body
     float:right;
     margin-bottom:20px;
 }
-
