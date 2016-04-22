@@ -2,6 +2,7 @@
 
 @import "components/reset";
 @import "components/typography";
+@import "components/menu";
 $default-border:   4px #ccc double;
 
 body
@@ -53,7 +54,7 @@ body
                 {
                 color: darkslategrey;
 
-    }
+}
 
         }
 
@@ -226,4 +227,9 @@ body
  .addButton{
     float:right;
     margin-bottom:20px;
+}
+
+.menu-container
+{
+    margin-top: 30px;
 }

@@ -17,6 +17,9 @@ import { Link } from 'react-router';
         render() {
         return (
       <div className="menuBarContainer">
+      <Link to="/" className="mainMenuItem" >
+          Home
+        </Link>
         <Link to="/page2" className="mainMenuItem" >
           Page2
         </Link>
