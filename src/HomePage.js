@@ -5,6 +5,9 @@ import React from 'react';
         import {EMPTY_RESTAURANT} from './components/restaurant/restaurantService';
         import {arrayToIterable} from './components/restaurant/restaurantUtils';
         import postal from 'postal';
+        import EditRestaurantForm from './components/restaurant/editRestaurantForm';
+        import ListItem from './components/restaurant/restaurantListItem';
+        
         export default class RestaurantApp extends Component {
 
         constructor()
@@ -41,7 +44,7 @@ import React from 'react';
       }
       else
       {
-          return "editRestaurantContainer"; 
+          return "editRestaurantContainer hidden"; 
       }
       
   }
@@ -80,22 +83,10 @@ import React from 'react';
                             <tbody>
                                 {
 
-                                    me.state.items.map((item,i) => (
+                                     
+                                    this.state.items.map((item,i) => (
 
-                                        <tr key={item.id}>
-                                           <td className="nameItem">{item.name}</td> 
-                                           <td className="cityItem">{item.city}</td> 
-                                           <td className="stateItem">{item.state}</td> 
-                                           <td className="zipCodeItem">{item.zipCode}</td> 
-                                           <td className="versionItem">{item.version}</td> 
-                                           
-                                           <td className="actionItems">
-                                           <button className="editButton">Edit</button>
-                                           </td>
-                                           <td className="actionItems">
-                                           <button className="warnButton">Delete</button>
-                                            </td> 
-                                        </tr>
+                                        <ListItem key={item.id} item={item} />
                                     ))
 
 
@@ -111,7 +102,7 @@ import React from 'react';
             
                 </div>    
              <div className={me.displayEditFormCSS()}>
-                        editform
+                        <EditRestaurantForm />
                     </div>
                   
             
