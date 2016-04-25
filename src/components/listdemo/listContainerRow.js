@@ -131,8 +131,8 @@ export default class ListContainerRow extends Component {
       <Container>
       
             <h2>List Demonstration With Row Object</h2>
-            <div className='grouping'>
-                    <div className='restaurantListContainer'>
+            <div className=' rowDemo grouping'>
+                    <div className='demoListContainer'>
                     <div>
                     <button onClick={this.addItem.bind(this)} className="editButton addButton">Add Record</button>
                     </div>

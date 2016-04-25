@@ -1,10 +1,9 @@
-.rowDemo
+.restaurantApp
 { 
-
-
+    
     $default-border:   4px #ccc double;
     $blue-color: #08c;
-    .demoListContainer,.editDemoContainer
+    .restaurantListContainer,.editRestaurantContainer
     {
         float: left;
         padding:1.5%;
@@ -13,58 +12,92 @@
 
     }
 
-    
 
-    .demoListContainer
+
+    .restaurantListContainer
     {
         border: $default-border;
-        width: 95%;
+        width: 98%;
+        height: 250px;
+        overflow:hidden;
+
+        .nameItem
+        {
+            width: 45%;
+            text-align: left;
+
+        }
+        .cityItem
+        {
+            width: 20%;
+            text-align: left ;
+
+        }
+        .stateItem
+        {
+            width: 5%;
+            text-align:left;
+        }
+        .zipCodeItem
+        {
+            width: 10%;
+            text-align:center;
+        }
+        
+        .versionItem
+        {
+            width: 10%;
+            text-align:center;
+        }
+        .actionItems
+        {
+            width: 10%;
+            text-align:center;
+        }
+
     } 
 
-
-
-    .displayTable
+    #tHeadContainer, #tbodyContainer
     {
-
-
-
-        margin-top: 20px;
-        width: 98%;
-
+        margin-top: 5px;
+        width: 100%;
         th
         {
             background-color: $blue-color;
             color: white;
-            padding: 5px;
+            border-right: thin solid white;
+            padding-bottom: 5px;
+            text-align:center;
         }
 
-        .tableBtn
+        table
         {
-            padding: 5px;
-            text-align: center;
-            border: thin solid $blue-color;
-            width:75px;
+            width:1100px;
+            border-collapse: collapse;
+            table-layout: fixed;
+            empty-cells: show;
         }
-        .tableName
+        td
         {
-            padding: 10px;
-            width:350px;
-            border: thin solid $blue-color;
+            padding-left: 2px;
+            padding-bottom: 2px;
         }
-        .tableAge
+
+    }
+
+    #tbodyContainer
+    {
+
+        height: 125px;
+        overflow-y: scroll;
+
+        td
         {
-            padding: 10px;
-            width:25px;
-            text-align: center;
-            border: thin solid $blue-color;
-        } 
-        .tableParty
-        {
-            padding: 10px;
-            width:100px;
-            text-align: center;
-            border: thin solid $blue-color;
+            border-right: thin solid $blue-color;
+            margin: 5px;
         }
+
+
     }
 
 
@@ -105,7 +138,7 @@
 
 
         background-repeat: repeat-x;
-        border: 1px solid #ccc;
+       // border: 1px solid #ccc;
 
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
@@ -125,8 +158,8 @@
         background-image: -o-linear-gradient(top,#08c,#04c);
         background-image: linear-gradient(to bottom,#08c,#04c);
         background-repeat: repeat-x;
-        border-color: #04c #04c #002a80;
-        border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+       // border-color: #04c #04c #002a80;
+       // border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0044cc',GradientType=0);
         filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 
@@ -143,12 +176,8 @@
 
 
     }
-    // #d93434, #b82b2b
-
-    //#fc3c3c, #d93434
-
-
-    .deleteButton {
+ 
+    .warnButton {
 
 
         display: inline-block;
@@ -164,7 +193,7 @@
 
 
         background-repeat: repeat-x;
-        border: 1px solid #ccc;
+       // border: 1px solid #ccc;
 
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
@@ -184,8 +213,8 @@
         background-image: -o-linear-gradient(top,#d93434, #b82b2b);
         background-image: linear-gradient(to bottom,#d93434, #b82b2b);
         background-repeat: repeat-x;
-        border-color: #04c #04c #002a80;
-        border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+       // border-color: #04c #04c #002a80;
+       // border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc',endColorstr='#ff0044cc',GradientType=0);
         filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 
@@ -214,9 +243,6 @@
         margin-bottom:20px;
     }
 
-    .menu-container
-    {
-        margin-top: 30px;
-    }
+
 
 }

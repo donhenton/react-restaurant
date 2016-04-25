@@ -6,7 +6,7 @@ export default class ListService
         constructor()
         {
             
-            console.log("did setup in ListService");
+            
                let me = this;
                 postal.subscribe({
                channel: "restaurants",

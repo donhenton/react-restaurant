@@ -21,7 +21,7 @@ nav.topMenu {
         color: #766e65;
         text-transform: uppercase;
         text-decoration: none;
-        font-size: 15px;
+        font-size: 12px;
         text-align: center;
         -webkit-transition: 0.15s background-color linear;
         -moz-transition: 0.15s background-color linear;
@@ -46,7 +46,7 @@ nav.topMenu {
 
             & > a , span {
                 float: left;
-                padding: 15px 0;
+                padding: 5px 0;
                 width: $boxWidth;
                 border-left: 1px solid #ada791;
             }
