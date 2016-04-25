@@ -3,7 +3,8 @@
 @import "components/reset";
 @import "components/typography";
 @import "components/menu";
-$default-border:   4px #ccc double;
+@import "components/rowdemo";
+
 
 body
 {
@@ -12,224 +13,19 @@ body
 }
 
 
-@mixin componentMixin ($color)
-{
-    border: thin solid $color;
-    color: $color;
-    margin: 10px;
-    padding: 10px;
-}
 
-
-.componentBoxRed
-{
-    @include componentMixin(red);
-}
-
-.componentBoxBlue
-{
-    @include componentMixin(blue);
-}
 
 
 .mainContainer
 {
     margin: 50px 50px;
 
-    .menuBarContainer
-    {
-        margin-bottom: 5px;
-        border-bottom: 3px solid #c0c0c0;
-        padding-bottom: 10px;
-
-
-        a.mainMenuItem
-        {
-
-            margin-right: 50px;
-            text-decoration: none;
-            color: darkslategrey;
-
-            &:visited,&:hover
-                {
-                color: darkslategrey;
-
-}
-
-        }
-
 
 
 }
 
 
-}
-.restaurantListContainer,.editRestaurantContainer
+.hidden
 {
-    float: left;
-    padding:1.5%;
-
-    margin: 10px;
-
-}
-
-.editRestaurantContainer
-{
-
-
-}
-
-.restaurantListContainer
-{
-    border: $default-border;
-
-} 
-
-
-
-.displayTable
-{
-
-    
-    
-    margin-top: 20px;
-    width: 700px;
-
-    th
-    {
-       background-color: #3498db;
-       color: yellow;
-       padding: 5px;
-    }
-    
-    .tableBtn
-    {
-        padding: 5px;
-        text-align: center;
-        border: thin solid #3498db;
-        width:75px;
-    }
-    .tableName
-    {
-        padding: 10px;
-        width:350px;
-        border: thin solid #3498db;
-    }
-        .tableAge
-    {
-        padding: 10px;
-        width:25px;
-        text-align: center;
-        border: thin solid #3498db;
-    } 
-    .tableParty
-    {
-        padding: 10px;
-        width:100px;
-        text-align: center;
-        border: thin solid #3498db;
-    }
-}
-
-
-.editRestaurantContainer
-{
-    border: $default-border; 
-    width: 300px;
-    td
-    {   height: 45px;
-         
-    }
-    input.inputName
-    {
-        border: thin solid #3498db;
-        width:175px;
-    }
-
-    input.age
-    {
-        border: thin solid #3498db;
-        width:100px;
-    }
-}
-
-.editButton {
-    background: #3498db;
-    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-    background-image: -o-linear-gradient(top, #3498db, #2980b9);
-    background-image: linear-gradient(to bottom, #3498db, #2980b9);
-    -webkit-border-radius: 28;
-    -moz-border-radius: 28;
-    border-radius: 28px;
-    font-family: Arial;
-    color: yellow;
-    font-size: 12px;
-    padding: 5px 10px ;
-    text-decoration: none;
-
-
-    &:hover {
-        background: #3cb0fd;
-        background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-        background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
-        background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
-        background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
-        background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
-        text-decoration: none;
-    }
-
-
-}
-
-.deleteButton {
-        background: #d93434;
-        background-image: -webkit-linear-gradient(top, #d93434, #b82b2b);
-        background-image: -moz-linear-gradient(top, #d93434, #b82b2b);
-        background-image: -ms-linear-gradient(top, #d93434, #b82b2b);
-        background-image: -o-linear-gradient(top, #d93434, #b82b2b);
-        background-image: linear-gradient(to bottom, #d93434, #b82b2b);
-        -webkit-border-radius: 28;
-        -moz-border-radius: 28;
-        border-radius: 28px;
-        font-family: Arial;
-        color: #ffffff;
-        font-size: 12px;
-        padding: 5px 10px;
-        text-decoration: none;
-
-
-        &:hover {
-            background: #fc3c3c;
-            background-image: -webkit-linear-gradient(top, #fc3c3c, #d93434);
-            background-image: -moz-linear-gradient(top, #fc3c3c, #d93434);
-            background-image: -ms-linear-gradient(top, #fc3c3c, #d93434);
-            background-image: -o-linear-gradient(top, #fc3c3c, #d93434);
-            background-image: linear-gradient(to bottom, #fc3c3c, #d93434);
-            text-decoration: none;
-        }      
-
-    }
-    
-    
-    .hidden
-    {
-        visibility: hidden;
-    }
-
-    
- .addRow
- {
-     
- }
- 
- .addButton{
-    float:right;
-    margin-bottom:20px;
-}
-
-.menu-container
-{
-    margin-top: 30px;
+    visibility: hidden;
 }
