@@ -7,7 +7,7 @@ import Page1 from './../components/pages/page1';
 import Page2 from './../components/pages/page2';
 import ListContainerRow from './../components/listdemo/listContainerRow'; 
 import ListContainerNoRow from './../components/listdemo/listContainerNoRow';
-import TopNavPage from './../components/TopNavPage';
+ 
 
 export const createRoutes = () => (
   <Route path="/" component={App} >
@@ -21,6 +21,6 @@ export const createRoutes = () => (
     </Route>
     <Route path="listdemoRow" component={ListContainerRow} />
     <Route path="listdemoNoRow" component={ListContainerNoRow} />
-    <Route path="topNav" component={TopNavPage} />
+    
   </Route>
 );

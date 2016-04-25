@@ -1,15 +1,32 @@
 import React from 'react';
 import { Component } from 'react';
-import MenuBar from './MenuBar';
+import TopNav from './topnav/xml/TopNav';
 
 export default class ContentContainer extends Component {
         
-  
+   constructor()
+     {
+         super();
+          
+       
+       this.menuXML = 
+               '<menu type="topNav">'+
+
+                    '<menuItem href="/">Home</menuItem>'+
+                    '<menuItem href="/page2">Page2</menuItem>'+
+                    '<subMenu text="List Demos">'+
+                        '<subMenuItem href="/listDemoRow">List Demo Using React Object</subMenuItem>'+
+                        '<subMenuItem href="/listDemoNoRow">List Demo No Object</subMenuItem>'+
+                    '</subMenu>'+
+                    
+
+            '</menu>';
+     }
         
   render() {
     return (
       <div className="mainContainer">      
-      <MenuBar />
+      <TopNav xml={this.menuXML} />
       <div>
        {this.props.children}
       </div>

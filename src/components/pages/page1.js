@@ -12,6 +12,7 @@ export default class App extends Component {
     return (
       
       <Container>
+      <h3>Component Communication Demo</h3>
        <Comp1 />
        <Comp2 />
       </Container>
