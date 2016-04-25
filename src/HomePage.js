@@ -13,20 +13,23 @@ import React from 'react';
         constructor()
         {
         super();
-                // this.keyMap = {};
+         
 
         }
         componentWillMount()
         {
                 let me = this;
-                this.state = {items: [EMPTY_RESTAURANT()],actionMode: null};
+                this.state = {items: [EMPTY_RESTAURANT()],actionMode: null,hideList: true};
                 RESTAURANT_SERVICE.getAllRestaurants()
 
                 .then(function (data) {
                     
                     var preppedData =  JSON.parse(data);
                          
-                        me.setState({items: preppedData,actionMode: null})
+                        me.setState({items: preppedData,actionMode: null,hideList: false}, function() {
+                             
+                            
+                        })
                         
                 })
                 .catch(function (err) {
@@ -77,6 +80,15 @@ import React from 'react';
                 
              
         }
+        
+ hideTableClass()
+ {
+     if (this.state.hideList)
+     {
+         return "hidden";
+     }
+     return null;
+ }
 
  displayEditFormCSS()
   {
@@ -121,7 +133,7 @@ import React from 'react';
                                     </tbody>
                                  </table>    
                             </div>    
-                            <div id='tbodyContainer'>
+                            <div id='tbodyContainer' className={this.hideTableClass()}>
                             <table>
                             <tbody>
                                 {

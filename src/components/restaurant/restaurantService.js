@@ -22,6 +22,6 @@ export default class RestaurantService
 
 export const EMPTY_RESTAURANT = function()
 {
-    return {name:"", zipCode:"", city: "", state: "", version: 1, id: null , reviewDTOs: []};
+    return {name:"", zipCode:"", city: "", state: "", version: 2, id: null , reviewDTOs: []};
 }
 

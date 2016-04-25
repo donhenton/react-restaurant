@@ -10,18 +10,67 @@ export default class ListItem extends Component {
   {
       super();
       this.tempSubscription = null;
+      this._isMounted = false;
+      this.highlighted = false;
+      this.subscriptions = [];
      
+  }
+  
+  componentWillUnMount()
+  {
+      this._isMounted = false;
+     // console.log("unMount "+this._isMounted);
+     this.subscriptions.map((sub) => {postal.unsubscribe(sub)})
+  }
+  
+   componentDidMount()
+  {
+      this._isMounted = true;
+      // console.log("didMount "+this._isMounted);
   }
   
   componentWillMount()
   {
       let me = this;
-      this.state = {item: this.props.item};
+      this.state = {item: this.props.item,highLighted: false};
       
-      this.tempTopicId = "item.edit.action-"+this.props.item.id;
-      
-        
        
+      let messageSub = 
+      postal.subscribe({
+            channel: "restaurants",
+            topic: 'list.item.messages',
+            callback: function (data, envelope) {
+                
+               if (envelope.messageType == "CANCEL")
+               {
+                 
+               }
+               if (envelope.messageType == "SAVE")
+               {
+                   
+               }
+               if (envelope.messageType == "HIGHLIGHT")
+               {
+                 //  console.log("fff  message "+me._isMounted);
+                    if (me._isMounted)
+                    {
+                        if (data.id === me.state.item.id)
+                        {
+                            me.setState({highLighted: true})
+                        }
+                        else
+                        {
+                            me.setState({highLighted: false})
+                        }
+                   }
+               }
+                
+               
+               
+            }
+        });   
+       
+       me.subscriptions.push(messageSub);
       
   }
   
@@ -34,6 +83,7 @@ export default class ListItem extends Component {
   {
       console.log("edit id " +this.state.item.id);
       let me = this;
+     // this.setState({highLighted: true})
       /*
       this.tempSubscription = postal.subscribe({
             channel: "restaurants",
@@ -54,12 +104,28 @@ export default class ListItem extends Component {
         }); 
         */
       //tell editform and list container that you are editing
-      postal.publish({
+     postal.publish({
         channel: "restaurants",
-        replyTo: this.tempTopicId,
         topic: "edit.Item" ,
         data: this.state.item 
     });
+     postal.publish({
+        channel: "restaurants",
+        messageType: "HIGHLIGHT",
+        topic: "list.item.messages" ,
+        data: this.state.item 
+    });
+  }
+  
+  checkHighLight(itemId)
+  {
+      
+      if (this.state.highLighted)
+      {
+          return "restaurantRow highLighted";
+      }
+      return "restaurantRow";
+      
   }
  
   deleteItem(item,e)
@@ -77,11 +143,13 @@ export default class ListItem extends Component {
         
   render() {
       let item = this.state.item;
+      let me = this;
+     // console.log("ff render")
       return (
         
                     
-            <tr>  
-                    <td className="nameItem">{item.name}</td> 
+            <tr onClick={this.editItem.bind(this)} className={me.checkHighLight()}>  
+                    <td  className="nameItem">{item.name}</td> 
                     <td className="cityItem">{item.city}</td> 
                     <td className="stateItem">{item.state}</td> 
                     <td className="zipCodeItem">{item.zipCode}</td> 

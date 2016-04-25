@@ -82,6 +82,11 @@
             padding-left: 2px;
             padding-bottom: 2px;
         }
+        
+        tr.restaurantRow
+        {
+            cursor: pointer;
+        }
 
     }
 
@@ -96,7 +101,18 @@
             border-right: thin solid $blue-color;
             margin: 5px;
         }
-
+        
+        tr.highLighted 
+        {
+            .nameItem , .cityItem  , .stateItem  , .zipCodeItem, .versionItem
+            { 
+            background-color: lightblue;
+            color: white;
+            }
+            
+            
+            
+        }
 
     }
 
