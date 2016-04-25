@@ -32,8 +32,9 @@ export default class ListItem extends Component {
  
   editItem()
   {
-      //console.log("edit "+id+" "+this.state.item.id);
+      console.log("edit id " +this.state.item.id);
       let me = this;
+      /*
       this.tempSubscription = postal.subscribe({
             channel: "restaurants",
             topic: this.tempTopicId,
@@ -51,12 +52,12 @@ export default class ListItem extends Component {
                
             }
         }); 
-      //tell editform and list continer that you are editing
+        */
+      //tell editform and list container that you are editing
       postal.publish({
         channel: "restaurants",
         replyTo: this.tempTopicId,
-        topic: "select.Item",
-        addEditState:  "EDIT",
+        topic: "edit.Item" ,
         data: this.state.item 
     });
   }
@@ -68,6 +69,7 @@ export default class ListItem extends Component {
      // console.log("save "+ id +" "+JSON.stringify(topicRequest));
         postal.publish({
         channel: "restaurants",
+        actionMode: "DELETE",
         topic: "item.delete.request" ,
         data: this.state.item
     });

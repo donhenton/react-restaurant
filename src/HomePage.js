@@ -18,7 +18,7 @@ import React from 'react';
         }
         componentWillMount()
         {
-        let me = this;
+                let me = this;
                 this.state = {items: [EMPTY_RESTAURANT()],actionMode: null};
                 RESTAURANT_SERVICE.getAllRestaurants()
 
@@ -32,7 +32,50 @@ import React from 'react';
                 .catch(function (err) {
                 throw err;
                 });
-            ;
+                
+                
+                //register postal listeners
+                
+                postal.subscribe({
+                    channel: "restaurants",
+                    topic: "item.save.request.complete",
+                    callback: function (data, envelope) {
+                        me.processSaveComplete(data,envelope)
+                    }
+                }); 
+
+                postal.subscribe({
+                    channel: "restaurants",
+                    topic: "item.edit.cancel",
+                    callback: function (data, envelope) {
+                        me.processEditCancel(data,envelope)
+                    }
+                }); 
+
+                postal.subscribe({
+                    channel: "restaurants",
+                    topic: "edit.Item",
+                    callback: function (data, envelope) {
+
+                        me.setState({'actionMode': "EDIT"},function( )
+                            {
+                                  //this is called when state is finally set
+
+
+
+                            })
+
+                       }
+                    }); 
+
+                
+                
+                
+                
+                
+                
+                
+             
         }
 
  displayEditFormCSS()
