@@ -42,28 +42,28 @@ $blue-color: #08c;
     {
         padding: 5px;
         text-align: center;
-        border: thin solid #3498db;
+        border: thin solid $blue-color;
         width:75px;
     }
     .tableName
     {
         padding: 10px;
         width:350px;
-        border: thin solid #3498db;
+        border: thin solid $blue-color;
     }
     .tableAge
     {
         padding: 10px;
         width:25px;
         text-align: center;
-        border: thin solid #3498db;
+        border: thin solid $blue-color;
     } 
     .tableParty
     {
         padding: 10px;
         width:100px;
         text-align: center;
-        border: thin solid #3498db;
+        border: thin solid $blue-color;
     }
 }
 
