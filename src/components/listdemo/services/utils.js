@@ -44,3 +44,9 @@ export function cleanDisplay  (d)
     
     return retVal;
 }
+
+
+export function cloneJSON(j)
+{
+    return  JSON.parse(JSON.stringify(j ));  
+}
