@@ -11,14 +11,15 @@ export default class ListMain  extends Component {
       this.parentAction = {}; 
       this.message = "fred "
       this.highlightInfo = {};
-      
+      this.initialItems = [{id: 1, text: 'alpha'},{id: 2, text: 'beta'},{id: 3,text: 'gamma'}] ;
+      this.initialHighlighting = [false,false,false];
   }
   
     componentWillMount()
    {
-       this.state = {items: [{id: 1, text: 'alpha','highlighted':false},{id: 2, text: 'beta','highlighted':false},{id: 3,text: 'gamma','highlighted':false} ]
-                    
-                ,selectedItem: {id: -99,text:"",highlighted: false}};
+       this.state = {items: this.initialItems,
+                     highlighting: this.initialHighlighting,
+                     selectedItem: {id: -99,text:""}};
               
        
        this.parentAction = {reportSelection: this.reportSelection.bind(this)};
@@ -29,14 +30,16 @@ export default class ListMain  extends Component {
    {
        //console.log("reportSelection "+this.message+" "+t);
        //let cloneState = cloneJSON(this.state);
-        
+       let highlighting = [];
+       let me = this;
        let processedItems = this.state.items.map((item) => 
                {    
                    
-                    item.highlighted = false ;
+                     
+                    highlighting.push(false); 
                     if (item.id == selectedItem.id)
                     {
-                        selectedItem.highlighted = true;
+                        highlighting[highlighting.length-1] = true;
                         return selectedItem;
                     }
                     else
@@ -46,7 +49,7 @@ export default class ListMain  extends Component {
        
                });
        
-       this.setState({items: processedItems,selectedItem: selectedItem});
+       this.setState({items: processedItems,selectedItem: selectedItem,highlighting});
    }
         
   render() {
@@ -73,7 +76,7 @@ export default class ListMain  extends Component {
 
                         this.state.items.map((item,i) => (
 
-                         <ListElement parentAction = {this.parentAction} key={item.id} highlighted={item.highlighted} item={item} />
+                         <ListElement parentAction = {this.parentAction} key={item.id} highlighted={this.state.highlighting[i]} item={item} />
                         ))
 
 
