@@ -3,6 +3,7 @@ import { Component } from 'react';
 import postal from 'postal';
 import ReactDOM from 'react-dom';
 import Immutable from 'immutable';
+import {cloneJSON} from './restaurantUtils';
 import {EMPTY_RESTAURANT} from './restaurantService';
 
 
@@ -67,7 +68,7 @@ export default class EditRestaurantForm extends Component {
              return;
          
          let  copyState =   
-         {item: data,actionMode:"EDIT"};
+         {item: cloneJSON(data),actionMode:"EDIT"};
          this.setState(copyState);
        
     
@@ -96,7 +97,7 @@ export default class EditRestaurantForm extends Component {
         {
             ev.preventDefault();
             postal.publish({
-                channel: "restaurants-system"
+                channel: "restaurants-system",
                 topic: "item.save.request" ,
                 data: this.state.item 
              });

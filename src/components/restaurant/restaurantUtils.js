@@ -52,6 +52,9 @@ export function arrayToIterable(arr)
     else
         throw new Error("not array is "+ (typeof arr))
 }
-
+export function cloneJSON(j)
+{
+    return  JSON.parse(JSON.stringify(j ));  
+}
 
 //let itemArray = Array.prototype.slice.call(this.menuItems);

@@ -31,7 +31,7 @@ import postal from 'postal';
 
         processSaveRequest(newItem, envelope)
         {
-          console.log("service " + JSON.stringify(newItem) + " " + envelope.replyTo);
+         // console.log("service " + JSON.stringify(newItem) + " " + envelope.replyTo);
                 
             var options = {
                 method: 'PUT',

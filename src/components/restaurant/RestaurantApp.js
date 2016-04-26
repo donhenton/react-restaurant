@@ -99,8 +99,8 @@
                 channel: "restaurants-system",
                 topic: "item.save.request.complete",
                 callback: function (data, envelope) {
-                    //me.processSaveComplete(data,envelope)
-                    console.log("in save.request.complete "+JSON.stringify(data))
+                     me.processSaveComplete(data.confirmedData)
+                   // console.log("in save.request.complete "+JSON.stringify(data))
                 }
             }); 
  /*
@@ -130,12 +130,33 @@
 
 */
 
-
-
-
-
-
-
+    }
+    
+    
+    processSaveComplete(newDataItem)
+    {
+       let highlighting = [];
+       let me = this;
+       let processedItems = this.state.items.map((item) => 
+               {    
+                   
+                     
+                    highlighting.push(false); 
+                    if (item.id == newDataItem.id)
+                    {
+                       // highlighting[highlighting.length-1] = true;
+                       console.log("process save complete hit "+JSON.stringify(newDataItem))
+                       return newDataItem;
+                         
+                    } 
+                    return item;
+                    
+       
+               });
+       
+       this.setState({items: processedItems, highlighting,actionMode:null});
+        
+        
     }
 
     hideTableClass()

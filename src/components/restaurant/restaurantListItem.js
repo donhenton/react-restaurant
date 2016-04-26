@@ -33,7 +33,7 @@ export default class ListItem extends Component {
   componentWillMount()
   {
       let me = this;
-      this.state = {item: this.props.item,highLighted: this.props.highlighted};
+     // this.state = {item: this.props.item,highLighted: this.props.highlighted};
       
       
   }
@@ -46,22 +46,27 @@ export default class ListItem extends Component {
         
     componentWillUpdate(nextProps,nextState)
     {
-         //console.log("component will update state "+JSON.stringify(nextState))
+        //if (nextState.item.id ==6)
+        //    console.log("component will update state "+JSON.stringify(nextState))
+        //if (nextState.item.id ==6)
+       //    console.log("component will update props "+JSON.stringify(nextProps))
         //  if (nextProps.highlighted)
        //         console.log("component will update props "+JSON.stringify(nextProps))
        // dont set state here it will cause a infinite loop
        // this.setState({highlighted: nextProps.highlighted})
+       // this.setState({item: this.props.item,highLighted: this.props.highlighted};
+       //this.setState({item: this.props.item})
     }
   
   
  
   editItem(item,e)
   {
-      this.props.editCallback(this.state.item)
+      this.props.editCallback(this.props.item)
       postal.publish({
         channel: "restaurants-system",
         topic: "edit.Item" ,
-        data: this.state.item 
+        data: this.props.item 
     });
      
   }
@@ -79,12 +84,12 @@ export default class ListItem extends Component {
  
   deleteItem( )
   {
-      this.props.deleteCallback(this.state.item);
+      this.props.deleteCallback(this.props.item);
  
   }
         
   render() {
-      let item = this.state.item;
+      let item = this.props.item;
       let me = this;
      // console.log("ff render")
       return (
