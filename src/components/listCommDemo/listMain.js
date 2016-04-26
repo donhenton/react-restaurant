@@ -30,8 +30,12 @@ export default class ListMain  extends Component {
    
    deleteSelection(deletedItem)
    {
-        let newItems = this.state.items.filter((x) => x.id != deletedItem.id)
-        this.setState({items: newItems})
+        let confirmValue = confirm('Are you sure you want to delete \''+deletedItem.text+'\'?')
+        if (confirmValue)
+        {
+            let newItems = this.state.items.filter((x) => x.id != deletedItem.id)
+            this.setState({items: newItems})
+        }
    }
    
    doEdit( )
