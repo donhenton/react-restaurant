@@ -3,7 +3,7 @@ import { Component } from 'react';
 import Container from './../ContentContainer';
 import ListItem from './listItem';
 import EditForm from './editForm';
-import {LIST_SERVICE} from './../App';
+import ListService,{LIST_SERVICE} from './services/listService'
 import postal from 'postal';
 import Immutable from 'immutable';
 import {EMPTY_DATA,cleanDisplay} from './services/utils'

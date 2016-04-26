@@ -1,7 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
-
-export default class App extends Component {
+ 
+ 
+export default class ListElement extends Component {
         
   constructor()
   {
@@ -11,8 +12,8 @@ export default class App extends Component {
         
   render() {
     return (
-      <div className="mainAppContainer">
-        {this.props.children}
+      <div className="listElement">
+         list Element
       </div>
     );
   }

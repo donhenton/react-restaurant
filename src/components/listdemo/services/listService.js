@@ -139,4 +139,6 @@ export default class ListService
       }
         
 }
+
+export const LIST_SERVICE = new ListService();
  

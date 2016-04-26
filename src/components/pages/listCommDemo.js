@@ -1,6 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import Container from './../ContentContainer';
+import ListMain from './../listCommDemo/listMain'
 
 export default class listCommDemo extends Component {
         
@@ -10,7 +11,7 @@ export default class listCommDemo extends Component {
     return (
       
       <Container>
-       
+       <ListMain />
       </Container>
       
        
