@@ -13,10 +13,11 @@ export default class ContentContainer extends Component {
                '<menu type="topNav">'+
 
                     '<menuItem href="/">Home</menuItem>'+
-                    '<menuItem href="/page2">Page2</menuItem>'+
+                    
                     '<subMenu text="List Demos">'+
                         '<subMenuItem href="/listDemoRow">List Demo Using React Object</subMenuItem>'+
                         '<subMenuItem href="/listDemoNoRow">List Demo No Object</subMenuItem>'+
+                        '<subMenuItem href="/listCommDemo">List Communications Demo</subMenuItem>'+
                     '</subMenu>'+
                     
 

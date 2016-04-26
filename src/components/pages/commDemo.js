@@ -4,7 +4,7 @@ import Comp2 from './../Component2';
 import Comp1 from './../Component1';
 import Container from './../ContentContainer';
 
-export default class App extends Component {
+export default class CommDemo extends Component {
         
  
         
