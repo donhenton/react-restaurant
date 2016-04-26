@@ -9,7 +9,7 @@ export default class ListMain  extends Component {
   {
       super();
       this.parentAction = {}; 
-      this.message = "fred "
+      this.message = "fred ";
       this.highlightInfo = {};
       this.initialItems = [{id: 1, text: 'alpha'},{id: 2, text: 'beta'},{id: 3,text: 'gamma'}] ;
       this.initialHighlighting = [false,false,false];
@@ -18,6 +18,7 @@ export default class ListMain  extends Component {
     componentWillMount()
    {
        this.state = {items: this.initialItems,
+                     tempLabel: "",
                      highlighting: this.initialHighlighting,
                      selectedItem: {id: -99,text:""}};
               
@@ -25,6 +26,35 @@ export default class ListMain  extends Component {
        this.parentAction = {reportSelection: this.reportSelection.bind(this)};
    }
    
+   doEdit( )
+   {
+        
+       let me = this;
+       let selectedItem = cloneJSON(this.state.selectedItem);
+       let processedItems = this.state.items.map((item) => 
+               {    
+                   
+                     
+                     
+                    if (item.id == this.state.selectedItem.id)
+                    {
+                        item.text = this.state.tempLabel;
+                         
+                    } 
+                    return item;
+                    
+       
+               });
+       
+       this.setState({items: processedItems,selectedItem: selectedItem,tempLabel: this.state.tempLabel});
+       
+   }
+   
+   updateLabel(ev)
+   {
+       let info = ev.target.value;
+       this.setState({tempLabel: info})
+   }
    
    reportSelection(selectedItem)
    {
@@ -40,16 +70,14 @@ export default class ListMain  extends Component {
                     if (item.id == selectedItem.id)
                     {
                         highlighting[highlighting.length-1] = true;
-                        return selectedItem;
-                    }
-                    else
-                    {
-                        return item;
-                    }
+                         
+                    } 
+                    return item;
+                    
        
                });
        
-       this.setState({items: processedItems,selectedItem: selectedItem,highlighting});
+       this.setState({items: processedItems,highlighting,selectedItem,tempLabel: selectedItem.text});
    }
         
   render() {
@@ -59,7 +87,7 @@ export default class ListMain  extends Component {
         <div className="block1">
         <table>
             <tbody>
-            <tr><th>Input</th><td><input type="text" value="alpha" /></td><td><button className="editButton">Send</button></td></tr>
+            <tr><th>Input</th><td><input type="text" onChange={this.updateLabel.bind(this)} value={this.state.tempLabel} /></td><td><button onClick={this.doEdit.bind(this)} className="editButton">Send</button></td></tr>
             </tbody>
         
         </table>
