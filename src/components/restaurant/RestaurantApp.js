@@ -90,7 +90,13 @@
                 channel: "restaurants-system",
                 topic: "cancel.edit.Item",
                 callback: function (data, envelope) {
-                    me.setState({actionMode: null});
+                let highlighting = [];    
+                for(var i=0;i<me.state.items.length;i++)
+                {
+                    highlighting.push(false);
+                }
+                    
+                    me.setState({actionMode: null,highlighting});
                 }
             }); 
             
@@ -145,7 +151,7 @@
                     if (item.id == newDataItem.id)
                     {
                        // highlighting[highlighting.length-1] = true;
-                       console.log("process save complete hit "+JSON.stringify(newDataItem))
+                     //  console.log("process save complete hit "+JSON.stringify(newDataItem))
                        return newDataItem;
                          
                     } 
