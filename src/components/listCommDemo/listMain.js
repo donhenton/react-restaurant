@@ -14,13 +14,28 @@ export default class ListMain  extends Component {
     return (
       <div className="listMainContainer">
       
-       
+        <table>
+            <tbody>
+            <tr><th>Input</th><td><input type="text" value="alpha" onChange="" /></td><td><button className="editButton">Send</button></td></tr>
+            </tbody>
+        
+        </table>
       
       
-       
-         <ListElement />
-         <ListElement />
-         <ListElement />
+        <div className="commDemoList">
+        
+        <table>
+            <tbody>
+                <ListElement />
+                <ListElement />
+                <ListElement />
+           </tbody>
+        
+        </table>
+         
+        </div> 
+         
+         
       </div>
     );
   }

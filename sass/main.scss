@@ -238,11 +238,21 @@ body
 //listCommDemo
 .listMainContainer
 {
+    margin-top: 25px;
+    th,td
+    {
+        padding: 6px;
+    }
     
     
-    
-    
-    
+    .commDemoList
+    {
+        border: $default-border;
+        margin: 20px;
+        padding: 25px;
+        width: 50%;
+        
+    }
     
     
 }

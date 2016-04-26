@@ -12,9 +12,11 @@ export default class ListElement extends Component {
         
   render() {
     return (
-      <div className="listElement">
-         list Element
-      </div>
+      <tr>
+         
+         <td><button className="editButton">Action</button></td>
+         <td>info</td>
+      </tr>
     );
   }
 }
