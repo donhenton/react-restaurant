@@ -41,12 +41,17 @@ import React from 'react';
             //this.setState({highlighted: true})
             this.parentAction.reportSelection(this.state.item);
         }
+        deleteAction()
+        {
+            //this.setState({highlighted: true})
+            this.parentAction.deleteSelection(this.state.item);
+        }
 
         render() {
         return (
                 < tr >
                 < td > < button className = "editButton" onClick={this.selectAction.bind(this)}> Select < /button></td >
-                < td > < button className = "deleteButton" > Delete < /button></td >
+                < td > < button className = "deleteButton"  onClick={this.deleteAction.bind(this)}> Delete < /button></td >
                 < td className={this.computeHighLight()} > {this.state.item.text} < /td>
                 < /tr>
                 );

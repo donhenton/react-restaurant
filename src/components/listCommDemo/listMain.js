@@ -9,7 +9,7 @@ export default class ListMain  extends Component {
   {
       super();
       this.parentAction = {}; 
-      this.message = "fred ";
+      this.message = "item ";
       this.highlightInfo = {};
       this.initialItems = [{id: 1, text: 'alpha'},{id: 2, text: 'beta'},{id: 3,text: 'gamma'}] ;
       this.initialHighlighting = [false,false,false];
@@ -23,7 +23,15 @@ export default class ListMain  extends Component {
                      selectedItem: {id: -99,text:""}};
               
        
-       this.parentAction = {reportSelection: this.reportSelection.bind(this)};
+       this.parentAction = {reportSelection: this.reportSelection.bind(this),
+           deleteSelection: this.deleteSelection.bind(this)
+            };
+   }
+   
+   deleteSelection(deletedItem)
+   {
+        let newItems = this.state.items.filter((x) => x.id != deletedItem.id)
+        this.setState({items: newItems})
    }
    
    doEdit( )
