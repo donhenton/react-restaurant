@@ -12,21 +12,67 @@
 
     constructor()
     {
-    super();
-
+        super();
+        
 
     }
+    
+   editItemRequest(selectedItem)
+   {
+      // console.log("hit edit "+JSON.stringify(item))
+       let highlighting = [];
+       let me = this;
+       let processedItems = this.state.items.map((item) => 
+               {    
+                   
+                     
+                    highlighting.push(false); 
+                    if (item.id == selectedItem.id)
+                    {
+                        highlighting[highlighting.length-1] = true;
+                         
+                    } 
+                    return item;
+                    
+       
+               });
+       
+       this.setState({highlighting});
+      
+      
+   }
+   
+   deleteItemRequest(item)
+   {
+       //console.log("hit del "+JSON.stringify(item))
+   } 
+   
+    
     componentWillMount()
     {
             let me = this;
             this.state = {items: [EMPTY_RESTAURANT()],actionMode: null,isLoading: true};
+            this.state.highlighting = [];
+            
+            this.callbacks = {
+                        deleteItem: this.deleteItemRequest.bind(this),
+                        editItem: this.editItemRequest.bind(this) 
+                         
+                }
+            
+            
             RESTAURANT_SERVICE.getAllRestaurants()
 
             .then(function (data) {
 
-                var preppedData =  JSON.parse(data);
+                let preppedData =  JSON.parse(data);
+                let newHighlighting = [];
+                for(var i=0;i<preppedData.length;i++)
+                {
+                    newHighlighting.push(false);
+                }
 
-                    me.setState({items: preppedData,actionMode: null,isLoading: false}, function() {
+                    me.setState({items: preppedData,actionMode: null,isLoading: false,highlighting: newHighlighting}, function() {
 
 
                     })
@@ -38,7 +84,7 @@
 
 
             //register postal listeners
-
+/*
             postal.subscribe({
                 channel: "restaurants",
                 topic: "item.save.request.complete",
@@ -71,7 +117,7 @@
                    }
                 }); 
 
-
+*/
 
 
 
@@ -141,7 +187,11 @@
 
                                     this.state.items.map((item,i) => (
 
-                                        <ListItem key={item.id} item={item} />
+                                        <ListItem 
+                                             editCallback={this.editItemRequest.bind(this)} 
+                                             deleteCallback={this.deleteItemRequest.bind(this)} 
+                                             highlighted={this.state.highlighting[i]}
+                                             key={item.id} item={item} />
                                     ))
 
 
