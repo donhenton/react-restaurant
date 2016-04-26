@@ -5,6 +5,9 @@ import ReactDOM from 'react-dom';
 import Immutable from 'immutable';
 import {EMPTY_RESTAURANT} from './restaurantService';
 
+
+export const EDITFORM_REPLY_TO =  "editRestaurantForm";
+
 export default class EditRestaurantForm extends Component {
    
        
@@ -37,20 +40,16 @@ export default class EditRestaurantForm extends Component {
      // console.log(" willmount " + JSON.stringify(this.state));
       let me = this;
         this.subscription = postal.subscribe({
-            channel: "restaurants",
+            channel: "restaurants-system",
             topic: "edit.Item",
             callback: function (data, envelope) {
                  me.processEditItem(data,envelope)
             }
         }); 
+         
+         
         
-         this.subscription = postal.subscribe({
-            channel: "restaurants",
-            topic: "item.save.request.complete",
-            callback: function (data, envelope) {
-               // me.processSaveComplete(data,envelope)
-            }
-        }); 
+        /*
          this.subscription = postal.subscribe({
             channel: "restaurants",
             topic: "item.add.request.complete",
@@ -58,7 +57,7 @@ export default class EditRestaurantForm extends Component {
                // me.processSaveComplete(data,envelope)
             }
         }); 
-        
+        */
   }
   
   
@@ -71,14 +70,7 @@ export default class EditRestaurantForm extends Component {
          {item: data,actionMode:"EDIT"};
          this.setState(copyState);
        
-         if (envelope.replyTo)
-         {
-             this.setState({replyTo: envelope.replyTo})
-         }
-         else
-         {
-             this.setState({replyTo: null})
-         }
+    
 
    }
   
@@ -90,14 +82,24 @@ export default class EditRestaurantForm extends Component {
               this.setState(copyState);
         }
 
-        cancelItem()
+        cancelItem(ev)
         {
-            
+             ev.preventDefault();
+             postal.publish({
+                channel: "restaurants-system",
+                topic: "cancel.edit.Item" ,
+                data: this.state.item 
+             });
         }
         
-        saveItem(id)
+        saveItem(id,ev)
         {
-            
+            ev.preventDefault();
+            postal.publish({
+                channel: "restaurants-system"
+                topic: "item.save.request" ,
+                data: this.state.item 
+             });
         }
 
 

@@ -42,7 +42,7 @@ export default class ListItem extends Component {
      componentWillReceiveProps (nextProps) {
         // if (nextProps.highlighted)
         //     console.log("component will receive props "+JSON.stringify(nextProps))
-       // }
+        }
         
     componentWillUpdate(nextProps,nextState)
     {
@@ -58,7 +58,11 @@ export default class ListItem extends Component {
   editItem(item,e)
   {
       this.props.editCallback(this.state.item)
-     
+      postal.publish({
+        channel: "restaurants-system",
+        topic: "edit.Item" ,
+        data: this.state.item 
+    });
      
   }
   
@@ -87,11 +91,11 @@ export default class ListItem extends Component {
         
                     
             <tr className={me.checkHighLight()}>  
-                    <td  className="nameItem">{item.name}</td> 
-                    <td className="cityItem">{item.city}</td> 
-                    <td className="stateItem">{item.state}</td> 
-                    <td className="zipCodeItem">{item.zipCode}</td> 
-                    <td className="versionItem">{item.version}</td> 
+                    <td  onClick={this.editItem.bind(this)} className="nameItem">{item.name}</td> 
+                    <td  onClick={this.editItem.bind(this)} className="cityItem">{item.city}</td> 
+                    <td  onClick={this.editItem.bind(this)} className="stateItem">{item.state}</td> 
+                    <td  onClick={this.editItem.bind(this)} className="zipCodeItem">{item.zipCode}</td> 
+                    <td  onClick={this.editItem.bind(this)} className="versionItem">{item.version}</td> 
 
                     <td className="actionItems">
                     <button onClick={this.editItem.bind(this)} className="editButton">Edit</button>

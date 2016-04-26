@@ -37,7 +37,7 @@
        
                });
        
-       this.setState({highlighting});
+       this.setState({highlighting,actionMode:"EDIT"});
       
       
    }
@@ -84,15 +84,26 @@
 
 
             //register postal listeners
-/*
+            
+            
             postal.subscribe({
-                channel: "restaurants",
-                topic: "item.save.request.complete",
+                channel: "restaurants-system",
+                topic: "cancel.edit.Item",
                 callback: function (data, envelope) {
-                    me.processSaveComplete(data,envelope)
+                    me.setState({actionMode: null});
                 }
             }); 
-
+            
+ 
+            postal.subscribe({
+                channel: "restaurants-system",
+                topic: "item.save.request.complete",
+                callback: function (data, envelope) {
+                    //me.processSaveComplete(data,envelope)
+                    console.log("in save.request.complete "+JSON.stringify(data))
+                }
+            }); 
+ /*
             postal.subscribe({
                 channel: "restaurants",
                 topic: "item.edit.cancel",
