@@ -15,8 +15,8 @@
         margin: 10px;
 
     }
-    
-   
+
+
 
     .errorMessage
     {
@@ -132,29 +132,60 @@
         border: $default-border; 
         width: 51%;
         height: 250px;
-        
+
         table
         {
             width: 100%;
+            margin-top: 10px;
         }
         td
         {
-            padding-right: 10px;
-            
+            padding: 7px;
+            border: thin solid $blue-color;
+
             &.listing
             {
-                width: 85%;
-                border: thin solid red;
+                width: 80%;
+                
             }
             &.rating
             {
-                width: 15%;
-                border: thin solid red;
-                    
+                width: 10%;
+                
+
+            }
+            &.actionButton
+            {
+                width:  5%;
+                
+
             }
         }
+
+
+        .btnEdit {
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 10px;
+            background: #08c;
+            padding: 5px 5px 5px 5px;
+            text-decoration: none;
+        }
+
+        .btnDelete {
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 10px;
+            background: #d93434;
+            padding: 5px 5px 5px 5px;
+            text-decoration: none;
+        }
+
+
+
+
     }
-    
+
 
     .editRestaurantContainer
     {

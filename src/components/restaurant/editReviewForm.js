@@ -13,6 +13,7 @@ export default class EditReviewForm extends Component {
         {
             super();
             this._isMounted = false;
+             
 
         }
         
@@ -34,6 +35,7 @@ export default class EditReviewForm extends Component {
             let itemVar = [].concat(this.props.item) ;
             this.state = {
                 originalItem: this.props.item ,
+                currentReviewIdx: -1,
                 item: itemVar[0]
             }           
 
@@ -45,6 +47,7 @@ export default class EditReviewForm extends Component {
            // console.log(JSON.stringify(nextProps))
             let newState = {
                 originalItem: nextProps.item ,
+                currentReviewIdx: -1,
                 item: itemVar[0]
             }   
             this.setState(newState)
@@ -55,9 +58,23 @@ export default class EditReviewForm extends Component {
         {
         
                 // dont set state here it will cause a infinite loop
-         
+                // invoked before rendering, prep right before an update
         }
 
+        showReviewControls(idx)
+        {
+            console.log("idx is "+idx);
+            if (idx == this.state.currentReviewIdx)
+            {
+                return null;
+            }
+            return "hidden"
+        }
+        
+        editReview(idx,ev)
+        {
+            this.setState({ currentReviewIdx: idx})
+        }
 
         render()
         {
@@ -74,7 +91,19 @@ export default class EditReviewForm extends Component {
            
                    me.state.item.reviewDTOs.map((review,i) => (
 
-                                       <tr key={review.id}><td className="rating">{review.starRating}</td><td className="listing">{review.reviewListing}</td></tr>
+                                       <tr key={review.id}>
+                                       <td className="rating">{review.starRating}
+                               
+                                       <span className={me.showReviewControls(i)}>fred</span>
+                                       </td> 
+                                       <td className="listing">{review.reviewListing}
+                                       
+                        
+                                       </td> 
+                                       <td className="actionButton"><button onClick={me.editReview.bind(me,i)} className='btnEdit'>Edit</button></td> 
+                                       <td className="actionButton"><button className='btnDelete'>Delete</button></td> 
+                               
+                                       </tr>
                                     )) 
            
                     
