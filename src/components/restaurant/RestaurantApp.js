@@ -188,7 +188,7 @@
        let me = this;
        
        let processedItems = this.state.items.filter((item) => item.id != delItem.id);   
-       this.setState({items: processedItems, highlighting,isLoading: false});
+       this.setState({items: processedItems, highlighting,isLoading: false,actionMode: null});
         
         
     }
