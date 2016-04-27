@@ -109,6 +109,18 @@ gulp.task('sass', function () {
 
 });
 
+gulp.task('copy-assets', function () {
+    
+      return gulp.src(['./src/html/imgs/**/*'] )
+              .pipe(gulp.dest(targetLocation+'/images'));
+
+
+ 
+    
+    
+});
+
+
 gulp.task('watch', function () {
 
     watch(SASS_FILES, function (events, done) {
@@ -162,4 +174,4 @@ gulp.task('serve', function (done) {
             }));
 });
 gulp.task('release', gulpsync.sync(['clean','build', 'sass']));
-gulp.task('dev', gulpsync.sync(['clean', 'build', 'sass', 'copy-html', 'watch', 'serve']));
+gulp.task('dev', gulpsync.sync(['clean', 'build', 'sass','copy-assets', 'copy-html', 'watch', 'serve']));

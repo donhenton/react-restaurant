@@ -96,7 +96,7 @@ export default class ListItem extends Component {
         
                     
             <tr className={me.checkHighLight()}>  
-                    <td  onClick={this.editItem.bind(this)} className="nameItem">{item.name}</td> 
+                    <td  onClick={this.editItem.bind(this)} className="nameItem">{item.name} ({item.id})</td> 
                     <td  onClick={this.editItem.bind(this)} className="cityItem">{item.city}</td> 
                     <td  onClick={this.editItem.bind(this)} className="stateItem">{item.state}</td> 
                     <td  onClick={this.editItem.bind(this)} className="zipCodeItem">{item.zipCode}</td> 

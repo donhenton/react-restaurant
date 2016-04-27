@@ -205,13 +205,13 @@
         
     }
 
-    hideTableClass()
+    hideWaitIndicator()
     {
      if (this.state.isLoading)
      {
-         return "hidden";
+         return "waitIndicator";
      }
-     return null;
+     return "waitIndicator hidden";
     }
 
     displayEditFormCSS()
@@ -253,6 +253,7 @@
 
 
             <div className='restaurantApp grouping'>
+            <div className="waitIndicator" className={this.hideWaitIndicator()} />
                 <div className='restaurantListContainer'>
                     <div>
                         <span className="errorMessage">{this.state.errorMessage}</span>
@@ -276,7 +277,7 @@
                                     </tbody>
                                  </table>    
                             </div>    
-                            <div id='tbodyContainer' className={this.hideTableClass()}>
+                            <div id='tbodyContainer'>
                             <table>
                             <tbody>
                                 {
