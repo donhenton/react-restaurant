@@ -61,14 +61,33 @@ export default class EditReviewForm extends Component {
                 // invoked before rendering, prep right before an update
         }
 
-        showReviewControls(idx)
+        showReviewControls(idx,doShow)
         {
-            console.log("idx is "+idx);
+             
+            
             if (idx == this.state.currentReviewIdx)
             {
-                return null;
+                if (doShow)
+                {
+                    return null;
+                }
+                else
+                {
+                    return "hidden";
+                }
             }
-            return "hidden"
+            else
+            {
+                if (doShow)
+                {
+                    return "hidden";
+                }
+                else
+                {
+                    return null;
+                }
+            }
+             
         }
         
         editReview(idx,ev)
@@ -92,9 +111,9 @@ export default class EditReviewForm extends Component {
                    me.state.item.reviewDTOs.map((review,i) => (
 
                                        <tr key={review.id}>
-                                       <td className="rating">{review.starRating}
-                               
-                                       <span className={me.showReviewControls(i)}>fred</span>
+                                       <td className="rating">
+                                       <span className={me.showReviewControls(i,false )}>{review.starRating}</span>
+                                       <span className={me.showReviewControls(i,true)}>fred</span>
                                        </td> 
                                        <td className="listing">{review.reviewListing}
                                        
