@@ -37,7 +37,7 @@
        
                });
        
-       this.setState({highlighting,actionMode:"EDIT"});
+       this.setState({highlighting,actionMode:"EDIT",errorMessage: null});
       
       
    }
@@ -55,8 +55,9 @@
     componentWillMount()
     {
             let me = this;
-            this.state = {items: [EMPTY_RESTAURANT()],actionMode: null,isLoading: true};
+            this.state = {items: [EMPTY_RESTAURANT()],actionMode: null,isLoading: true,errorMessage: null};
             this.state.highlighting = [];
+            this.state.errorMessage = null;
             
             this.callbacks = {
                         deleteItem: this.deleteItemRequest.bind(this),
@@ -101,7 +102,7 @@
                     highlighting.push(false);
                 }
                     
-                    me.setState({actionMode: null,highlighting});
+                    me.setState({actionMode: null,highlighting,errorMessage: null});
                 }
             }); 
             
@@ -110,7 +111,8 @@
                 channel: "restaurants-system",
                 topic: "item.save.request.complete",
                 callback: function (data, envelope) {
-                     me.processSaveComplete(data.confirmedData)
+                    if (!me.checkForError(data))
+                        me.processSaveComplete(data.confirmedData)
                    // console.log("in save.request.complete "+JSON.stringify(data))
                 }
             }); 
@@ -119,7 +121,8 @@
                 channel: "restaurants-system",
                 topic: "item.add.request.complete",
                 callback: function (data, envelope) {
-                     me.processAddComplete(data.confirmedData)
+                    if (!me.checkForError(data))
+                       me.processAddComplete(data.confirmedData)
                    // console.log("in save.request.complete "+JSON.stringify(data))
                 }
             }); 
@@ -128,11 +131,28 @@
                 channel: "restaurants-system",
                 topic: "item.delete.request.complete",
                 callback: function (data, envelope) {
-                     me.processDeleteComplete(data.confirmedData)
+                    if (!me.checkForError(data))
+                       me.processDeleteComplete(data.confirmedData)
                    // console.log("in save.request.complete "+JSON.stringify(data))
                 }
             }); 
  
+    }
+    
+    checkForError(data)
+    {
+        let me = this;
+        if (data.error)
+        {
+            
+            me.setState({errorMessage: data.error})
+            return true;
+        }
+        else
+        {
+            me.setState({errorMessage: null})
+            return false;
+        }
     }
     
     
@@ -217,7 +237,7 @@
             highlighting.push(false);
         }
 
-        me.setState({actionMode: "ADD",highlighting});
+        me.setState({actionMode: "ADD",highlighting,errorMessage: null});
         postal.publish({
             channel: "restaurants-system",
             topic: "add.Item" ,
@@ -235,6 +255,7 @@
             <div className='restaurantApp grouping'>
                 <div className='restaurantListContainer'>
                     <div>
+                        <span className="errorMessage">{this.state.errorMessage}</span>
                         <button  onClick={this.addRestaurant.bind(this)} className="editButton addButton">Add Record</button>
                     </div>
 

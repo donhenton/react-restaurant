@@ -71,7 +71,7 @@ import postal from 'postal';
                 postal.publish({
                     channel: "restaurants-system",
                     topic: "item.save.request.complete" ,
-                    data: {err: err}
+                    data: {error: err.message}
                 });
             })
                 
@@ -101,7 +101,7 @@ import postal from 'postal';
                 postal.publish({
                     channel: "restaurants-system",
                     topic: "item.add.request.complete" ,
-                    data: {err: err}
+                    data: {error: err.message}
                 });
             })
                 
@@ -128,7 +128,7 @@ import postal from 'postal';
                 postal.publish({
                     channel: "restaurants-system",
                     topic: "item.delete.request.complete" ,
-                    data: {err: err}
+                    data: {error: err.message}
                 });
             })
                 
