@@ -232,11 +232,11 @@
       //console.log("display css "+this.state.inEditMode);
       if (this.state.actionMode)
       {
-         return "editRestaurantContainer";
+         return "editContainer";
       }
       else
       {
-          return "editRestaurantContainer hidden"; 
+          return "editContainer hidden"; 
       }
 
     }
@@ -316,9 +316,11 @@
 
 
 
-                </div>    
+                </div>   
                 <div className={me.displayEditFormCSS()}>
-                        <EditRestaurantForm />
+                    
+                       <EditRestaurantForm />
+                                
                 </div>
 
 

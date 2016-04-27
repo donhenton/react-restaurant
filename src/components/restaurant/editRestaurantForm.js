@@ -5,31 +5,30 @@ import ReactDOM from 'react-dom';
 import Immutable from 'immutable';
 import {cloneJSON} from './restaurantUtils';
 import {EMPTY_RESTAURANT} from './restaurantService';
+import EditReviewForm from './editReviewForm';
 
-
-export const EDITFORM_REPLY_TO =  "editRestaurantForm";
 
 export default class EditRestaurantForm extends Component {
    
        
-        constructor()
-        {
-            super();
-            this._isMounted = false;
+    constructor()
+    {
+        super();
+        this._isMounted = false;
 
-        }
+    }
         
     componentWillUnMount()
-  {
-      this._isMounted = false;
-      
-  }
+    {
+        this._isMounted = false;
+
+    }
   
-   componentDidMount()
-  {
-      this._isMounted = true;
-      // console.log("didMount "+this._isMounted);
-  }      
+    componentDidMount()
+    {
+        this._isMounted = true;
+        // console.log("didMount "+this._isMounted);
+    }      
         
         
   componentWillMount()
@@ -112,7 +111,8 @@ export default class EditRestaurantForm extends Component {
 
 
             return (
-                  <section>
+                 <div id="editControlGroup">
+                  <section className="editRestaurantContainer">
 
                  <form id='editForm' noValidate>
                       <table className="editTable">
@@ -151,8 +151,13 @@ export default class EditRestaurantForm extends Component {
 
 
                  </form>
-                  </section>        
-
+                  </section>  
+                    <EditReviewForm item={this.state.item} />
+                  </div>
+                        
+                    
+            
+  
                           )
 
         }

@@ -3,14 +3,20 @@
 
     $default-border:   4px #ccc double;
     $blue-color: #08c;
-    .restaurantListContainer,.editRestaurantContainer
+    .editContainer
+    {
+        float: left;
+        width: 98%
+    }
+    .restaurantListContainer,.editRestaurantContainer , .editReviewContainer
     {
         float: left;
         padding:1.5%;
-
         margin: 10px;
 
     }
+    
+   
 
     .errorMessage
     {
@@ -22,7 +28,7 @@
     .restaurantListContainer
     {
         border: $default-border;
-        width: 95%;
+        width: 98%;
         height: 250px;
         overflow:hidden;
 
@@ -121,11 +127,40 @@
 
     }
 
+    .editReviewContainer
+    {
+        border: $default-border; 
+        width: 51%;
+        height: 250px;
+        
+        table
+        {
+            width: 100%;
+        }
+        td
+        {
+            padding-right: 10px;
+            
+            &.listing
+            {
+                width: 85%;
+                border: thin solid red;
+            }
+            &.rating
+            {
+                width: 15%;
+                border: thin solid red;
+                    
+            }
+        }
+    }
+    
 
     .editRestaurantContainer
     {
         border: $default-border; 
         width: 45%;
+        height: 250px;
         td
         {   height: 45px;
 
