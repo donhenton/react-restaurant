@@ -1,19 +1,20 @@
     import React from 'react';
     import { Component } from 'react';
 
-    import {RESTAURANT_SERVICE} from './../App';
+     
     import {EMPTY_RESTAURANT} from './restaurantService';
     import {arrayToIterable} from './restaurantUtils';
     import postal from 'postal';
     import EditRestaurantForm from './editRestaurantForm';
     import ListItem from './restaurantListItem';
+    import RestaurantService from './restaurantService';
 
     export default class RestaurantApp extends Component {
 
     constructor()
     {
         super();
-        
+        this.restaurantService = new RestaurantService();
 
     }
     
@@ -66,7 +67,7 @@
                 }
             
             
-            RESTAURANT_SERVICE.getAllRestaurants()
+           me.restaurantService.getAllRestaurants()
 
             .then(function (data) {
 

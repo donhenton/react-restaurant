@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
-import { createRoutes } from './routes/routes';
+import RestaurantApp from './components/restaurant/restaurantApp';
 
 
 ReactDOM.render(
  
-    <Router routes={createRoutes()} history={browserHistory} />
+    <RestaurantApp />
    
   , document.querySelector('.container'));
