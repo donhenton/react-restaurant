@@ -16,11 +16,26 @@ import postal from 'postal';
                         me.processSaveRequest(data, envelope)
                         }
                 });
+                postal.subscribe({
+                channel: "restaurants-system",
+                        topic: "item.add.request",
+                        callback: function (data, envelope) {
+                        me.processAddRequest(data, envelope)
+                        }
+                });
+                postal.subscribe({
+                channel: "restaurants-system",
+                        topic: "item.delete.request",
+                        callback: function (data, envelope) {
+                        me.processDeleteRequest(data, envelope)
+                        }
+                });
         }
+         
 
         getAllRestaurants()
         {
-        return rp(this.rootURL);
+            return rp(this.rootURL);
         }
 
 
@@ -49,6 +64,10 @@ import postal from 'postal';
                 });
             }) 
             .catch(function(err) {
+                
+                //"400 - {"message":"key: name Restaurant Name cannot be blank,key: zipCode Zipcode cannot be blank,key: state State cannot be blank,key: city City cannot be blank","errorClass":"com.dhenton9000.restaurant.service.impl.ValidatorFailureException"}"
+                
+                
                 postal.publish({
                     channel: "restaurants-system",
                     topic: "item.save.request.complete" ,
@@ -57,7 +76,63 @@ import postal from 'postal';
             })
                 
         }
-
+        processAddRequest(newItem, envelope)
+        {
+         // console.log("service " + JSON.stringify(newItem) + " " + envelope.replyTo);
+                
+            var options = {
+                method: 'POST',
+                uri: this.rootURL ,
+                body:  newItem,
+                json: true // Automatically stringifies the body to JSON 
+                };    
+            rp(options)    
+            .then(function(parsedBody)
+            {
+                
+                newItem.id = parsedBody.id;
+                postal.publish({
+                    channel: "restaurants-system",
+                    topic: "item.add.request.complete" ,
+                    data: {confirmedData: newItem,newId: parsedBody.id} 
+                });
+            }) 
+            .catch(function(err) {
+                postal.publish({
+                    channel: "restaurants-system",
+                    topic: "item.add.request.complete" ,
+                    data: {err: err}
+                });
+            })
+                
+        }
+        processDeleteRequest(delItem, envelope)
+        {
+         // console.log("service " + JSON.stringify(newItem) + " " + envelope.replyTo);
+                
+            var options = {
+                method: 'DELETE',
+                uri: this.rootURL +"/"+delItem.id  
+                
+                };    
+            rp(options)    
+            .then(function(parsedBody)
+            {
+                postal.publish({
+                    channel: "restaurants-system",
+                    topic: "item.delete.request.complete" ,
+                    data: {confirmedData:delItem} 
+                });
+            }) 
+            .catch(function(err) {
+                postal.publish({
+                    channel: "restaurants-system",
+                    topic: "item.delete.request.complete" ,
+                    data: {err: err}
+                });
+            })
+                
+        }
 
 
         }

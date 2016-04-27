@@ -44,7 +44,11 @@
    
    deleteItemRequest(item)
    {
-       //console.log("hit del "+JSON.stringify(item))
+       postal.publish({
+            channel: "restaurants-system",
+            topic: "item.delete.request" ,
+            data:  item 
+        });
    } 
    
     
@@ -90,6 +94,7 @@
                 channel: "restaurants-system",
                 topic: "cancel.edit.Item",
                 callback: function (data, envelope) {
+                 
                 let highlighting = [];    
                 for(var i=0;i<me.state.items.length;i++)
                 {
@@ -109,36 +114,51 @@
                    // console.log("in save.request.complete "+JSON.stringify(data))
                 }
             }); 
- /*
+            
             postal.subscribe({
-                channel: "restaurants",
-                topic: "item.edit.cancel",
+                channel: "restaurants-system",
+                topic: "item.add.request.complete",
                 callback: function (data, envelope) {
-                    me.processEditCancel(data,envelope)
+                     me.processAddComplete(data.confirmedData)
+                   // console.log("in save.request.complete "+JSON.stringify(data))
                 }
             }); 
-
-            postal.subscribe({
-                channel: "restaurants",
-                topic: "edit.Item",
+            
+             postal.subscribe({
+                channel: "restaurants-system",
+                topic: "item.delete.request.complete",
                 callback: function (data, envelope) {
-
-                    me.setState({'actionMode': "EDIT"},function( )
-                        {
-                              //this is called when state is finally set
-
-
-
-                        })
-
-                   }
-                }); 
-
-*/
-
+                     me.processDeleteComplete(data.confirmedData)
+                   // console.log("in save.request.complete "+JSON.stringify(data))
+                }
+            }); 
+ 
     }
     
     
+    processAddComplete(newDataItem)
+    {
+        
+       let me = this;
+       let processedItems  = [newDataItem].concat(this.state.items);
+       
+       this.setState({items: processedItems,  actionMode:null});
+        
+        
+    }
+    
+    
+    
+    processDeleteComplete(delItem)
+    {
+       let highlighting = [];
+       let me = this;
+       
+       let processedItems = this.state.items.filter((item) => item.id != delItem.id);   
+       this.setState({items: processedItems, highlighting});
+        
+        
+    }
     processSaveComplete(newDataItem)
     {
        let highlighting = [];
@@ -187,6 +207,24 @@
       }
 
     }
+    
+    addRestaurant()
+    {
+        let me = this;
+        let highlighting = [];    
+        for(var i=0;i<me.state.items.length;i++)
+        {
+            highlighting.push(false);
+        }
+
+        me.setState({actionMode: "ADD",highlighting});
+        postal.publish({
+            channel: "restaurants-system",
+            topic: "add.Item" ,
+            data: EMPTY_RESTAURANT()
+        });
+        
+    }
 
         render() {
             let me = this;
@@ -197,7 +235,7 @@
             <div className='restaurantApp grouping'>
                 <div className='restaurantListContainer'>
                     <div>
-                        <button   className="editButton addButton">Add Record</button>
+                        <button  onClick={this.addRestaurant.bind(this)} className="editButton addButton">Add Record</button>
                     </div>
 
                     <div id="restaurantScrollList">

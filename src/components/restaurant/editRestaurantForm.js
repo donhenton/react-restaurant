@@ -40,41 +40,39 @@ export default class EditRestaurantForm extends Component {
       this.state.replyTo = null;
      // console.log(" willmount " + JSON.stringify(this.state));
       let me = this;
-        this.subscription = postal.subscribe({
+      postal.subscribe({
             channel: "restaurants-system",
             topic: "edit.Item",
             callback: function (data, envelope) {
-                 me.processEditItem(data,envelope)
+                 me.processFormItem(data,envelope,"EDIT")
             }
         }); 
          
-         
-        
-        /*
-         this.subscription = postal.subscribe({
-            channel: "restaurants",
-            topic: "item.add.request.complete",
+        postal.subscribe({
+            channel: "restaurants-system",
+            topic: "add.Item",
             callback: function (data, envelope) {
-               // me.processSaveComplete(data,envelope)
+                 me.processFormItem(data,envelope,"ADD")
             }
-        }); 
-        */
+        });  
+        
+        
   }
   
   
-     processEditItem(data,envelope)
+   processFormItem(data,envelope,actionMode)
    {
          if (!this._isMounted)
              return;
          
          let  copyState =   
-         {item: cloneJSON(data),actionMode:"EDIT"};
+         {item: cloneJSON(data),actionMode};
          this.setState(copyState);
        
     
 
    }
-  
+    
   
         processItem(fieldName,ev)
         {
@@ -96,9 +94,14 @@ export default class EditRestaurantForm extends Component {
         saveItem(id,ev)
         {
             ev.preventDefault();
+            let topic = "item.save.request";
+            if (this.state.actionMode == "ADD")
+            {
+                topic = "item.add.request";
+            }
             postal.publish({
                 channel: "restaurants-system",
-                topic: "item.save.request" ,
+                topic: topic ,
                 data: this.state.item 
              });
         }
