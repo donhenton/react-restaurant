@@ -134,7 +134,19 @@
                 callback: function (data, envelope) {
                     if (!me.checkForError(data))
                        me.processDeleteComplete(data.confirmedData)
+                        
                    // console.log("in save.request.complete "+JSON.stringify(data))
+                }
+            }); 
+            
+            //handle save and add messages from the restaurant form
+             postal.subscribe({
+                channel: "restaurants-system",
+                topic: "item.*.request",
+                callback: function (data, envelope) {
+                    if (!me.checkForError(data))
+                      me.setState({isLoading: true});
+                   
                 }
             }); 
  
@@ -146,12 +158,12 @@
         if (data.error)
         {
             
-            me.setState({errorMessage: data.error})
+            me.setState({errorMessage: data.error,isLoading: false})
             return true;
         }
         else
         {
-            me.setState({errorMessage: null})
+            me.setState({errorMessage: null,isLoading: false})
             return false;
         }
     }
@@ -163,7 +175,7 @@
        let me = this;
        let processedItems  = [newDataItem].concat(this.state.items);
        
-       this.setState({items: processedItems,  actionMode:null});
+       this.setState({items: processedItems,  actionMode:null,isLoading: false});
         
         
     }
@@ -176,7 +188,7 @@
        let me = this;
        
        let processedItems = this.state.items.filter((item) => item.id != delItem.id);   
-       this.setState({items: processedItems, highlighting});
+       this.setState({items: processedItems, highlighting,isLoading: false});
         
         
     }
@@ -201,7 +213,7 @@
        
                });
        
-       this.setState({items: processedItems, highlighting,actionMode:null});
+       this.setState({items: processedItems, highlighting,actionMode:null,isLoading: false});
         
         
     }
