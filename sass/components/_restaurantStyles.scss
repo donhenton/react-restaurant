@@ -138,33 +138,47 @@
             width: 100%;
             margin-top: 10px;
         }
-        
-        #reviewListing
+
+        #reviewListing 
         {
-            width: 90%
+            width: 98%;
+            font-size: 15px ;
+            height: 25px;
+            border: 2px solid $blue-color;
         }
-        
+        #starRating
+        {
+            background: transparent;
+            width: 50px;
+            border: 2px solid $blue-color;
+            font-size: 15px;          
+            border-radius: 20px;
+            height: 25px;
+             
+        }
+
         td
         {
-            padding: 7px;
+            padding: 5px;
             border: thin solid $blue-color;
             vertical-align: center;
+            height: 30px;
 
             &.listing
             {
-                width: 80%;
-                
+                width: 75%;
+
             }
             &.rating
             {
-                width: 10%;
-                
+                width: 15%;
+
 
             }
             &.actionButton
             {
                 width:  5%;
-                
+
 
             }
         }

@@ -55,7 +55,14 @@ export default class EditRestaurantForm extends Component {
             }
         });  
         
-        
+        postal.subscribe({
+                channel: "restaurants-system",
+                topic: "review.update",
+                callback: function (data, envelope) {
+                     
+                    me.setState({item: data})
+                }
+            }); 
   }
   
   
@@ -104,11 +111,12 @@ export default class EditRestaurantForm extends Component {
                 data: this.state.item 
              });
         }
-
+        
+        
 
         render() {
 
-
+            let me = this;
 
             return (
                  <div id="editControlGroup">
@@ -152,7 +160,7 @@ export default class EditRestaurantForm extends Component {
 
                  </form>
                   </section>  
-                    <EditReviewForm item={this.state.item} />
+                    <EditReviewForm item={this.state.item}  />
                   </div>
                         
                     

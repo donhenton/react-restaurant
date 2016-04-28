@@ -8,6 +8,7 @@
     import EditRestaurantForm from './editRestaurantForm';
     import ListItem from './restaurantListItem';
     import RestaurantService from './restaurantService';
+    import ReviewService from './reviewService';
 
     export default class RestaurantApp extends Component {
 
@@ -15,6 +16,7 @@
     {
         super();
         this.restaurantService = new RestaurantService();
+        this.reviewService = new ReviewService();
 
     }
     
@@ -107,6 +109,32 @@
                 }
             }); 
             
+ 
+            postal.subscribe({
+                channel: "restaurants-system",
+                topic: "review.update",
+                callback: function (newItem, envelope) {
+                     
+                     let updatedItems = me.state.items.map((item,i) =>
+                            { 
+                                    if (item.id == newItem.id)
+                                    {
+                                        return newItem    
+                                    }
+                                    else
+                                    {
+                                        return item;
+                                    }
+                            
+                            } 
+                            
+                            );
+                    
+                     me.setState({items: updatedItems});
+                    
+                }
+            }); 
+ 
  
             postal.subscribe({
                 channel: "restaurants-system",

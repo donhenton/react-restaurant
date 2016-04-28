@@ -33,18 +33,50 @@ export default class EditReviewForm extends Component {
         componentWillMount()
         {
             let itemVar = cloneJSON(this.props.item) ;
+            let me = this;
             this.state = {
-                originalItem: this.props.item ,
+                originalItem: itemVar ,
                 currentReviewIdx: -1,
                 item: itemVar 
-            }           
+            }     
+            
+            postal.subscribe({
+                channel: "restaurants-system",
+                topic: "item.save.request.complete.review",
+                callback: function (data, envelope) {
+                    if (!me.checkForError(data))
+                        me.processSaveReviewComplete(data.confirmedData)
+                   
+                }
+            }); 
+            
+             postal.subscribe({
+                channel: "restaurants-system",
+                topic: "item.add.request.complete.review",
+                callback: function (data, envelope) {
+                    if (!me.checkForError(data))
+                        me.processAddReviewComplete(data.confirmedData)
+                    
+                }
+            }); 
+            
+             postal.subscribe({
+                channel: "restaurants-system",
+                topic: "item.delete.request.complete.review",
+                callback: function (data, envelope) {
+                    if (!me.checkForError(data))
+                        me.processDeleteReviewComplete(data.confirmedData)
+                    
+                }
+            }); 
+            
 
 
         }
         componentWillReceiveProps (nextProps) {
             //got a prop change send it to state
             let itemVar = cloneJSON(nextProps.item) ;
-           // console.log(JSON.stringify(nextProps))
+            
             let newState = {
                 originalItem: nextProps.item ,
                 currentReviewIdx: -1,
@@ -60,6 +92,45 @@ export default class EditReviewForm extends Component {
                 // dont set state here it will cause a infinite loop
                 // invoked before rendering, prep right before an update
         }
+        
+        processDeleteReviewComplete(data)
+        {
+            
+        }
+        processAddReviewComplete(data)
+        {
+            
+        }
+        processSaveReviewComplete(data)
+        {
+            //console.log("complete "+JSON.stringify(data)) 
+            this.setState({currentReviewIdx: -1, originalItem: cloneJSON(this.state.item)});
+               
+            postal.publish({
+                channel: "restaurants-system",
+                topic: "review.update" ,
+                actionType: "SAVE",
+                data: this.state.item 
+             });
+        
+        }
+        
+        checkForError(data)
+        {
+            let me = this;
+            if (data.error)
+            {
+
+               // me.setState({errorMessage: data.error,isLoading: false})
+                return true;
+            }
+            else
+            {
+               // me.setState({errorMessage: null,isLoading: false})
+                return false;
+            }
+        }
+        
 
         showReviewControls(idx,doShow)
         {
@@ -96,6 +167,12 @@ export default class EditReviewForm extends Component {
         }
         saveReview(idx,ev)
         {
+             
+             postal.publish({
+                channel: "restaurants-system",
+                topic: "item.save.request.review" ,
+                data: {changedReview: this.state.item.reviewDTOs[this.state.currentReviewIdx],restaurantId: this.state.item.id}  
+             });
              
         }
         deleteReview(idx,ev)
