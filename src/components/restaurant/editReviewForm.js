@@ -312,7 +312,7 @@ export default class EditReviewForm extends Component {
                         
                                        </span>
                                
-                                       
+                                        &nbsp;<i className="fa fa-star-o" aria-hidden="true"></i>
                                
                                
                                        </td> 
