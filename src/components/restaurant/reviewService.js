@@ -145,5 +145,5 @@ import postal from 'postal';
 
 export const EMPTY_REVIEW = function()
         {
-        return {starRating: - 1, reviewListing:"", stampDate:"", id: - 1};
+        return {starRating: 2, reviewListing:"", stampDate:"", id: - 1};
                 }

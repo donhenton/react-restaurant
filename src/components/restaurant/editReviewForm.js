@@ -114,8 +114,11 @@ export default class EditReviewForm extends Component {
         }
         processAddReviewComplete(data)
         {
+            //state is not maintained, so rebuild from scratch
             let itemWithId = cloneJSON(this.state.item);
-            itemWithId.reviewDTOs[this.state.currentReviewIdx].id = data.id;
+         
+            itemWithId.reviewDTOs = [data].concat(itemWithId.reviewDTOs)
+ 
          
             this.setState({currentReviewIdx: -1,actionType:null, originalItem: itemWithId, item: itemWithId } );
                
@@ -129,7 +132,23 @@ export default class EditReviewForm extends Component {
         processSaveReviewComplete(data)
         {
             //console.log("complete "+JSON.stringify(data)) 
-            this.setState({currentReviewIdx: -1,actionType:null, originalItem: cloneJSON(this.state.item)});
+            let newReview = data.changedReview;
+            let newItem = cloneJSON(this.state.item);
+            let newReviews = newItem.reviewDTOs.map((review) => 
+                    {
+                        if (review.id === newReview.id)
+                        {
+                            return newReview;
+                        }
+                        else
+                        {
+                            return review;
+                        }
+                    }
+                    
+                    )
+            newItem.reviewDTOs = newReviews;
+            this.setState({currentReviewIdx: -1,actionType:null, originalItem: newItem, item: newItem });
                
             postal.publish({
                 channel: "restaurants-system",
