@@ -74,9 +74,7 @@ export default class RestaurantService
                 data: {error: err.message}
             });
         })
-       
-        
-        // "item.save.request.complete.review",
+
         
 
         
@@ -88,6 +86,44 @@ export default class RestaurantService
     }
      processAddRequestReview(newItem, envelope)
     {
+        console.log("processAdd "+JSON.stringify(newItem));
+        //changedReview, restaurantId
+        let newReview = {starRating: newItem.changedReview.starRating,
+            reviewListing: newItem.changedReview.reviewListing }
+        
+        let urlValue = this.rootURL+"/"+newItem.restaurantId;
+         
+        var options = {
+            method: 'POST',
+            uri: urlValue,
+            body:  newReview,
+            json: true // Automatically stringifies the body to JSON 
+            }; 
+        
+        rp(options)    
+        .then(function(parsedBody)
+        {
+            let newReviewWithId = newReview;
+            newReviewWithId["id"] = parsedBody.id;
+            postal.publish({
+                channel: "restaurants-system",
+                topic: "item.add.request.complete.review" ,
+                data: { confirmedData: newReviewWithId }
+             });
+            
+        }) 
+        .catch(function(err) {
+
+            //"400 - {"message":"key: name Restaurant Name cannot be blank,key: zipCode Zipcode cannot be blank,key: state State cannot be blank,key: city City cannot be blank","errorClass":"com.dhenton9000.restaurant.service.impl.ValidatorFailureException"}"
+
+
+            postal.publish({
+                channel: "restaurants-system",
+                topic: "item.save.request.complete" ,
+                data: {error: err.message}
+            });
+        })
+        
         
         
     }

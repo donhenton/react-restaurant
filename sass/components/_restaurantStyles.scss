@@ -137,7 +137,45 @@
         {
             width: 100%;
             margin-top: 10px;
+            border-collapse: collapse;
+            table-layout: fixed;
+            empty-cells: show;
         }
+
+
+        th
+        {
+            background-color: $blue-color;
+            color: white;
+            border-right: thin solid white;
+            padding-bottom: 0px;
+            text-align:center;
+        }
+
+        #reviewTableBodyContainer
+        {
+
+            height: 125px;
+            overflow-y: scroll;
+            width: 550px;
+
+        }
+
+        #reviewTableHeaderContainer
+        {
+            width: 535px;
+
+        }
+
+        .editHeader
+        {
+            font-size: 25px;
+            font-weight: bold;
+            float: left;
+
+
+        }
+
 
         #reviewListing 
         {
@@ -154,7 +192,29 @@
             font-size: 15px;          
             border-radius: 20px;
             height: 25px;
-             
+
+        }
+
+        th
+        {
+            &.listing
+            {
+                width: 70%;
+
+            }
+            &.rating
+            {
+                width: 15%;
+
+
+            }
+            &.actionButton
+            {
+                width:  15%;
+
+
+
+            }
         }
 
         td
@@ -166,7 +226,7 @@
 
             &.listing
             {
-                width: 75%;
+                width: 70%;
 
             }
             &.rating
@@ -177,7 +237,8 @@
             }
             &.actionButton
             {
-                width:  5%;
+                width:  15%;
+                text-align: center
 
 
             }

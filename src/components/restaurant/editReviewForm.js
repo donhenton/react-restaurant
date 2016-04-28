@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import Immutable from 'immutable';
 import {cloneJSON} from './restaurantUtils';
 import {EMPTY_RESTAURANT} from './restaurantService';
+import {EMPTY_REVIEW} from './reviewService';
 
 export default class EditReviewForm extends Component {
    
@@ -37,6 +38,7 @@ export default class EditReviewForm extends Component {
             this.state = {
                 originalItem: itemVar ,
                 currentReviewIdx: -1,
+                actionType: null,
                 item: itemVar 
             }     
             
@@ -80,6 +82,7 @@ export default class EditReviewForm extends Component {
             let newState = {
                 originalItem: nextProps.item ,
                 currentReviewIdx: -1,
+                actionType: null,
                 item: itemVar 
             }   
             this.setState(newState)
@@ -99,12 +102,22 @@ export default class EditReviewForm extends Component {
         }
         processAddReviewComplete(data)
         {
-            
+            let itemWithId = cloneJSON(this.state.item);
+            itemWithId.reviewDTOs[this.state.currentReviewIdx].id = data.id;
+         
+            this.setState({currentReviewIdx: -1,actionType:null, originalItem: itemWithId, item: itemWithId } );
+               
+            postal.publish({
+                channel: "restaurants-system",
+                topic: "review.update" ,
+                actionType: "ADD",
+                data: itemWithId 
+             });
         }
         processSaveReviewComplete(data)
         {
             //console.log("complete "+JSON.stringify(data)) 
-            this.setState({currentReviewIdx: -1, originalItem: cloneJSON(this.state.item)});
+            this.setState({currentReviewIdx: -1,actionType:null, originalItem: cloneJSON(this.state.item)});
                
             postal.publish({
                 channel: "restaurants-system",
@@ -163,25 +176,30 @@ export default class EditReviewForm extends Component {
         
         editReview(idx,ev)
         {
-            this.setState({ currentReviewIdx: idx})
+            this.setState({ currentReviewIdx: idx,actionType: "EDIT"})
         }
         saveReview(idx,ev)
         {
-             
-             postal.publish({
-                channel: "restaurants-system",
-                topic: "item.save.request.review" ,
-                data: {changedReview: this.state.item.reviewDTOs[this.state.currentReviewIdx],restaurantId: this.state.item.id}  
-             });
+            let topic = "item.save.request.review";
+            if (this.state.actionType && this.state.actionType == "ADD") 
+            {
+              topic = "item.add.request.review";
+            }
+               
+            postal.publish({
+                 channel: "restaurants-system",
+                 topic: topic ,
+                 data: {changedReview: this.state.item.reviewDTOs[this.state.currentReviewIdx],restaurantId: this.state.item.id}  
+              });
              
         }
         deleteReview(idx,ev)
         {
-             
+              
         } 
         cancelEdit(idx,ev)
         {
-             this.setState({currentReviewIdx: -1, item: cloneJSON(this.state.originalItem)});
+             this.setState({currentReviewIdx: -1, actionType: null, item: cloneJSON(this.state.originalItem)});
         } 
 
         processField(fieldName,ev)
@@ -189,6 +207,14 @@ export default class EditReviewForm extends Component {
               let  copyState = cloneJSON( this.state );  
               copyState.item.reviewDTOs[copyState.currentReviewIdx][fieldName] = ev.target.value;
               this.setState(copyState);
+        }
+        
+        addReview()
+        {
+            let newItem = cloneJSON(this.state.originalItem);
+            newItem.reviewDTOs = [EMPTY_REVIEW()].concat(newItem.reviewDTOs);
+            let newState = {currentReviewIdx: 0, item: newItem,actionType: "ADD"}
+            this.setState(newState);
         }
 
 
@@ -199,7 +225,23 @@ export default class EditReviewForm extends Component {
                    
                     
             <section className="editReviewContainer">
-            <h4>Reviews</h4>
+            <span className="editHeader">Reviews</span>
+            <button  onClick={me.addReview.bind(this)} className="editButton addButton">Add Review</button>
+    
+    
+    
+            <div id="reviewTableHeaderContainer">
+               <table>
+                <tbody>
+                <tr><th className="rating">Stars</th><th className="listing">Review</th><th className="actionButton">&nbsp;</th><th className="actionButton">&nbsp;</th></tr>
+                </tbody>
+                </table> 
+            </div>
+    
+    
+    
+              
+              <div id="reviewTableBodyContainer">
               <table>
               <tbody>
               {
@@ -237,7 +279,7 @@ export default class EditReviewForm extends Component {
                                
                                        </td> 
                                        <td className="listing">
-                                       <span className={me.showReviewControls(i,false )}>{review.reviewListing}</span>
+                                       <span className={me.showReviewControls(i,false )}>{review.reviewListing} {review.id}</span>
                                        <span className={me.showReviewControls(i,true)}>
                                        
                                         <input onChange={me.processField.bind(this,"reviewListing")}  name="reviewListing" id="reviewListing" type="text" value={review.reviewListing} /> 
@@ -272,6 +314,7 @@ export default class EditReviewForm extends Component {
               }
               </tbody>
               </table>
+              </div>
             </section>
     
             )
