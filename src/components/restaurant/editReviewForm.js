@@ -96,9 +96,21 @@ export default class EditReviewForm extends Component {
                 // invoked before rendering, prep right before an update
         }
         
-        processDeleteReviewComplete(data)
+        processDeleteReviewComplete(reviewToDelete)
         {
-            
+            let newItem = cloneJSON(this.state.item);
+            //itemWithId.reviewDTOs[this.state.currentReviewIdx].id = data.id;
+            let newReviews = newItem.reviewDTOs.filter((review) => review.id != reviewToDelete.id)
+            newItem.reviewDTOs = newReviews;
+         
+            this.setState({currentReviewIdx: -1,actionType:null, originalItem: newItem, item: newItem } );
+               
+            postal.publish({
+                channel: "restaurants-system",
+                topic: "review.update" ,
+                actionType: "DELETE",
+                data: newItem 
+             });
         }
         processAddReviewComplete(data)
         {
@@ -196,6 +208,13 @@ export default class EditReviewForm extends Component {
         deleteReview(idx,ev)
         {
               
+            let reviewToDelete = this.state.item.reviewDTOs[idx];
+            
+              postal.publish({
+                 channel: "restaurants-system",
+                 topic: "item.delete.request.review" ,
+                 data: {changedReview: reviewToDelete,restaurantId: this.state.item.id}  
+              });
         } 
         cancelEdit(idx,ev)
         {
