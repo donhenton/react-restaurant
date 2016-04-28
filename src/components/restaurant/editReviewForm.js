@@ -317,7 +317,7 @@ export default class EditReviewForm extends Component {
                                
                                        </td> 
                                        <td className="listing">
-                                       <span className={me.showReviewControls(i,false )}>{review.reviewListing} {review.id}</span>
+                                       <span className={me.showReviewControls(i,false )}>{review.reviewListing}</span>
                                        <span className={me.showReviewControls(i,true)}>
                                        
                                         <input onChange={me.processField.bind(this,"reviewListing")}  name="reviewListing" id="reviewListing" type="text" value={review.reviewListing} /> 

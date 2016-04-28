@@ -46,16 +46,9 @@ export default class ListItem extends Component {
         
     componentWillUpdate(nextProps,nextState)
     {
-        //if (nextState.item.id ==6)
-        //    console.log("component will update state "+JSON.stringify(nextState))
-        //if (nextState.item.id ==6)
-       //    console.log("component will update props "+JSON.stringify(nextProps))
-        //  if (nextProps.highlighted)
-       //         console.log("component will update props "+JSON.stringify(nextProps))
+       
        // dont set state here it will cause a infinite loop
-       // this.setState({highlighted: nextProps.highlighted})
-       // this.setState({item: this.props.item,highLighted: this.props.highlighted};
-       //this.setState({item: this.props.item})
+       
     }
   
   
@@ -96,7 +89,7 @@ export default class ListItem extends Component {
         
                     
             <tr className={me.checkHighLight()}>  
-                    <td  onClick={this.editItem.bind(this)} className="nameItem">{item.name} ({item.id})</td> 
+                    <td  onClick={this.editItem.bind(this)} className="nameItem">{item.name} </td> 
                     <td  onClick={this.editItem.bind(this)} className="cityItem">{item.city}</td> 
                     <td  onClick={this.editItem.bind(this)} className="stateItem">{item.state}</td> 
                     <td  onClick={this.editItem.bind(this)} className="zipCodeItem">{item.zipCode}</td> 
