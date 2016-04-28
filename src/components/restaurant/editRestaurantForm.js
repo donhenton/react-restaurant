@@ -75,7 +75,7 @@ export default class EditRestaurantForm extends Component {
   
         processItem(fieldName,ev)
         {
-              let  copyState = JSON.parse(JSON.stringify( this.state ));  
+              let  copyState = cloneJSON( this.state );  
               copyState.item[fieldName] = ev.target.value;
               this.setState(copyState);
         }

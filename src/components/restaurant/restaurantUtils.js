@@ -54,7 +54,9 @@ export function arrayToIterable(arr)
 }
 export function cloneJSON(j)
 {
-    return  JSON.parse(JSON.stringify(j ));  
+   // return  JSON.parse(JSON.stringify(j ));  
+    let copy =  [].concat(j)  ;
+    return copy[0];
 }
 
 //let itemArray = Array.prototype.slice.call(this.menuItems);

@@ -138,10 +138,17 @@
             width: 100%;
             margin-top: 10px;
         }
+        
+        #reviewListing
+        {
+            width: 90%
+        }
+        
         td
         {
             padding: 7px;
             border: thin solid $blue-color;
+            vertical-align: center;
 
             &.listing
             {
