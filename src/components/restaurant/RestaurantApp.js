@@ -167,22 +167,33 @@
                 }
             }); 
             
-            //handle save and add messages from the restaurant form
              postal.subscribe({
                 channel: "restaurants-system",
-                topic: "item.*.request.*",
+                topic: "item.*.request",
                 callback: function (data, envelope) {
-                    if (!me.checkForError(data))
+                    //if (!me.checkForError(data))
                       me.setState({isLoading: true});
                    
                 }
-            }); 
+            });  
+            
+            postal.subscribe({
+                channel: "restaurants-system",
+                topic: "item.*.request.review",
+                callback: function (data, envelope) {
+                    //if (!me.checkForError(data))
+                      me.setState({isLoading: true});
+                   
+                }
+            });  
+            
+             
             
              postal.subscribe({
                 channel: "restaurants-system",
                 topic: "item.*.request.complete.review",
                 callback: function (data, envelope) {
-                    if (!me.checkForError(data))
+                    //if (!me.checkForError(data))
                       me.setState({isLoading: false});
                    
                 }
