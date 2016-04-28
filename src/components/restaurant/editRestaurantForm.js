@@ -112,7 +112,17 @@ export default class EditRestaurantForm extends Component {
              });
         }
         
-        
+        showReviewForm()
+        {
+            if (this.props.actionMode === "EDIT")
+            {
+                return <EditReviewForm item={this.state.item}  />
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         render() {
 
@@ -160,7 +170,7 @@ export default class EditRestaurantForm extends Component {
 
                  </form>
                   </section>  
-                    <EditReviewForm item={this.state.item}  />
+                    {this.showReviewForm()}
                   </div>
                         
                     

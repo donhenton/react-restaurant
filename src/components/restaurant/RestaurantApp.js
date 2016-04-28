@@ -347,7 +347,7 @@
                 </div>   
                 <div className={me.displayEditFormCSS()}>
                     
-                       <EditRestaurantForm />
+                       <EditRestaurantForm actionMode={this.state.actionMode} />
                                 
                 </div>
 
