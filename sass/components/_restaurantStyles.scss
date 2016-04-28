@@ -295,19 +295,32 @@
         border: $default-border; 
         width: 45%;
         height: 250px;
+        
+        .editTable
+        {
+            width: 100%
+        }
+        
         td
         {   height: 45px;
 
         }
-        input.inputName
+        input
         {
             border: thin solid #3498db;
+            font-size: 12px;
+            height: 25px;
+        }
+        
+        input.inputName
+        {
+            
             width:175px;
         }
 
         input.age
         {
-            border: thin solid #3498db;
+             
             width:100px;
         }
     }
