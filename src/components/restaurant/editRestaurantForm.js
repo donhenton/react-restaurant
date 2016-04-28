@@ -176,7 +176,7 @@ export default class EditRestaurantForm extends Component {
                     
             
   
-                          )
+                  )
 
         }
 
