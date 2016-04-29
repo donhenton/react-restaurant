@@ -110,7 +110,7 @@
     #tHeadContainer, #tbodyContainer
     {
         margin-top: 5px;
-        width: 100%;
+        width: 98%;
         th
         {
             background-color: $blue-color;
@@ -122,7 +122,7 @@
 
         table
         {
-            width:1050px;
+            width:1065px;
             border-collapse: collapse;
             table-layout: fixed;
             empty-cells: show;
