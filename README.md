@@ -6,7 +6,7 @@ Restaurant Application in react js
 ###Demo Application###
 This is the source for the application page located at heroku:
 
-[http://http://donhenton-node.herokuapp.com/restaurantReact.doc](http://http://donhenton-node.herokuapp.com/restaurantReact.doc)
+[http://donhenton-node.herokuapp.com/restaurantReact.doc](http://donhenton-node.herokuapp.com/restaurantReact.doc)
 
 ###Notes###
 
