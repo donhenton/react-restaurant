@@ -8,4 +8,4 @@ ReactDOM.render(
  
     <RestaurantApp />
    
-  , document.querySelector('.container'));
+  , document.querySelector('#reactRestaurantContainer'));

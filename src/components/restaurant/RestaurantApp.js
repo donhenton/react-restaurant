@@ -315,7 +315,7 @@
 
 
             <div className='restaurantApp grouping'>
-            <div className="editHeader">Restaurants</div>
+             
             <div className="waitIndicator" className={this.hideWaitIndicator()} />
                 <div className='restaurantListContainer'>
                     <div>
