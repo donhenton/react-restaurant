@@ -12,6 +12,7 @@ This is the source for the application page located at heroku:
 
 * http://babeljs.io/repl/ to see react/babel snippets translated.
 * Simple server runs on http://127.0.0.1:8080 **NOT** localhost
+* The current master line uses postal instead of Redux
 
  
 
