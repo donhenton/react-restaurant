@@ -129,7 +129,7 @@ export default class EditRestaurantForm extends Component {
             let me = this;
 
             return (
-                 <div id="editControlGroup">
+                 <div id="editControlGroup" className="grouping">
                   <section className="editRestaurantContainer">
 
                  <form id='editForm' noValidate>

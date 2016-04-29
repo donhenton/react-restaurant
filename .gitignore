@@ -5,3 +5,4 @@ npm-debug.log
 /target/
 .DS_Store
 /.DS_Store
+/src/bower/

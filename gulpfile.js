@@ -99,8 +99,8 @@ var sassProcess =
 
             return gulp.src(SASS_FILES)
                     .pipe(sass().on('error', sass.logError))
-                    .pipe(concat('style.min.css'))
-                    .pipe(uglifycss())
+                    .pipe(concat('restaurantStyles.css'))
+                  //  .pipe(uglifycss())
                     .pipe(gulp.dest(targetLocation));
         };
 
@@ -111,10 +111,11 @@ gulp.task('sass', function () {
 
 gulp.task('copy-assets', function () {
     
-      return gulp.src(['./src/html/imgs/**/*'] )
+      gulp.src(['./src/html/imgs/**/*'] )
               .pipe(gulp.dest(targetLocation+'/images'));
 
-
+       gulp.src(['./src/bower/bootstrap/dist/**/*'] )
+              .pipe(gulp.dest(targetLocation+'/bootstrap'));         
  
     
     

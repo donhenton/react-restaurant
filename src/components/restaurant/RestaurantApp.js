@@ -281,7 +281,7 @@
       //console.log("display css "+this.state.inEditMode);
       if (this.state.actionMode)
       {
-         return "editContainer";
+         return "editContainer grouping";
       }
       else
       {
