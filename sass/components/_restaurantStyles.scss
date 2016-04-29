@@ -192,6 +192,20 @@
 
 
         }
+        
+        .highlighted, .highlighted select, .highlighted input
+        {
+            background-color:lightblue;
+            color: white;
+            
+            
+        }
+        .dimmed
+        {
+            opacity: .3;
+            
+            
+        }
 
 
         #reviewListing 

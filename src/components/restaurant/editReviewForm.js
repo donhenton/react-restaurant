@@ -175,6 +175,30 @@ export default class EditReviewForm extends Component {
             }
         }
         
+        
+        highLightEditRow(idx,ev)
+        {
+            if (this.state.actionType)
+            {
+                if (idx == this.state.currentReviewIdx)
+                {
+                    return "highlighted"
+                }
+                else
+                {
+                     return "dimmed";
+                }
+            
+            }
+            else
+            {
+                return null;
+            }
+            
+            
+            
+        }
+        
 
         showReviewControls(idx,doShow)
         {
@@ -287,7 +311,7 @@ export default class EditReviewForm extends Component {
            
                    me.state.item.reviewDTOs.map((review,i) => (
 
-                                       <tr key={review.id}>
+                                       <tr className={me.highLightEditRow.bind(me)(i)} key={review.id}>
                                        <td className="rating">
                                        <span className={me.showReviewControls(i,false )}>{review.starRating}</span>
                                        <span className={me.showReviewControls(i,true)}>
