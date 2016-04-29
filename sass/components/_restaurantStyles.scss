@@ -19,6 +19,17 @@
 .restaurantApp
 { 
 
+    .editHeader
+    {
+        font-size: 25px;
+        font-weight: bold;
+        float: left;
+
+
+    }
+
+
+
     $default-border:   4px #ccc double;
     $blue-color: #08c;
     .editContainer
@@ -184,27 +195,20 @@
 
         }
 
-        .editHeader
-        {
-            font-size: 25px;
-            font-weight: bold;
-            float: left;
 
 
-        }
-        
         .highlighted, .highlighted select, .highlighted input
         {
             background-color:lightblue;
             color: white;
-            
-            
+
+
         }
         .dimmed
         {
             opacity: .3;
-            
-            
+
+
         }
 
 
@@ -309,12 +313,12 @@
         border: $default-border; 
         width: 45%;
         height: 250px;
-        
+
         .editTable
         {
             width: 100%
         }
-        
+
         td
         {   height: 45px;
 
@@ -325,16 +329,16 @@
             font-size: 12px;
             height: 25px;
         }
-        
+
         input.inputName
         {
-            
+
             width:175px;
         }
 
         input.age
         {
-             
+
             width:100px;
         }
     }
@@ -492,17 +496,17 @@
 
     button
     {
-         -webkit-transition: all 0.10s ease-in-out;
+        -webkit-transition: all 0.10s ease-in-out;
         -moz-transition: all 0.10s ease-in-out;
         -ms-transition: all 0.10s ease-in-out;
         -o-transition: all 0.10s ease-in-out;
         outline: none;
-        
+
         border: 1px solid #DDDDDD;
     }
     button:focus,  {
         box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-        
+
         border: 1px solid rgba(81, 203, 238, 1);
     }
 
