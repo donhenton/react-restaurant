@@ -2,6 +2,9 @@
  * this reducer targets the voter element of state
  */
 
+import {simpleAction} from '../actions'
+import {cloneJSON} from '.'
+
 const voterData = 
         [
             {id: 1,
@@ -18,10 +21,13 @@ const voterData =
                     age: 46}]
         
 const voters = (state = [], action) => {
+console.log("voters reducer action is "+action.type);
   switch (action.type) {
-    case 'Fred':
+    case "VOTER_SAVE_REQUESTED"  :
+              
+       
       return state;
-    case 'Ted':
+    case "VOTER_SELECTION_CANCELED":
       return state ;
     default:
       return voterData;

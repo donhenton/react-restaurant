@@ -1,7 +1,7 @@
  
 export function selectVoter(voter)
 {
-    //console.log("action selectVoter "+JSON.stringify(voter))
+    
     return {
         'type': "VOTER_SELECTED",
         'payload': voter
@@ -11,18 +11,34 @@ export function selectVoter(voter)
     
 }
 
-
-/*
-  repeat as necessary
- export function doSomething(x)
+export function cancelSelectVoter(voter)
 {
+    
     return {
-        'type': "SOMETHING",
-        'payload': x
+        'type': "VOTER_SELECTION_CANCELED",
+        'payload': voter
     }
     
     
     
-} 
-   
- */
+}
+
+
+export function saveSelectVoter(voter)
+{
+    
+    return {
+        'type': "VOTER_SAVE_REQUESTED",
+        'payload': voter
+    }
+    
+    
+    
+}
+
+
+export function simpleAction(type,payload)
+{
+    return {type,payload}
+}
+

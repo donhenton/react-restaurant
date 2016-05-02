@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ListItem from './listItem'
+import EditForm from './editForm'
  
 class ListApp extends Component {
     
@@ -39,8 +40,10 @@ class ListApp extends Component {
                     </tbody>
                     </table>
                     </div>
-            
-                    
+                     
+                     <div id="editForm">
+                        <EditForm />
+                     </div>
                      
             </div>
 

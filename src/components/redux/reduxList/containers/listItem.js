@@ -18,6 +18,11 @@ class ListItem extends Component {
       //console.log(info + retValue+" "+ this.props.voter.name)
       return retValue;
   }
+  
+  selectAction(voter)
+  {
+      this.props.selectVoter(voter);
+  }
     
     
   render() {
@@ -30,7 +35,7 @@ class ListItem extends Component {
                     <td className="tableAge">{voter.age}</td>
                     <td className="tableParty">{voter.party}</td>
                     <td className="tableBtn"><button className="deleteButton">Delete</button></td>
-                    <td className="tableBtn"><button onClick={() => this.props.selectVoter(voter)}className="editButton" >Edit</button></td>
+                    <td className="tableBtn"><button onClick={() => this.selectAction(voter)} className="editButton" >Edit</button></td>
                 </tr>   
             
             )
