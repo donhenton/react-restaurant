@@ -19,6 +19,9 @@ const actionMode = (state = {}, action) => {
     case "REPORT_ERROR":
     
         return state;
+        
+    case "REQUEST_VOTER_ADD" :
+       return "ADD";
  
     default:
       return null;

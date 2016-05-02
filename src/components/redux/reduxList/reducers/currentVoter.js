@@ -21,6 +21,10 @@ const voters = (state = EMPTY_VOTER, action) => {
     case "VOTER_SAVED"  :
       
       return EMPTY_VOTER;
+      
+    case "REQUEST_VOTER_ADD"  :
+      
+      return EMPTY_VOTER;
     
     case "REPORT_ERROR"  :
       

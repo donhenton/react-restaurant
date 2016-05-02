@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import ListItem from './listItem'
 import EditForm from './editForm'
 import Message from './message'
+import { addVoter } from '../actions/index'; 
+ 
  
 class ListApp extends Component {
     
@@ -17,7 +19,7 @@ class ListApp extends Component {
                     <div className='restaurantListContainer'>
                     <div>
                     <Message />
-                    <button   className="editButton addButton">Add Record</button>
+                    <button  onClick={() => this.props.addVoter()} className="editButton addButton">Add Record</button>
                     </div>
                     <table className="displayTable">
                         <thead>
@@ -73,17 +75,11 @@ function mapStateToProps(state) {
   };
 }
 
-// Anything returned from this function will end up as props
-// on the ListApp container
-//function mapDispatchToProps(dispatch) {
-  // Whenever selectBook is called, the result shoudl be passed
-  // to all of our reducers
-//  return bindActionCreators({ selectBook: selectBook }, dispatch);
-//}
+ function mapDispatchToProps(dispatch) {
+ 
+   return bindActionCreators({ addVoter: addVoter }, dispatch);
+ }
 
-// Promote ListApp from a component to a container - it needs to know
-// about this new dispatch method, selectBook. Make it available
-// as a prop.
-//export default connect(mapStateToProps, mapDispatchToProps)(ListApp);
+ 
     
-export default connect(mapStateToProps, null)(ListApp);
+export default connect(mapStateToProps, mapDispatchToProps)(ListApp);

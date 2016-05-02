@@ -1,4 +1,4 @@
- 
+import {EMPTY_VOTER} from './../reducers/currentVoter';
 export function selectVoter(voter)
 {
     
@@ -23,6 +23,17 @@ export function cancelSelectVoter(voter)
     
 }
 
+export function addVoter()
+{
+    
+    return {
+        'type': "REQUEST_VOTER_ADD",
+        'payload': EMPTY_VOTER
+    }
+    
+    
+    
+}
 
 export function saveSelectVoter(voter)
 {
