@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {cancelSelectVoter} from '../actions';
 import {saveSelectVoter} from '../actions';
+import {reportError} from '../actions';
 import {cloneJSON} from './../reducers'
+import validate from './../services/validate'
 
 class EditForm extends Component {
    
@@ -59,7 +61,15 @@ class EditForm extends Component {
  saveItem(id,e)
   {
       e.preventDefault();
-      this.props.saveSelectVoter(this.state.currentVoter) 
+      let result = validate(this.state.currentVoter);
+      if (result.valid)
+      {
+        this.props.saveSelectVoter(this.state.currentVoter) ;
+      }
+      else
+      {
+        this.props.reportError(this.state.currentVoter,result) ; 
+      }
       
   }
   
@@ -126,7 +136,7 @@ function mapStateToProps(state) {
  
 function mapDispatchToProps(dispatch) {
    
-  return bindActionCreators({ cancelSelectVoter,saveSelectVoter }, dispatch);
+  return bindActionCreators({ cancelSelectVoter,saveSelectVoter,reportError }, dispatch);
 }
 
  

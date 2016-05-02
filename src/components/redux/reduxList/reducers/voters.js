@@ -23,10 +23,16 @@ const voterData =
 const voters = (state = [], action) => {
 console.log("voters reducer action is "+action.type);
   switch (action.type) {
-    case "VOTER_SAVE_REQUESTED"  :
-              
+    case "VOTER_SAVED"  :
+      //console.log("voter saved "+JSON.stringify(state))        
        
       return state;
+      
+   case "REPORT_ERROR"  :
+            
+       
+      return state;
+           
     case "VOTER_SELECTION_CANCELED":
       return state ;
     default:

@@ -18,12 +18,13 @@ const voters = (state = EMPTY_VOTER, action) => {
     case "VOTER_SELECTION_CANCELED":
       return EMPTY_VOTER ;
     
-    case "VOTER_SAVE_REQUESTED"  :
+    case "VOTER_SAVED"  :
       
       return state;
     
-    case "VOTER_SAVE_COMPLETE"  :
-      return EMPTY_VOTER;
+    case "REPORT_ERROR"  :
+      
+      return state;
     
     default:
       return EMPTY_VOTER;

@@ -12,6 +12,9 @@ const actionMode = (state = {}, action) => {
        
        return null;
        
+    case "VOTER_SAVED":
+    
+        return null;
  
     default:
       return null;
