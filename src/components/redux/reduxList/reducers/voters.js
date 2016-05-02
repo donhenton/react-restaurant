@@ -24,9 +24,20 @@ const voters = (state = [], action) => {
 console.log("voters reducer action is "+action.type);
   switch (action.type) {
     case "VOTER_SAVED"  :
-      //console.log("voter saved "+JSON.stringify(state))        
+      //let copyState = cloneJSON(state); 
+      let newData = state.map((voter) => {
+          if (voter.id === action.payload.id)
+          {
+              return action.payload;
+          }
+          else
+          {
+              return voter;
+          }
+          
+      })
        
-      return state;
+      return newData;
       
    case "REPORT_ERROR"  :
             

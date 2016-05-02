@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ListItem from './listItem'
 import EditForm from './editForm'
+import Message from './message'
  
 class ListApp extends Component {
     
@@ -15,6 +16,7 @@ class ListApp extends Component {
                    <div className='listMainContainer grouping'>
                     <div className='restaurantListContainer'>
                     <div>
+                    <Message />
                     <button   className="editButton addButton">Add Record</button>
                     </div>
                     <table className="displayTable">

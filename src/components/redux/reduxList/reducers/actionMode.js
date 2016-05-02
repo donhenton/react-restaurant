@@ -15,6 +15,10 @@ const actionMode = (state = {}, action) => {
     case "VOTER_SAVED":
     
         return null;
+        
+    case "REPORT_ERROR":
+    
+        return state;
  
     default:
       return null;
