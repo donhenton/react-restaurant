@@ -1,18 +1,18 @@
 import React from 'react';
 import { Component } from 'react';
-import Container from './../ContentContainer';
+import Container from './../../ContentContainer';
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import todoApp from './todo/reducers'
-import App from './todo/components/App'
+import reducers from './reducers' 
+import ListApp from './containers/ListApp'
 
-export default class SimpleRedux extends Component {
+export default class ReduxList extends Component {
         
     constructor()
     {
         super();
-        this.store = createStore(todoApp);
+        this.store = createStore(reducers);
     }
     
      
@@ -20,10 +20,10 @@ export default class SimpleRedux extends Component {
     return (
       
       <Container>
-      <h3>Todo App</h3>
-      <p>http://redux.js.org/docs/basics/ExampleTodoList.html</p>
+      <h3>Redux List</h3>
+       
         <Provider store={this.store}>
-            <App />
+           <ListApp />
         </Provider>
       </Container>
       

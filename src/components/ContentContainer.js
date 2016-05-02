@@ -20,8 +20,8 @@ export default class ContentContainer extends Component {
                         '<subMenuItem href="/listCommDemo">List Communications Demo</subMenuItem>'+
                     '</subMenu>'+
                     '<subMenu text="Redux Demos">'+
-                        '<subMenuItem href="/redux/SimpleRedux">Simple Redux Demo</subMenuItem>'+
-                          
+                        '<subMenuItem href="/redux/ToDo">To Do Demo</subMenuItem>'+
+                        '<subMenuItem href="/redux/ReduxList">Redux List</subMenuItem>'+  
                     '</subMenu>' +
 
             '</menu>';

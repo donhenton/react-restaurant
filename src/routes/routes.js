@@ -7,7 +7,8 @@ import CommDemo from './../components/pages/commDemo';
 import ListCommDemo from './../components/pages/listCommDemo';
 import ListContainerRow from './../components/listdemo/listContainerRow'; 
 import ListContainerNoRow from './../components/listdemo/listContainerNoRow';
-import SimpleRedux from './../components/redux/simpleRedux';
+import ToDoRedux from './../components/redux/todo/todoRedux';
+import ReduxList from './../components/redux/reduxList/reduxList';
 
 export const createRoutes = () => (
   <Route path="/" component={App} >
@@ -18,8 +19,8 @@ export const createRoutes = () => (
    
     <Route path="listdemoRow" component={ListContainerRow} />
     <Route path="listdemoNoRow" component={ListContainerNoRow} />
-    <Route path="redux/SimpleRedux" component={SimpleRedux} />
-    
+    <Route path="redux/ToDo" component={ToDoRedux} />
+    <Route path="redux/ReduxList" component={ReduxList} />
   </Route>
 );
 
