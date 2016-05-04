@@ -3,8 +3,10 @@ import { Component } from 'react';
 import { createStore } from 'redux'
 import Provider , { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import RestaurantItem from './restaurantItem'
-import WaitIndicator from './waitIndicator'
+import RestaurantItem from './restaurantItem';
+import WaitIndicator from './waitIndicator';
+import EditRestaurantForm from './editRestaurantForm';
+
 
 class ReduxRestaurantApp extends Component {
             
@@ -91,13 +93,13 @@ class ReduxRestaurantApp extends Component {
                                     </table>
                                 </div>
                         </div>
-
+                        
 
 
 
                     </div>   
 
-
+                    <EditRestaurantForm restaurantDispatcher={this.props.restaurantDispatcher} />
 
                 </div> 
 

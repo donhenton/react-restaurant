@@ -28,7 +28,7 @@ export function selectRestaurant(restaurant)
 
 
 
-export function cancelSelectVoter(restaurant)
+export function cancelSelectRestaurant(restaurant)
 {
     
     return {

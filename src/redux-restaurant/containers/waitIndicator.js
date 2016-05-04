@@ -1,7 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { createStore } from 'redux'
-import Provider , { connect } from 'react-redux';
+import { connect } from 'react-redux';
  
  
 

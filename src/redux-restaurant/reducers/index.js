@@ -12,10 +12,6 @@ const restaurantAppReducers = combineReducers({
     
 })
 
-export function cloneJSON(j)
-{
-   return  JSON.parse(JSON.stringify(j ));  
-    
-} 
+
 
 export default restaurantAppReducers

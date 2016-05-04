@@ -2,7 +2,7 @@
  * this reducer targets the action mode element of state
  */
  
-const actionMode = (state = {}, action) => {
+const actionMode = (state = null, action) => {
   switch (action.type) {
     case "RESTAURANT_SELECTED":
       
