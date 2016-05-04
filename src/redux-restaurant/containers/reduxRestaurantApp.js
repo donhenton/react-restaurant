@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { createStore } from 'redux'
 import Provider , { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {RestaurantItem} from './restaurantItem'
+import RestaurantItem from './restaurantItem'
 
 
 class ReduxRestaurantApp extends Component {
@@ -83,7 +83,7 @@ class ReduxRestaurantApp extends Component {
                                         this.props.restaurants.map((restaurant,i) => {
                                             return (
                                             
-                                                    <tr><td>{i}</td></tr>
+                                                     <RestaurantItem key={restaurant.id}   restaurant={restaurant} /> 
                                                 )
                                         })
                                         
@@ -118,7 +118,7 @@ class ReduxRestaurantApp extends Component {
             
             
     }
-// return  (<RestaurantItem key={restaurant.id}   restaurant={restaurant} /> )
+
 ////////////////////////////////////////////////////////////////////////
 
 function mapStateToProps(state) {

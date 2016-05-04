@@ -1,9 +1,12 @@
 import { combineReducers } from 'redux';
 import restaurants from './restaurants';
- 
+import currentRestaurant from './currentRestaurant'; 
+import actionMode from './actionMode'; 
 
 const restaurantAppReducers = combineReducers({
-    restaurants
+    restaurants,
+    currentRestaurant,
+    actionMode
     
 })
 
