@@ -1,13 +1,18 @@
 import {EMPTY_VOTER} from './../services/restaurantService';
 
-export function initialize(restaurants)
+export function initialized(restaurants)
 {
     return {
-        'type': 'INITIALIZE',
+        'type': 'INITIALIZED',
         'payload':restaurants
     }
 }
-
+export function initializing()
+{
+    return {
+        'type': 'INITIALIZING' 
+    }
+}
 
 export function selectRestaurant(restaurant)
 {

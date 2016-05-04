@@ -4,7 +4,7 @@ import { createStore } from 'redux'
 import Provider , { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import RestaurantItem from './restaurantItem'
-
+import WaitIndicator from './waitIndicator'
 
 class ReduxRestaurantApp extends Component {
             
@@ -30,10 +30,7 @@ class ReduxRestaurantApp extends Component {
                // this.prop.restaurants =  nextProps.restaurants ;
             }
             
-            hideWaitIndicator()
-            {
-                return "hidden";
-            }
+    
             componentWillMount()
             {
                 let me = this;
@@ -52,7 +49,7 @@ class ReduxRestaurantApp extends Component {
                         
                 <div className='restaurantApp grouping'>
 
-                <div className="waitIndicator" className={this.hideWaitIndicator()} />
+                <WaitIndicator />
                     <div className='restaurantListContainer'>
                         <div>
                             <span className="errorMessage">{this.state.errorMessage}</span>

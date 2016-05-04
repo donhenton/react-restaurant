@@ -10,7 +10,7 @@ const restaurants = (state = [], action) => {
     
     switch (action.type)
     {
-        case "INITIALIZE" :
+        case "INITIALIZED" :
             
             return action.payload;
             
