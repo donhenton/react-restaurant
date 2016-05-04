@@ -26,7 +26,17 @@ export function selectRestaurant(restaurant)
     
 }
 
-
+export function saveRestaurant(restaurant)
+{
+    
+    return {
+        'type': "RESTAURANT_SAVED",
+        'payload': restaurant
+    }
+    
+    
+    
+}
 
 export function cancelSelectRestaurant(restaurant)
 {

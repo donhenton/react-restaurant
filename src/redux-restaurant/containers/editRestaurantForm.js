@@ -46,7 +46,7 @@ class EditRestaurantForm extends Component {
         processItem(fieldName, ev)
         {
             let  copyState = cloneJSON(this.state);
-                copyState.item[fieldName] = ev.target.value;
+                copyState.currentRestaurant[fieldName] = ev.target.value;
                 this.setState(copyState);
         }
 
@@ -56,9 +56,10 @@ class EditRestaurantForm extends Component {
             this.props.cancelSelectRestaurant(this.props.currentRestaurant);
         }
 
-        saveItem(id, ev)
+        saveItem(ev)
         {
             ev.preventDefault();
+            this.props.restaurantDispatcher.requestSave(this.state.currentRestaurant);
         }
         
   

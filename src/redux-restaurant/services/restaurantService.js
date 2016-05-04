@@ -24,9 +24,9 @@
 
     //message processing routine restaurants /////////////////////////////////////////
 
-    processSaveRequest(newItem, envelope)
+    processSaveRequest(newItem)
     {
-     // console.log("service " + JSON.stringify(newItem) + " " + envelope.replyTo);
+     
 
         var options = {
             method: 'PUT',
@@ -34,23 +34,13 @@
             body:  newItem,
             json: true // Automatically stringifies the body to JSON 
             };    
-        rp(options)    
-        .then(function(parsedBody)
-        {
-            
-        }) 
-        .catch(function(err) {
-
-            //"400 - {"message":"key: name Restaurant Name cannot be blank,key: zipCode Zipcode cannot be blank,key: state State cannot be blank,key: city City cannot be blank","errorClass":"com.dhenton9000.restaurant.service.impl.ValidatorFailureException"}"
-
-
-             
-        })
+         return rp(options);    
+        
 
     }
-    processAddRequest(newItem, envelope)
+    processAddRequest(newItem)
     {
-     // console.log("service " + JSON.stringify(newItem) + " " + envelope.replyTo);
+    
 
         var options = {
             method: 'POST',
@@ -70,9 +60,9 @@
         })
 
     }
-    processDeleteRequest(delItem, envelope)
+    processDeleteRequest(delItem)
     {
-     // console.log("service " + JSON.stringify(newItem) + " " + envelope.replyTo);
+     
 
         var options = {
             method: 'DELETE',
