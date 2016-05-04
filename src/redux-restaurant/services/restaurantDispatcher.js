@@ -10,11 +10,28 @@ export default class RestaurantDispatcher
     {
         
         this.store = storeVar;
+        this.restaurantService = new RestaurantService();
     }
 
     initialize()
     {
-       // store.dispatch(action);
+       let me = this;
+       this.restaurantService.getAllRestaurants()
+       .then(function(parsedBody)
+        {
+           let payload = JSON.parse(parsedBody);
+           
+           me.store.dispatch(initialize(payload))
+        }) 
+        .catch(function(err) {
+
+           
+           throw err;
+
+             
+        }) 
+        
+       // store.dispatch(initialize);
     }
 
 }

@@ -12,9 +12,10 @@
     }
 
 
-    getAllRestaurants()
+    getAllRestaurants(actionToDispatch)
     {
         return rp(this.rootURL);
+                   
     }
 
 

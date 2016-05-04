@@ -13,7 +13,7 @@ export default class RestaurantHolder extends Component {
     {
         super();
         this.store = createStore(reducers);
-        this.restaurantDisatcher = new RestaurantDispatcher(this.store);
+        this.restaurantDispatcher = new RestaurantDispatcher(this.store);
     }
     
      

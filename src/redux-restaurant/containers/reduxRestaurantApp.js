@@ -16,6 +16,20 @@ class ReduxRestaurantApp extends Component {
                  
             }
             
+            componentWillReceiveProps (nextProps) {
+      
+                //console.log(" 1 "+JSON.stringify(nextProps.restaurants[0] ))
+                //this.prop.restaurants =  nextProps.restaurants ;
+             
+            }
+            
+             componentWillUpdate(nextProps,nextState)
+            {
+                // console.log(" 2 "+JSON.stringify(nextProps.restaurants[0] ))
+                // dont set state here it will cause a infinite loop
+               // this.prop.restaurants =  nextProps.restaurants ;
+            }
+            
             hideWaitIndicator()
             {
                 return "hidden";
@@ -24,14 +38,14 @@ class ReduxRestaurantApp extends Component {
             {
                 let me = this;
                 this.state = {errorMessage: null};
-               //this.props.restaurantDispatcher
+                this.props.restaurantDispatcher.initialize();
                
             
             }
             
             render()
             {
-                 
+                
                 return (
                       
                 
@@ -66,11 +80,13 @@ class ReduxRestaurantApp extends Component {
                                     <table>
                                     <tbody>
                                     {
+                                        this.props.restaurants.map((restaurant,i) => {
+                                            return (
+                                            
+                                                    <tr><td>{i}</td></tr>
+                                                )
+                                        })
                                         
-                                         this.props.restaurants.map((restaurant,i) => { 
-
-                                            return  (<ResaurantItem key={restaurant.id}   restaurant={restuarant} /> )
-                                         })
                                     }
 
                                     </tbody>
@@ -102,13 +118,13 @@ class ReduxRestaurantApp extends Component {
             
             
     }
-
+// return  (<RestaurantItem key={restaurant.id}   restaurant={restaurant} /> )
 ////////////////////////////////////////////////////////////////////////
 
 function mapStateToProps(state) {
    
   return {
-    restaurants: state.restaurants
+     restaurants: state.restaurants
   };
 }
 
