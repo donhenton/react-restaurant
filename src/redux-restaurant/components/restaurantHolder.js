@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducers from './../reducers' 
 import ReduxRestaurantApp from './../containers/reduxRestaurantApp'
-import RestaurantService from './../services/RestaurantService';
+import RestaurantDispatcher from './../services/restaurantDispatcher';
 
 export default class RestaurantHolder extends Component {
         
@@ -13,7 +13,7 @@ export default class RestaurantHolder extends Component {
     {
         super();
         this.store = createStore(reducers);
-         this.restaurantService = new RestaurantService(this.store);
+        this.restaurantDisatcher = new RestaurantDispatcher(this.store);
     }
     
      
@@ -23,7 +23,7 @@ export default class RestaurantHolder extends Component {
       
        
         <Provider store={this.store}>
-           <ReduxRestaurantApp restaurantService={this.restaurantService} />
+           <ReduxRestaurantApp restaurantDispatcher={this.restaurantDispatcher} />
         </Provider>
        
       

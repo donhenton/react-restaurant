@@ -24,7 +24,7 @@ class ReduxRestaurantApp extends Component {
             {
                 let me = this;
                 this.state = {errorMessage: null};
-               
+               //this.props.restaurantDispatcher
                
             
             }
