@@ -20,13 +20,13 @@
         }
 
         //{changedReview: this.state.item.reviewDTOs[this.state.currentReviewIdx],restaurantId: this.state.item.id}  
-        processSaveRequestReview(newItem)
+        processSaveReview(reviewId, restaurantId,changedReview)
         {
-        let urlValue = this.rootURL + "/" + newItem.restaurantId + "/" + newItem.changedReview.id;
+        let urlValue = this.rootURL + "/" + restaurantId + "/" + reviewId;
                 var options = {
                 method: 'PUT',
                         uri: urlValue,
-                        body:  newItem.changedReview,
+                        body:  changedReview,
                         json: true // Automatically stringifies the body to JSON 
                 };
                 return rp(options)

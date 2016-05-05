@@ -79,3 +79,25 @@ export function actionSuccessful()
         'type': "ACTION_SUCCESSFUL" 
     }
 }
+///////////////////////////////////////////
+//Reviews
+
+export function saveReview(reviewId, restaurantId,newReview)
+{
+    return {
+        'type': "SAVE_REVIEW",
+        'payload': {reviewId,restaurantId,newReview}
+    }
+    
+    
+}
+
+export function deleteReview(reviewId, restaurantId,newReview)
+{
+    return {
+        'type': "DELETE_REVIEW",
+        'payload': {reviewId,restaurantId,newReview}
+    }
+    
+    
+}

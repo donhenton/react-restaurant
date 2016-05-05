@@ -18,6 +18,10 @@ const actionMode = (state = null, action) => {
        
     case "ACTION_SUCCESSFUL":
        return null;
+    
+    case "SAVE_REVIEW":
+    case "DELETE_REVIEW":
+       return state;
  
     default:
       return state;

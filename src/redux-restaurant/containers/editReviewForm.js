@@ -51,62 +51,7 @@ export default class EditReviewForm extends Component {
             
         }
         
-        componentWillUpdate(nextProps,nextState)
-        {
-        
-                // dont set state here it will cause a infinite loop
-                // invoked before rendering, prep right before an update
-        }
-        
-        processDeleteReviewComplete(reviewToDelete)
-        {
-//            let newItem = cloneJSON(this.state.item);
-//            //itemWithId.reviewDTOs[this.state.currentReviewIdx].id = data.id;
-//            let newReviews = newItem.reviewDTOs.filter((review) => review.id != reviewToDelete.id)
-//            newItem.reviewDTOs = newReviews;
-//         
-//            this.setState({currentReviewIdx: -1,actionType:null, originalItem: newItem, item: newItem } );
-               
-            
-        }
-        processAddReviewComplete(data)
-        {
-            //state is not maintained, so rebuild from scratch
-//            let itemWithId = cloneJSON(this.state.item);
-//         
-//            itemWithId.reviewDTOs = [data].concat(itemWithId.reviewDTOs)
-// 
-//         
-//            this.setState({currentReviewIdx: -1,actionType:null, originalItem: itemWithId, item: itemWithId } );
-               
-             
-        }
-        processSaveReviewComplete(data)
-        {
-            //console.log("complete "+JSON.stringify(data)) 
-//            let newReview = data.changedReview;
-//            let newItem = cloneJSON(this.state.item);
-//            let newReviews = newItem.reviewDTOs.map((review) => 
-//                    {
-//                        if (review.id === newReview.id)
-//                        {
-//                            return newReview;
-//                        }
-//                        else
-//                        {
-//                            return review;
-//                        }
-//                    }
-//                    
-//                    )
-//            newItem.reviewDTOs = newReviews;
-//            this.setState({currentReviewIdx: -1,actionType:null, originalItem: newItem, item: newItem });
-               
-             
-        
-        }
-        
-      
+  
         
         
         highLightEditRow(idx,ev)
@@ -168,7 +113,19 @@ export default class EditReviewForm extends Component {
         }
         saveReview(idx,ev)
         {
-            
+            let me = this;
+            let changedReview =  me.state.item.reviewDTOs[idx];
+            let reviewId = changedReview.id;
+            let restaurantId = me.state.item.id;
+            if (this.state.actionType === "EDIT_REVIEW")
+            {
+                this.props.reviewDispatcher.requestSave(reviewId, restaurantId, changedReview);
+            }
+            else
+            {
+                
+                
+            }
                  
         }
         deleteReview(idx,ev)
