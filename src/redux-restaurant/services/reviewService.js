@@ -14,7 +14,7 @@
         constructor(baseURL)
         {
         this.data = {data: 'get a job' };
-                this.rootURL = baseURL;
+                this.rootURL = baseURL+'/review';
                 let me = this;
                  
         }

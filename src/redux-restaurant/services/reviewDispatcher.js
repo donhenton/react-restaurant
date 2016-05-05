@@ -60,7 +60,7 @@ export default class ReviewDispatcher
              .catch(function(err) {
 
                  //"400 - {"message":"key: name Restaurant Name cannot be blank,key: zipCode Zipcode cannot be blank,key: state State cannot be blank,key: city City cannot be blank","errorClass":"com.dhenton9000.restaurant.service.impl.ValidatorFailureException"}"
-
+                 me.store.dispatch(setReviewMode("FINISHED_REVIEW"));
                  me.store.dispatch(displayMessage(DISPLAY_TYPES.error, err.message))
 
              })
