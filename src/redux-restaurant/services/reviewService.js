@@ -33,9 +33,9 @@
                  
 
         }
-        processDeleteReview(restaurantId, deletedReview)
+        processDeleteReview(restaurantId, reviewId)
         {
-                let urlValue = this.rootURL + "/" + restaurantId + "/" + deletedReview.id;
+                let urlValue = this.rootURL + "/" + restaurantId + "/" + reviewId;
                 var options = {
                 method: 'DELETE',
                         uri: urlValue 

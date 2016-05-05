@@ -131,7 +131,16 @@ export default class EditReviewForm extends Component {
         deleteReview(idx,ev)
         {
               
-          //  let reviewToDelete = this.state.item.reviewDTOs[idx];
+            let me = this;
+            let changedReview =  me.state.item.reviewDTOs[idx];
+            let reviewId = changedReview.id;
+            let restaurantId = me.state.item.id;
+            let ok = confirm('Are you sure ?')
+            if (ok === true)
+            {
+                this.props.reviewDispatcher.requestDelete(restaurantId, reviewId);
+            }
+            
             
  
         } 

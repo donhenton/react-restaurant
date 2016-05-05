@@ -11,7 +11,10 @@ const actionMode = (state = null, action) => {
     case "ADD_REVIEW" :
         
         return "ADD_REVIEW";
+    
+    case "DELETE_REVIEW" :
         
+        return "DELETE_REVIEW";
     case "FINISHED_REVIEW":
         return null;
         

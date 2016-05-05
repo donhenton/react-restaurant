@@ -42,7 +42,7 @@ export default class ReviewDispatcher
     }
 
 
-requestAdd(restaurantId, newReview)
+    requestAdd(restaurantId, newReview)
     {
          
         let me = this;
@@ -66,6 +66,29 @@ requestAdd(restaurantId, newReview)
         
     }
 
+    requestDelete(restaurantId, reviewId)
+    {
+         
+        let me = this;
+        me.store.dispatch(setReviewMode("DELETE_REVIEW"));
+        me.store.dispatch(initializing());
+        this.reviewService.processDeleteReview(restaurantId, reviewId)
+            .then(function()
+             {
+                 me.store.dispatch(displayMessage(DISPLAY_TYPES.success, "review deleted!!"));
+                 me.store.dispatch(setReviewMode("FINISHED_REVIEW"));
+                 return me.restaurantDispatcher.initialize();
+             }) 
+             .catch(function(err) {
+
+                 //"400 - {"message":"key: name Restaurant Name cannot be blank,key: zipCode Zipcode cannot be blank,key: state State cannot be blank,key: city City cannot be blank","errorClass":"com.dhenton9000.restaurant.service.impl.ValidatorFailureException"}"
+
+                 me.store.dispatch(displayMessage(DISPLAY_TYPES.error, err.message))
+
+             })
+        
+        
+    }
 
 
 
