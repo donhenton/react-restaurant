@@ -7,6 +7,8 @@ const displayMessage = (state = EMPTY_MESSAGE, action) => {
    case "INITIALIZING" :
    case "INITIALIZED" :
    case "ACTION_SUCCESSFUL":
+   case "FINISHED_REVIEW":
+   case "RESTAURANT_UPDATED":
       return state;
    
   case "CLEAR_MESSAGE":
