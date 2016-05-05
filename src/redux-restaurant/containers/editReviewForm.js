@@ -23,14 +23,16 @@ export default class EditReviewForm extends Component {
 
         componentWillMount()
         {
-            let itemVar = cloneJSON(this.props.item) ;
+             
             let me = this;
             this.state = {
-                originalItem: itemVar ,
-                currentReviewIdx: -1,
-                actionType: null,
-                item: itemVar 
-            }     
+     
+                    actionType: null,
+                    currentRestaurant: null,
+                    currentReviews: [],
+                    reviewBackup: [],
+                    currentReviewIdx: -1
+            };
             
             
             
@@ -39,15 +41,15 @@ export default class EditReviewForm extends Component {
         }
         componentWillReceiveProps (nextProps) {
             //got a prop change send it to state
-            let itemVar = cloneJSON(nextProps.item) ;
-            
-            let newState = {
-                originalItem: nextProps.item ,
-                currentReviewIdx: -1,
-                actionType: nextProps.reviewMode,
-                item: itemVar 
-            }   
-            this.setState(newState)
+            let newState = cloneJSON(
+            {       actionType: nextProps.actionType ,
+                    currentRestaurant: nextProps.currentRestaurant,
+                    currentReviews: nextProps.currentReviews,
+                    reviewBackup: nextProps.currentReviews,
+                    currentReviewIdx: this.state.currentReviewIdx
+            }) ;
+             
+            this.setState(newState);
             
         }
         
@@ -114,9 +116,9 @@ export default class EditReviewForm extends Component {
         saveReview(idx,ev)
         {
             let me = this;
-            let changedReview =  me.state.item.reviewDTOs[idx];
+            let changedReview =  me.state.currentReviews[idx];
             let reviewId = changedReview.id;
-            let restaurantId = me.state.item.id;
+            let restaurantId = me.state.currentRestaurant.id;
             if (this.state.actionType === "EDIT_REVIEW")
             {
                 this.props.reviewDispatcher.requestSave(reviewId, restaurantId, changedReview);
@@ -132,9 +134,9 @@ export default class EditReviewForm extends Component {
         {
               
             let me = this;
-            let changedReview =  me.state.item.reviewDTOs[idx];
+            let changedReview =  me.state.currentReviews[idx];
             let reviewId = changedReview.id;
-            let restaurantId = me.state.item.id;
+            let restaurantId = me.state.currentRestaurant.id;
             let ok = confirm('Are you sure ?')
             if (ok === true)
             {
@@ -152,16 +154,17 @@ export default class EditReviewForm extends Component {
         processField(fieldName,ev)
         {
               let  copyState = cloneJSON( this.state );  
-              copyState.item.reviewDTOs[copyState.currentReviewIdx][fieldName] = ev.target.value;
+              copyState.currentReviews[copyState.currentReviewIdx][fieldName] = ev.target.value;
               this.setState(copyState);
         }
         
         addReview()
         {
             //console.log("empty review "+JSON.stringify(EMPTY_REVIEW))
-            let newItem = cloneJSON(this.state.originalItem);
-            newItem.reviewDTOs = [EMPTY_REVIEW].concat(newItem.reviewDTOs);
-            let newState = {currentReviewIdx: 0, item: newItem,actionType: "ADD_REVIEW"}
+            let reviewsCopy = cloneJSON(this.state.currentReviews);
+            reviewsCopy = [EMPTY_REVIEW].concat(reviewsCopy);
+             
+            let newState = {currentReviewIdx: 0, currentReviews: reviewsCopy    ,actionType: "ADD_REVIEW"}
             this.setState(newState);
         }
 
@@ -195,7 +198,7 @@ export default class EditReviewForm extends Component {
               {
                    
            
-                   me.state.item.reviewDTOs.map((review,i) => (
+                   me.state.currentReviews.map((review,i) => (
 
                                        <tr className={me.highLightEditRow.bind(me)(i)} key={review.id}>
                                        <td className="rating">
@@ -278,6 +281,7 @@ function mapStateToProps(state) {
   return {
      
      actionType: state.reviewMode,
+     currentRestaurant: state.currentRestaurant,
      currentReviews: state.currentRestaurant.reviewDTOs
   };
 }

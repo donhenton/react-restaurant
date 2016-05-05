@@ -73,7 +73,7 @@ class EditRestaurantForm extends Component {
         {
             if (this.props.actionMode === "EDIT")
             {
-                return <EditReviewForm reviewDispatcher={this.props.reviewDispatcher} item={this.state.currentRestaurant}  />
+                return <EditReviewForm reviewDispatcher={this.props.reviewDispatcher}  />
             }
             else
             {
