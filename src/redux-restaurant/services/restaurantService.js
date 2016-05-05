@@ -69,5 +69,6 @@
     }
 
 export const EMPTY_RESTAURANT =  {name:"", zipCode:"", city: "", state: "", version: 2, id: null, reviewDTOs: []};
+
  
 

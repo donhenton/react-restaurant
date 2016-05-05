@@ -62,8 +62,8 @@
         }
 
         }
-
-export const EMPTY_REVIEW = function()
-        {
-        return {starRating: 2, reviewListing:"", stampDate:"", id: - 1};
-                }
+        
+ export const EMPTY_REVIEW =  {starRating: 2, reviewListing:"", stampDate:"", id: - 1};
+ 
+ 
+ 

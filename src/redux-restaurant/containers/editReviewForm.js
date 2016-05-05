@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import {cloneJSON} from './../services/utils';
 import {EMPTY_RESTAURANT} from './../services/restaurantService';
-import {EMPTY_REVIEW} from './../services/restaurantService';
+import {EMPTY_REVIEW} from './../services/reviewService';
 import { connect } from 'react-redux'; 
 import { bindActionCreators } from 'redux';
 
@@ -164,7 +164,7 @@ export default class EditReviewForm extends Component {
         
         editReview(idx,ev)
         {
-           // this.setState({ currentReviewIdx: idx,actionType: "EDIT"})
+            this.setState({ currentReviewIdx: idx,actionType: "EDIT_REVIEW"})
         }
         saveReview(idx,ev)
         {
@@ -192,9 +192,10 @@ export default class EditReviewForm extends Component {
         
         addReview()
         {
+            console.log("empty review "+JSON.stringify(EMPTY_REVIEW))
             let newItem = cloneJSON(this.state.originalItem);
-            newItem.reviewDTOs = [EMPTY_REVIEW()].concat(newItem.reviewDTOs);
-            let newState = {currentReviewIdx: 0, item: newItem,actionType: "ADD"}
+            newItem.reviewDTOs = [EMPTY_REVIEW].concat(newItem.reviewDTOs);
+            let newState = {currentReviewIdx: 0, item: newItem,actionType: "ADD_REVIEW"}
             this.setState(newState);
         }
 
