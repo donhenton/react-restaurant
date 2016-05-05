@@ -65,7 +65,11 @@ export default class RestaurantItem extends Component {
  
   deleteItem( )
   {
-      
+      let ok = confirm('Are you sure ?')
+      if (ok === true)
+      {
+          this.props.restaurantDispatcher.requestDelete(this.props.restaurant);
+      }
  
   }
    
@@ -77,7 +81,7 @@ export default class RestaurantItem extends Component {
         
                     
             <tr className={me.highLightRow()}>  
-                    <td  onClick={()=>this.props.selectRestaurant(this.props.restaurant) }className="nameItem">{item.name} </td> 
+                    <td  onClick={()=>this.props.selectRestaurant(this.props.restaurant) } className="nameItem">{item.name} </td> 
                     <td  onClick={()=>this.props.selectRestaurant(this.props.restaurant) } className="cityItem">{item.city}</td> 
                     <td  onClick={()=>this.props.selectRestaurant(this.props.restaurant) } className="stateItem">{item.state}</td> 
                     <td  onClick={()=>this.props.selectRestaurant(this.props.restaurant) } className="zipCodeItem">{item.zipCode}</td> 

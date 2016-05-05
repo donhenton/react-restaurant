@@ -64,7 +64,7 @@ export default class RestaurantDispatcher
         let me = this;
          me.store.dispatch(initializing())
         this.restaurantService.processAddRequest(newRestaurant)
-       .then(function(parsedBody)
+       .then(function()
         {
             me.store.dispatch(displayMessage(DISPLAY_TYPES.success, "record added!!"))
             me.store.dispatch(actionSuccessful())
@@ -80,6 +80,29 @@ export default class RestaurantDispatcher
         
         
     }
+
+    requestDelete(newRestaurant)
+    {
+        let me = this;
+         me.store.dispatch(initializing())
+        this.restaurantService.processDeleteRequest(newRestaurant)
+       .then(function()
+        {
+            me.store.dispatch(displayMessage(DISPLAY_TYPES.success, "record deleted!!"))
+            me.store.dispatch(actionSuccessful())
+            return me.initialize();
+        }) 
+        .catch(function(err) {
+
+            //"400 - {"message":"key: name Restaurant Name cannot be blank,key: zipCode Zipcode cannot be blank,key: state State cannot be blank,key: city City cannot be blank","errorClass":"com.dhenton9000.restaurant.service.impl.ValidatorFailureException"}"
+             
+            me.store.dispatch(displayMessage(DISPLAY_TYPES.error, err.message))
+             
+        })
+        
+        
+    }
+
 
 
 }

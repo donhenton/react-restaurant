@@ -61,15 +61,8 @@
             uri: this.rootURL +"/"+delItem.id  
 
             };    
-        rp(options)    
-        .then(function(parsedBody)
-        {
-             
-        }) 
-        .catch(function(err) {
-             
-        })
-
+        return rp(options)    ;
+        
     }
 
 

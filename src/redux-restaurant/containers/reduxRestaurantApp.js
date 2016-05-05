@@ -83,7 +83,7 @@ class ReduxRestaurantApp extends Component {
                                         this.props.restaurants.map((restaurant,i) => {
                                             return (
                                             
-                                                     <RestaurantItem key={restaurant.id}   restaurant={restaurant} /> 
+                                                     <RestaurantItem key={restaurant.id} restaurantDispatcher={this.props.restaurantDispatcher}  restaurant={restaurant} /> 
                                                 )
                                         })
                                         

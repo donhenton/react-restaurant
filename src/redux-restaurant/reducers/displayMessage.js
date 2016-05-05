@@ -6,8 +6,13 @@ const displayMessage = (state = EMPTY_MESSAGE, action) => {
       
    case "INITIALIZING" :
    case "INITIALIZED" :
+   case "ACTION_SUCCESSFUL":
       return state;
-    
+   
+  case "CLEAR_MESSAGE":
+      return EMPTY_MESSAGE;
+ 
+   
    case "DISPLAY_MESSAGE":
       
       return  action.payload;
