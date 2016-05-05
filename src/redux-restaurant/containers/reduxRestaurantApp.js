@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux';
 import RestaurantItem from './restaurantItem';
 import WaitIndicator from './waitIndicator';
 import EditRestaurantForm from './editRestaurantForm';
-
+//import displayMessage from './../actions';
+import DisplayMessage from './displayMessageContainer';
 
 class ReduxRestaurantApp extends Component {
             
@@ -54,7 +55,7 @@ class ReduxRestaurantApp extends Component {
                 <WaitIndicator />
                     <div className='restaurantListContainer'>
                         <div>
-                            <span className="errorMessage">{this.state.errorMessage}</span>
+                            <DisplayMessage />
                             <button className="editButton addButton">Add Record</button>
                         </div>
 

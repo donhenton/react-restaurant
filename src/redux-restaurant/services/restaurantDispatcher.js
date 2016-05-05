@@ -1,5 +1,5 @@
 
-import {initialized,initializing,saveRestaurant} from '../actions';
+import {initialized,initializing,saveRestaurant,displayMessage,DISPLAY_TYPES} from '../actions';
 import ReviewService from './reviewService';
 import RestaurantService from './restaurantService';
 
@@ -43,6 +43,7 @@ export default class RestaurantDispatcher
         this.restaurantService.processSaveRequest(newRestaurant)
        .then(function(parsedBody)
         {
+            me.store.dispatch(displayMessage(DISPLAY_TYPES.success, "record saved!!"))
             return me.initialize();
         }) 
         .catch(function(err) {

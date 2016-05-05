@@ -1,5 +1,8 @@
 import {EMPTY_VOTER} from './../services/restaurantService';
 
+
+export const DISPLAY_TYPES = {success: "success", error: "error" };
+
 export function initialized(restaurants)
 {
     return {
@@ -44,6 +47,20 @@ export function cancelSelectRestaurant(restaurant)
     return {
         'type': "RESTAURANT_SELECTION_CANCELED",
         'payload': restaurant
+    }
+    
+    
+    
+}
+
+
+// const EMPTY_MESSAGE = {type: null , text: null}
+export function displayMessage(type,text)
+{
+    
+    return {
+        'type': "DISPLAY_MESSAGE",
+        'payload': {type,text}
     }
     
     
