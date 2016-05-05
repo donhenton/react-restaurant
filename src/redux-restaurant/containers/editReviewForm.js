@@ -44,7 +44,7 @@ export default class EditReviewForm extends Component {
             let newState = {
                 originalItem: nextProps.item ,
                 currentReviewIdx: -1,
-                actionType: null,
+                actionType: nextProps.reviewMode,
                 item: itemVar 
             }   
             this.setState(newState)
@@ -123,7 +123,7 @@ export default class EditReviewForm extends Component {
             }
             else
             {
-                
+                this.props.reviewDispatcher.requestAdd(restaurantId, changedReview);
                 
             }
                  
@@ -149,7 +149,7 @@ export default class EditReviewForm extends Component {
         
         addReview()
         {
-            console.log("empty review "+JSON.stringify(EMPTY_REVIEW))
+            //console.log("empty review "+JSON.stringify(EMPTY_REVIEW))
             let newItem = cloneJSON(this.state.originalItem);
             newItem.reviewDTOs = [EMPTY_REVIEW].concat(newItem.reviewDTOs);
             let newState = {currentReviewIdx: 0, item: newItem,actionType: "ADD_REVIEW"}
@@ -261,3 +261,18 @@ export default class EditReviewForm extends Component {
         }
   
   }
+  
+    ////////////////////////////////////////////////////////////////////////
+
+function mapStateToProps(state) {
+   
+  return {
+     
+     actionType: state.reviewMode
+  };
+}
+
+
+ 
+    
+export default connect(mapStateToProps)(EditReviewForm);

@@ -81,23 +81,14 @@ export function actionSuccessful()
 }
 ///////////////////////////////////////////
 //Reviews
-
-export function saveReview(reviewId, restaurantId,newReview)
+//"EDIT_REVIEW" "ADD_REVIEW" "FINISHED_REVIEW"
+export function setReviewMode(mode)
 {
     return {
-        'type': "SAVE_REVIEW",
-        'payload': {reviewId,restaurantId,newReview}
+        'type':  mode
     }
     
     
 }
-
-export function deleteReview(reviewId, restaurantId,newReview)
-{
-    return {
-        'type': "DELETE_REVIEW",
-        'payload': {reviewId,restaurantId,newReview}
-    }
+ 
     
-    
-}

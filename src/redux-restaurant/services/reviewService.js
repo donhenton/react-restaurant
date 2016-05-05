@@ -33,9 +33,9 @@
                  
 
         }
-        processDeleteRequestReview(deletedItem)
+        processDeleteReview(restaurantId, deletedReview)
         {
-                let urlValue = this.rootURL + "/" + deletedItem.restaurantId + "/" + deletedItem.changedReview.id;
+                let urlValue = this.rootURL + "/" + restaurantId + "/" + deletedReview.id;
                 var options = {
                 method: 'DELETE',
                         uri: urlValue 
@@ -43,14 +43,11 @@
                 return rp(options)
                  
         }
-        processAddRequestReview(newItem)
+        processAddReview(restaurantId, newReview)
         {
-        console.log("processAdd " + JSON.stringify(newItem));
-                //changedReview, restaurantId
-        let newReview = {starRating: newItem.changedReview.starRating,
-                     reviewListing: newItem.changedReview.reviewListing }
+         
 
-        let urlValue = this.rootURL + "/" + newItem.restaurantId;
+        let urlValue = this.rootURL + "/" + restaurantId;
                 var options = {
                 method: 'POST',
                         uri: urlValue,
