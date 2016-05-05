@@ -5,7 +5,7 @@ const currentRestaurant = (state = EMPTY_RESTAURANT, action) => {
   switch (action.type) {
     case "RESTAURANT_SELECTED":
     case "RESTAURANT_ADD":
-    case "INITIALIZED" :
+    case "RESTAURANT_UPDATED":
       
       return action.payload;
     case "RESTAURANT_SELECTION_CANCELED":

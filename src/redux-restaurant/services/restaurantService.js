@@ -12,14 +12,17 @@
     }
 
 
-    getAllRestaurants(actionToDispatch)
+    getAllRestaurants()
     {
         return rp(this.rootURL);
                    
     }
 
-
-
+    getRestaurantById(id)
+    {        
+        return rp(this.rootURL+"/"+id);
+    }
+    
 
 
     //message processing routine restaurants /////////////////////////////////////////

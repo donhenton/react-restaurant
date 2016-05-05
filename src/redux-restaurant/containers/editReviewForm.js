@@ -25,14 +25,12 @@ export default class EditReviewForm extends Component {
         {
              
             let me = this;
-            this.state = {
-     
-                    actionType: null,
-                    currentRestaurant: null,
-                    currentReviews: [],
-                    reviewBackup: [],
-                    currentReviewIdx: -1
-            };
+            this.state = {       
+                     actionType: this.props.actionType,
+                     currentReviews: this.props.currentReviews,
+                     reviewBackup:this.props.currentReviews,
+                     currentReviewIdx: -1
+            }
             
             
             
@@ -41,12 +39,17 @@ export default class EditReviewForm extends Component {
         }
         componentWillReceiveProps (nextProps) {
             //got a prop change send it to state
+            let newIdx = this.state.currentReviewIdx;
+            if (!nextProps.actionType)
+            {
+                newIdx = -1;
+            }
+            
             let newState = cloneJSON(
             {       actionType: nextProps.actionType ,
-                    currentRestaurant: nextProps.currentRestaurant,
                     currentReviews: nextProps.currentReviews,
                     reviewBackup: nextProps.currentReviews,
-                    currentReviewIdx: this.state.currentReviewIdx
+                    currentReviewIdx: newIdx
             }) ;
              
             this.setState(newState);
@@ -118,7 +121,7 @@ export default class EditReviewForm extends Component {
             let me = this;
             let changedReview =  me.state.currentReviews[idx];
             let reviewId = changedReview.id;
-            let restaurantId = me.state.currentRestaurant.id;
+            let restaurantId = me.props.currentRestaurant.id;
             if (this.state.actionType === "EDIT_REVIEW")
             {
                 this.props.reviewDispatcher.requestSave(reviewId, restaurantId, changedReview);
@@ -136,7 +139,7 @@ export default class EditReviewForm extends Component {
             let me = this;
             let changedReview =  me.state.currentReviews[idx];
             let reviewId = changedReview.id;
-            let restaurantId = me.state.currentRestaurant.id;
+            let restaurantId = me.props.currentRestaurant.id;
             let ok = confirm('Are you sure ?')
             if (ok === true)
             {
@@ -148,7 +151,8 @@ export default class EditReviewForm extends Component {
         } 
         cancelEdit(idx,ev)
         {
-             this.setState({currentReviewIdx: -1, actionType: null, item: cloneJSON(this.state.originalItem)});
+              
+             this.setState({currentReviewIdx: -1, actionType: null, currentReviews: this.state.reviewBackup})
         } 
 
         processField(fieldName,ev)

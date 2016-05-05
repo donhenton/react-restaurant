@@ -41,6 +41,14 @@ export function addRestaurant(restaurant)
     
 }
 
+export function updateRestaurant(restaurant)
+{
+    return {
+        'type': "RESTAURANT_UPDATED",
+        'payload': restaurant
+    }
+}
+
 export function cancelSelectRestaurant(restaurant)
 {
     

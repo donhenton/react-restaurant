@@ -15,7 +15,7 @@ export default class RestaurantHolder extends Component {
         super();
         this.store = createStore(reducers);
         this.restaurantDispatcher = new RestaurantDispatcher(this.store);
-        this.reviewDispatcher = new ReviewDispatcher(this.store,this.restaurantDispatcher);
+        this.reviewDispatcher = new ReviewDispatcher(this.store);
     }
     
      

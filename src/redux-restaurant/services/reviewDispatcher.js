@@ -1,20 +1,46 @@
 
-import {initialized,initializing,displayMessage,DISPLAY_TYPES,clearMessage,actionSuccessful,setReviewMode} from '../actions';
+import {initialized,initializing,displayMessage,DISPLAY_TYPES,clearMessage,actionSuccessful,updateRestaurant,setReviewMode} from '../actions';
 import ReviewService from './reviewService';
-
+import RestaurantService from './restaurantService';
 
 
 export default class ReviewDispatcher
 {
 
-    constructor(storeVar,restaurantDispatcherVar)
+    constructor(storeVar)
     {
         
         this.store = storeVar;
         this.reviewService = new ReviewService();
-        this.restaurantDispatcher = restaurantDispatcherVar;
+        this.restaurantService = new RestaurantService();
+        
     }
 
+
+    refreshList(id)
+    {
+        
+        let me = this;
+        me.store.dispatch(initializing())
+       
+       
+       return this.restaurantService.getRestaurantById(id)
+       .then(function(parsedBody)
+        {
+           let payload = JSON.parse(parsedBody);
+           
+           me.store.dispatch(updateRestaurant(payload));
+            console.log("save is done for reload in initialize")
+        }) 
+        .catch(function(err) {
+
+           me.store.dispatch(initialized([]));
+           me.store.dispatch(displayMessage(DISPLAY_TYPES.error, err.message));
+
+             
+        }) 
+        
+    }
 
 
     requestSave(reviewId, restaurantId, changedReview)
@@ -29,7 +55,7 @@ export default class ReviewDispatcher
                  console.log("save is done for review 1")
                  me.store.dispatch(displayMessage(DISPLAY_TYPES.success, "review saved!!"))
                  me.store.dispatch(setReviewMode("FINISHED_REVIEW"));
-                 return me.restaurantDispatcher.initialize();
+                 return me.refreshList(restaurantId);
              }) 
              .catch(function(err) {
 
@@ -54,7 +80,7 @@ export default class ReviewDispatcher
              {
                  me.store.dispatch(displayMessage(DISPLAY_TYPES.success, "review added!!"));
                  me.store.dispatch(setReviewMode("FINISHED_REVIEW"));
-                 return me.restaurantDispatcher.initialize();
+                 return me.refreshList(restaurantId);
              }) 
              .catch(function(err) {
 
@@ -78,7 +104,7 @@ export default class ReviewDispatcher
              {
                  me.store.dispatch(displayMessage(DISPLAY_TYPES.success, "review deleted!!"));
                  me.store.dispatch(setReviewMode("FINISHED_REVIEW"));
-                 return me.restaurantDispatcher.initialize();
+                 return me.refreshList(restaurantId);
              }) 
              .catch(function(err) {
 
