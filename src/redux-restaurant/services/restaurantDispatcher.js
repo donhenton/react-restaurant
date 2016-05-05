@@ -1,5 +1,5 @@
 
-import {initialized,initializing,saveRestaurant,displayMessage,DISPLAY_TYPES,clearMessage} from '../actions';
+import {initialized,initializing,saveRestaurant,displayMessage,DISPLAY_TYPES,clearMessage,actionSuccessful} from '../actions';
 import ReviewService from './reviewService';
 import RestaurantService from './restaurantService';
 
@@ -45,6 +45,7 @@ export default class RestaurantDispatcher
        .then(function(parsedBody)
         {
             me.store.dispatch(displayMessage(DISPLAY_TYPES.success, "record saved!!"))
+            me.store.dispatch(actionSuccessful())
             return me.initialize();
         }) 
         .catch(function(err) {
@@ -66,6 +67,7 @@ export default class RestaurantDispatcher
        .then(function(parsedBody)
         {
             me.store.dispatch(displayMessage(DISPLAY_TYPES.success, "record added!!"))
+            me.store.dispatch(actionSuccessful())
             return me.initialize();
         }) 
         .catch(function(err) {

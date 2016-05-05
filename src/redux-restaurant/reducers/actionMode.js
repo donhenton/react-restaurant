@@ -16,7 +16,8 @@ const actionMode = (state = null, action) => {
        
        return null;
        
-    
+    case "ACTION_SUCCESSFUL":
+       return null;
  
     default:
       return state;

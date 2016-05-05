@@ -72,3 +72,10 @@ export function displayMessage(type,text)
     
     
 }
+
+export function actionSuccessful()
+{
+        return {
+        'type': "ACTION_SUCCESSFUL" 
+    }
+}
