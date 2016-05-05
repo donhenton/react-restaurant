@@ -25,6 +25,7 @@ export default class RestaurantDispatcher
            let payload = JSON.parse(parsedBody);
            
            me.store.dispatch(initialized(payload));
+            console.log("save is done for reload in initialize")
         }) 
         .catch(function(err) {
 

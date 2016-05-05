@@ -277,7 +277,8 @@ function mapStateToProps(state) {
    
   return {
      
-     actionType: state.reviewMode
+     actionType: state.reviewMode,
+     currentReviews: state.currentRestaurant.reviewDTOs
   };
 }
 

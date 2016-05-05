@@ -26,6 +26,7 @@ export default class ReviewDispatcher
         this.reviewService.processSaveReview(reviewId, restaurantId, changedReview)
             .then(function()
              {
+                 console.log("save is done for review 1")
                  me.store.dispatch(displayMessage(DISPLAY_TYPES.success, "review saved!!"))
                  me.store.dispatch(setReviewMode("FINISHED_REVIEW"));
                  return me.restaurantDispatcher.initialize();
