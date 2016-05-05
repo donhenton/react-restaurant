@@ -6,6 +6,7 @@ import { createStore } from 'redux'
 import reducers from './../reducers' 
 import ReduxRestaurantApp from './../containers/reduxRestaurantApp'
 import RestaurantDispatcher from './../services/restaurantDispatcher';
+import ReviewDispatcher from './../services/reviewDispatcher';
 
 export default class RestaurantHolder extends Component {
         
@@ -23,7 +24,7 @@ export default class RestaurantHolder extends Component {
       
        
         <Provider store={this.store}>
-           <ReduxRestaurantApp restaurantDispatcher={this.restaurantDispatcher} />
+           <ReduxRestaurantApp reviewDispatcher={this.reviewDispatcher} restaurantDispatcher={this.restaurantDispatcher} />
         </Provider>
        
       

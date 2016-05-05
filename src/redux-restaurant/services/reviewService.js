@@ -20,7 +20,7 @@
         }
 
         //{changedReview: this.state.item.reviewDTOs[this.state.currentReviewIdx],restaurantId: this.state.item.id}  
-        processSaveRequestReview(newItem, envelope)
+        processSaveRequestReview(newItem)
         {
         let urlValue = this.rootURL + "/" + newItem.restaurantId + "/" + newItem.changedReview.id;
                 var options = {
@@ -29,45 +29,25 @@
                         body:  newItem.changedReview,
                         json: true // Automatically stringifies the body to JSON 
                 };
-                rp(options)
-                .then(function(parsedBody)
-                {
-                
-                })
-                .catch(function(err) {
-
-                //"400 - {"message":"key: name Restaurant Name cannot be blank,key: zipCode Zipcode cannot be blank,key: state State cannot be blank,key: city City cannot be blank","errorClass":"com.dhenton9000.restaurant.service.impl.ValidatorFailureException"}"
-
-
-                
-                })
-
-
-
+                return rp(options)
+                 
 
         }
-        processDeleteRequestReview(deletedItem, envelope)
+        processDeleteRequestReview(deletedItem)
         {
                 let urlValue = this.rootURL + "/" + deletedItem.restaurantId + "/" + deletedItem.changedReview.id;
                 var options = {
                 method: 'DELETE',
                         uri: urlValue 
                 };
-                rp(options)
-                .then(function(parsedBody)
-                {
-                     
-                }) 
-                .catch(function(err) {
-                    
-                })
-
+                return rp(options)
+                 
         }
-        processAddRequestReview(newItem, envelope)
+        processAddRequestReview(newItem)
         {
         console.log("processAdd " + JSON.stringify(newItem));
                 //changedReview, restaurantId
-                let newReview = {starRating: newItem.changedReview.starRating,
+        let newReview = {starRating: newItem.changedReview.starRating,
                      reviewListing: newItem.changedReview.reviewListing }
 
         let urlValue = this.rootURL + "/" + newItem.restaurantId;
@@ -77,22 +57,7 @@
                         body:  newReview,
                         json: true // Automatically stringifies the body to JSON 
                };
-                rp(options)
-                .then(function(parsedBody)
-                {
-                let newReviewWithId = newReview;
-                        newReviewWithId["id"] = parsedBody.id;
-                        
-                })
-                .catch(function(err) {
-
-                //"400 - {"message":"key: name Restaurant Name cannot be blank,key: zipCode Zipcode cannot be blank,key: state State cannot be blank,key: city City cannot be blank","errorClass":"com.dhenton9000.restaurant.service.impl.ValidatorFailureException"}"
-
-
-                 
-                })
-
-
+               return  rp(options) ;
 
         }
 

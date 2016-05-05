@@ -100,7 +100,7 @@ class ReduxRestaurantApp extends Component {
 
                     </div>   
 
-                    <EditRestaurantForm restaurantDispatcher={this.props.restaurantDispatcher} />
+                    <EditRestaurantForm reviewDispatcher={this.props.reviewDispatcher}  restaurantDispatcher={this.props.restaurantDispatcher} />
 
                 </div> 
 

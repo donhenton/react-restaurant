@@ -5,6 +5,7 @@ import {EMPTY_RESTAURANT} from './../services/restaurantService';
 import { connect } from 'react-redux'; 
 import { bindActionCreators } from 'redux';
 import {cancelSelectRestaurant} from './../actions';
+import EditReviewForm from './editReviewForm';
 
 class EditRestaurantForm extends Component {
    
@@ -68,7 +69,17 @@ class EditRestaurantForm extends Component {
                 this.props.restaurantDispatcher.requestSave(this.state.currentRestaurant);
             }
         }
-        
+        showReviewForm()
+        {
+            if (this.props.actionMode === "EDIT")
+            {
+                return <EditReviewForm item={this.state.currentRestaurant}  />
+            }
+            else
+            {
+                return null;
+            }
+        }
   
 
         render() {
@@ -117,7 +128,7 @@ class EditRestaurantForm extends Component {
 
                  </form>
                   </section>  
-                     
+                      {this.showReviewForm()} 
                   </div>
                         
                     
