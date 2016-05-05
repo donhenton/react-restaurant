@@ -7,12 +7,12 @@ import RestaurantService from './restaurantService';
 export default class ReviewDispatcher
 {
 
-    constructor(storeVar)
+    constructor(storeVar,baseURL)
     {
         
         this.store = storeVar;
-        this.reviewService = new ReviewService();
-        this.restaurantService = new RestaurantService();
+        this.reviewService = new ReviewService(baseURL);
+        this.restaurantService = new RestaurantService(baseURL);
         
     }
 

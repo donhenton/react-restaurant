@@ -14,8 +14,9 @@ export default class RestaurantHolder extends Component {
     {
         super();
         this.store = createStore(reducers);
-        this.restaurantDispatcher = new RestaurantDispatcher(this.store);
-        this.reviewDispatcher = new ReviewDispatcher(this.store);
+        let baseURL = "http://donhenton-springmvc3.herokuapp.com:80/app/backbone/restaurant";
+        this.restaurantDispatcher = new RestaurantDispatcher(this.store,baseURL);
+        this.reviewDispatcher = new ReviewDispatcher(this.store,baseURL);
     }
     
      

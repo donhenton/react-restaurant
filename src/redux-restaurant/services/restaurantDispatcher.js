@@ -6,11 +6,11 @@ import RestaurantService from './restaurantService';
 export default class RestaurantDispatcher
 {
 
-    constructor(storeVar)
+    constructor(storeVar,baseURL)
     {
         
         this.store = storeVar;
-        this.restaurantService = new RestaurantService();
+        this.restaurantService = new RestaurantService(baseURL);
     }
 
     initialize()

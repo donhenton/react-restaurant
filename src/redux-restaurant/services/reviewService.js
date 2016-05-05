@@ -11,10 +11,10 @@
         export default class ReviewService
         {
 
-        constructor()
+        constructor(baseURL)
         {
         this.data = {data: 'get a job' };
-                this.rootURL = "http://donhenton-springmvc3.herokuapp.com:80/app/backbone/restaurant/review";
+                this.rootURL = baseURL;
                 let me = this;
                  
         }
