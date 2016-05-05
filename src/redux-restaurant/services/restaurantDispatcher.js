@@ -1,5 +1,5 @@
 
-import {initialized,initializing,saveRestaurant,displayMessage,DISPLAY_TYPES} from '../actions';
+import {initialized,initializing,saveRestaurant,displayMessage,DISPLAY_TYPES,clearMessage} from '../actions';
 import ReviewService from './reviewService';
 import RestaurantService from './restaurantService';
 
@@ -28,8 +28,8 @@ export default class RestaurantDispatcher
         }) 
         .catch(function(err) {
 
-           
-           throw err;
+           me.store.dispatch(initialized([]));
+           me.store.dispatch(displayMessage(DISPLAY_TYPES.error, err.message));
 
              
         }) 
@@ -40,6 +40,7 @@ export default class RestaurantDispatcher
     requestSave(newRestaurant)
     {
         let me = this;
+         me.store.dispatch(initializing());
         this.restaurantService.processSaveRequest(newRestaurant)
        .then(function(parsedBody)
         {
@@ -49,12 +50,36 @@ export default class RestaurantDispatcher
         .catch(function(err) {
 
             //"400 - {"message":"key: name Restaurant Name cannot be blank,key: zipCode Zipcode cannot be blank,key: state State cannot be blank,key: city City cannot be blank","errorClass":"com.dhenton9000.restaurant.service.impl.ValidatorFailureException"}"
-            throw err;
+             
+            me.store.dispatch(displayMessage(DISPLAY_TYPES.error, err.message))
+             
+        })
+        
+        
+    }
+    
+    requestAdd(newRestaurant)
+    {
+        let me = this;
+         me.store.dispatch(initializing())
+        this.restaurantService.processAddRequest(newRestaurant)
+       .then(function(parsedBody)
+        {
+            me.store.dispatch(displayMessage(DISPLAY_TYPES.success, "record added!!"))
+            return me.initialize();
+        }) 
+        .catch(function(err) {
 
+            //"400 - {"message":"key: name Restaurant Name cannot be blank,key: zipCode Zipcode cannot be blank,key: state State cannot be blank,key: city City cannot be blank","errorClass":"com.dhenton9000.restaurant.service.impl.ValidatorFailureException"}"
+             
+            me.store.dispatch(displayMessage(DISPLAY_TYPES.error, err.message))
              
         })
         
         
     }
 
+
 }
+
+

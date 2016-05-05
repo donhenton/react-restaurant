@@ -4,6 +4,7 @@ const currentRestaurant = (state = EMPTY_RESTAURANT, action) => {
   console.log("currentRESTAURANT reducer action is "+action.type);
   switch (action.type) {
     case "RESTAURANT_SELECTED":
+    case "RESTAURANT_ADD":
       
       return action.payload;
     case "RESTAURANT_SELECTION_CANCELED":

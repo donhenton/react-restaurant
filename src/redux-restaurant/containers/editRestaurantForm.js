@@ -59,7 +59,14 @@ class EditRestaurantForm extends Component {
         saveItem(ev)
         {
             ev.preventDefault();
-            this.props.restaurantDispatcher.requestSave(this.state.currentRestaurant);
+            if (this.props.actionMode === "ADD")
+            {
+                this.props.restaurantDispatcher.requestAdd(this.state.currentRestaurant);
+            }
+            else
+            {
+                this.props.restaurantDispatcher.requestSave(this.state.currentRestaurant);
+            }
         }
         
   

@@ -48,16 +48,8 @@
             body:  newItem,
             json: true // Automatically stringifies the body to JSON 
             };    
-        rp(options)    
-        .then(function(parsedBody)
-        {
-
-            newItem.id = parsedBody.id;
-            
-        }) 
-        .catch(function(err) {
-            
-        })
+         return rp(options)    ;
+        
 
     }
     processDeleteRequest(delItem)

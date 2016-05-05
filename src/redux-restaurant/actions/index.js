@@ -1,4 +1,4 @@
-import {EMPTY_VOTER} from './../services/restaurantService';
+import {EMPTY_RESTAURANT} from './../services/restaurantService';
 
 
 export const DISPLAY_TYPES = {success: "success", error: "error" };
@@ -29,12 +29,12 @@ export function selectRestaurant(restaurant)
     
 }
 
-export function saveRestaurant(restaurant)
+export function addRestaurant(restaurant)
 {
     
     return {
-        'type': "RESTAURANT_SAVED",
-        'payload': restaurant
+        'type': "RESTAURANT_ADD",
+        'payload': EMPTY_RESTAURANT
     }
     
     
@@ -53,6 +53,12 @@ export function cancelSelectRestaurant(restaurant)
     
 }
 
+export function clearMessage()
+{
+    return {
+        'type': "CLEAR_MESSAGE" 
+    }
+}
 
 // const EMPTY_MESSAGE = {type: null , text: null}
 export function displayMessage(type,text)

@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import RestaurantItem from './restaurantItem';
 import WaitIndicator from './waitIndicator';
 import EditRestaurantForm from './editRestaurantForm';
-//import displayMessage from './../actions';
+import {addRestaurant} from './../actions';
 import DisplayMessage from './displayMessageContainer';
 
 class ReduxRestaurantApp extends Component {
@@ -56,7 +56,7 @@ class ReduxRestaurantApp extends Component {
                     <div className='restaurantListContainer'>
                         <div>
                             <DisplayMessage />
-                            <button className="editButton addButton">Add Record</button>
+                            <button onClick={()=>this.props.addRestaurant() } className="editButton addButton">Add Record</button>
                         </div>
 
                         <div id="restaurantScrollList">
@@ -128,7 +128,12 @@ function mapStateToProps(state) {
   };
 }
 
- 
+function mapDispatchToProps(dispatch) {
+  // Whenever selectBook is called, the result shoudl be passed
+  // to all of our reducers
+  return bindActionCreators({ addRestaurant }, dispatch);
+}
+
  
     
-export default connect(mapStateToProps)(ReduxRestaurantApp);
+export default connect(mapStateToProps,mapDispatchToProps)(ReduxRestaurantApp);

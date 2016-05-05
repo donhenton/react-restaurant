@@ -6,8 +6,12 @@ const actionMode = (state = null, action) => {
   switch (action.type) {
     case "RESTAURANT_SELECTED":
       
-      return "EDIT";
+        return "EDIT";
       
+    case "RESTAURANT_ADD" :
+        
+        return "ADD";
+        
     case "RESTAURANT_SELECTION_CANCELED":
        
        return null;
@@ -15,7 +19,7 @@ const actionMode = (state = null, action) => {
     
  
     default:
-      return null;
+      return state;
   }
 }
 
