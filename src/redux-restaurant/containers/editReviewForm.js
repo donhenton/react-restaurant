@@ -1,11 +1,11 @@
 import React from 'react';
 import { Component } from 'react';
-import postal from 'postal';
-import ReactDOM from 'react-dom';
-import Immutable from 'immutable';
-import {cloneJSON} from './restaurantUtils';
-import {EMPTY_RESTAURANT} from './restaurantService';
-import {EMPTY_REVIEW} from './reviewService';
+import {cloneJSON} from './../services/utils';
+import {EMPTY_RESTAURANT} from './../services/restaurantService';
+import {EMPTY_REVIEW} from './../services/reviewService';
+import { connect } from 'react-redux'; 
+import { bindActionCreators } from 'redux';
+
 
 export default class EditReviewForm extends Component {
    
@@ -13,167 +13,50 @@ export default class EditReviewForm extends Component {
         constructor()
         {
             super();
-            this._isMounted = false;
+           
              
 
         }
         
-        componentWillUnMount()
-        {
-            this._isMounted = false;
-
-        }
-
-        componentDidMount()
-        {
-            this._isMounted = true;
-            //after initial rendering AJAX calls here
-        }      
+     
 
 
         componentWillMount()
         {
-            let itemVar = cloneJSON(this.props.item) ;
+             
             let me = this;
-            this.state = {
-                originalItem: itemVar ,
-                currentReviewIdx: -1,
-                actionType: null,
-                item: itemVar 
-            }     
+            this.state = {       
+                     actionType: this.props.actionType,
+                     currentReviews: this.props.currentReviews,
+                     reviewBackup:this.props.currentReviews,
+                     currentReviewIdx: -1
+            }
             
-            postal.subscribe({
-                channel: "restaurants-system",
-                topic: "item.save.request.complete.review",
-                callback: function (data, envelope) {
-                    if (!me.checkForError(data))
-                        me.processSaveReviewComplete(data.confirmedData)
-                   
-                }
-            }); 
             
-             postal.subscribe({
-                channel: "restaurants-system",
-                topic: "item.add.request.complete.review",
-                callback: function (data, envelope) {
-                    if (!me.checkForError(data))
-                        me.processAddReviewComplete(data.confirmedData)
-                    
-                }
-            }); 
-            
-             postal.subscribe({
-                channel: "restaurants-system",
-                topic: "item.delete.request.complete.review",
-                callback: function (data, envelope) {
-                    if (!me.checkForError(data))
-                        me.processDeleteReviewComplete(data.confirmedData)
-                    
-                }
-            }); 
             
 
 
         }
         componentWillReceiveProps (nextProps) {
             //got a prop change send it to state
-            let itemVar = cloneJSON(nextProps.item) ;
-            
-            let newState = {
-                originalItem: nextProps.item ,
-                currentReviewIdx: -1,
-                actionType: null,
-                item: itemVar 
-            }   
-            this.setState(newState)
-            
-        }
-        
-        componentWillUpdate(nextProps,nextState)
-        {
-        
-                // dont set state here it will cause a infinite loop
-                // invoked before rendering, prep right before an update
-        }
-        
-        processDeleteReviewComplete(reviewToDelete)
-        {
-            let newItem = cloneJSON(this.state.item);
-            //itemWithId.reviewDTOs[this.state.currentReviewIdx].id = data.id;
-            let newReviews = newItem.reviewDTOs.filter((review) => review.id != reviewToDelete.id)
-            newItem.reviewDTOs = newReviews;
-         
-            this.setState({currentReviewIdx: -1,actionType:null, originalItem: newItem, item: newItem } );
-               
-            postal.publish({
-                channel: "restaurants-system",
-                topic: "review.update" ,
-                actionType: "DELETE",
-                data: newItem 
-             });
-        }
-        processAddReviewComplete(data)
-        {
-            //state is not maintained, so rebuild from scratch
-            let itemWithId = cloneJSON(this.state.item);
-         
-            itemWithId.reviewDTOs = [data].concat(itemWithId.reviewDTOs)
- 
-         
-            this.setState({currentReviewIdx: -1,actionType:null, originalItem: itemWithId, item: itemWithId } );
-               
-            postal.publish({
-                channel: "restaurants-system",
-                topic: "review.update" ,
-                actionType: "ADD",
-                data: itemWithId 
-             });
-        }
-        processSaveReviewComplete(data)
-        {
-            //console.log("complete "+JSON.stringify(data)) 
-            let newReview = data.changedReview;
-            let newItem = cloneJSON(this.state.item);
-            let newReviews = newItem.reviewDTOs.map((review) => 
-                    {
-                        if (review.id === newReview.id)
-                        {
-                            return newReview;
-                        }
-                        else
-                        {
-                            return review;
-                        }
-                    }
-                    
-                    )
-            newItem.reviewDTOs = newReviews;
-            this.setState({currentReviewIdx: -1,actionType:null, originalItem: newItem, item: newItem });
-               
-            postal.publish({
-                channel: "restaurants-system",
-                topic: "review.update" ,
-                actionType: "SAVE",
-                data: this.state.item 
-             });
-        
-        }
-        
-        checkForError(data)
-        {
-            let me = this;
-            if (data.error)
+            let newIdx = this.state.currentReviewIdx;
+            if (!nextProps.actionType)
             {
-
-               // me.setState({errorMessage: data.error,isLoading: false})
-                return true;
+                newIdx = -1;
             }
-            else
-            {
-               // me.setState({errorMessage: null,isLoading: false})
-                return false;
-            }
+            
+            let newState = cloneJSON(
+            {       actionType: nextProps.actionType ,
+                    currentReviews: nextProps.currentReviews,
+                    reviewBackup: nextProps.currentReviews,
+                    currentReviewIdx: newIdx
+            }) ;
+             
+            this.setState(newState);
+            
         }
+        
+  
         
         
         highLightEditRow(idx,ev)
@@ -231,51 +114,61 @@ export default class EditReviewForm extends Component {
         
         editReview(idx,ev)
         {
-            this.setState({ currentReviewIdx: idx,actionType: "EDIT"})
+            this.setState({ currentReviewIdx: idx,actionType: "EDIT_REVIEW"})
         }
         saveReview(idx,ev)
         {
-            let topic = "item.save.request.review";
-            if (this.state.actionType && this.state.actionType == "ADD") 
+            let me = this;
+            let changedReview =  me.state.currentReviews[idx];
+            let reviewId = changedReview.id;
+            let restaurantId = me.props.currentRestaurant.id;
+            if (this.state.actionType === "EDIT_REVIEW")
             {
-              topic = "item.add.request.review";
+                this.props.reviewDispatcher.requestSave(reviewId, restaurantId, changedReview);
             }
-               
-            postal.publish({
-                 channel: "restaurants-system",
-                 topic: topic ,
-                 data: {changedReview: this.state.item.reviewDTOs[this.state.currentReviewIdx],restaurantId: this.state.item.id}  
-              });
-             
+            else
+            {
+                this.props.reviewDispatcher.requestAdd(restaurantId, changedReview);
+                
+            }
+                 
         }
         deleteReview(idx,ev)
         {
               
-            let reviewToDelete = this.state.item.reviewDTOs[idx];
+            let me = this;
+            let changedReview =  me.state.currentReviews[idx];
+            let reviewId = changedReview.id;
+            let restaurantId = me.props.currentRestaurant.id;
+            let ok = confirm('Are you sure ?')
+            if (ok === true)
+            {
+                this.props.reviewDispatcher.requestDelete(restaurantId, reviewId);
+            }
             
-              postal.publish({
-                 channel: "restaurants-system",
-                 topic: "item.delete.request.review" ,
-                 data: {changedReview: reviewToDelete,restaurantId: this.state.item.id}  
-              });
+            
+ 
         } 
         cancelEdit(idx,ev)
         {
-             this.setState({currentReviewIdx: -1, actionType: null, item: cloneJSON(this.state.originalItem)});
+              
+             this.setState({currentReviewIdx: -1, actionType: null, currentReviews: this.state.reviewBackup})
         } 
 
         processField(fieldName,ev)
         {
               let  copyState = cloneJSON( this.state );  
-              copyState.item.reviewDTOs[copyState.currentReviewIdx][fieldName] = ev.target.value;
+              copyState.currentReviews[copyState.currentReviewIdx][fieldName] = ev.target.value;
               this.setState(copyState);
         }
         
         addReview()
         {
-            let newItem = cloneJSON(this.state.originalItem);
-            newItem.reviewDTOs = [EMPTY_REVIEW()].concat(newItem.reviewDTOs);
-            let newState = {currentReviewIdx: 0, item: newItem,actionType: "ADD"}
+            //console.log("empty review "+JSON.stringify(EMPTY_REVIEW))
+            let reviewsCopy = cloneJSON(this.state.currentReviews);
+            reviewsCopy = [EMPTY_REVIEW].concat(reviewsCopy);
+             
+            let newState = {currentReviewIdx: 0, currentReviews: reviewsCopy    ,actionType: "ADD_REVIEW"}
             this.setState(newState);
         }
 
@@ -309,7 +202,7 @@ export default class EditReviewForm extends Component {
               {
                    
            
-                   me.state.item.reviewDTOs.map((review,i) => (
+                   me.state.currentReviews.map((review,i) => (
 
                                        <tr className={me.highLightEditRow.bind(me)(i)} key={review.id}>
                                        <td className="rating">
@@ -384,3 +277,20 @@ export default class EditReviewForm extends Component {
         }
   
   }
+  
+    ////////////////////////////////////////////////////////////////////////
+
+function mapStateToProps(state) {
+   
+  return {
+     
+     actionType: state.reviewMode,
+     currentRestaurant: state.currentRestaurant,
+     currentReviews: state.currentRestaurant.reviewDTOs
+  };
+}
+
+
+ 
+    
+export default connect(mapStateToProps)(EditReviewForm);

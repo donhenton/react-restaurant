@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
-import RestaurantApp from './components/restaurant/restaurantApp';
+import RestaurantHolder from './redux-restaurant/components/restaurantHolder';
 
 
 ReactDOM.render(
- 
-    <RestaurantApp />
+    
+        <RestaurantHolder />
    
   , document.querySelector('#reactRestaurantContainer'));
