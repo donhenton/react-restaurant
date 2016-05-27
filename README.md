@@ -12,11 +12,17 @@ This is the source for the application page located at heroku:
 
 * http://babeljs.io/repl/ to see react/babel snippets translated.
 * Simple server runs on http://127.0.0.1:8080 **NOT** localhost
-* The current master line uses postal instead of Redux
-
+* react-postal tag uses postal instead of Redux
+* The main branch uses react, redux, and a dispatcher
  
 
 ###Demonstrations###
 
 The menu-branch contains simple examples of react and component communication
+
+
+###Running and Developing###
+* gulp task 'dev' sets up system for local development
+* gulp task 'release' packages assets for placement into production the html
+will have to be adapted for its destination, butg is under src/html
  
