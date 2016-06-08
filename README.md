@@ -23,6 +23,6 @@ The menu-branch contains simple examples of react and component communication
 
 ###Running and Developing###
 * gulp task 'dev' sets up system for local development
-* gulp task 'release' packages assets for placement into production the html
-will have to be adapted for its destination, butg is under src/html
+* gulp task 'release' packages assets for placement into production. The html
+will have to be adapted for its destination, but is under src/html
  
