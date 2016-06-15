@@ -28,4 +28,4 @@ will have to be adapted for its destination, but is under src/html
  
 
 ###NPM Issues
-Errors with the gulp bundler due to mappings for debug mode may be due to npm library issues. They might be fixed by blowing off the node_module folder and updating browserify
+Errors with the gulp bundler due to mappings for debug mode may be due to npm library issues. They might be fixed by blowing off the node_module folder and updating browserify. Also, 'react' may need to be added to the bundle transform list to deal with a syntax error concerning bad token.
