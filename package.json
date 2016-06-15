@@ -1,20 +1,20 @@
 {
   "name": "react-restaurant",
   "version": "1.0.0",
-  "description": "Simple starter package for Redux with React and Babel support",
+  "description": "React restaurant application",
   "main": "index.js",
-  "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
+  "repository": "git@github.com:donhenton/react-restaurant.git",
   "scripts": {
     "start": "node get a job"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.2.1",
-    "babel-preset-es2015": "^6.1.18",
-    "babel-preset-react": "^6.1.18",
-    "babelify": "^7.2.0",
-    "browserify": "^9.0.3",
+    "babel-core": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
     "del": "^2.2.0",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^3.1.0",

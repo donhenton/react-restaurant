@@ -49,7 +49,7 @@ function Bundle() {
 
     var Bundler = browserify({
         entries: './src/index.js',
-        transform: [["babelify", {"presets": ["es2015"]}]],
+        transform: [["babelify", {"presets": ["es2015","react"]}]],
         extensions: ['.js'],
         debug: true,
         cache: {},
