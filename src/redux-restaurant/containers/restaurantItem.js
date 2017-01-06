@@ -4,7 +4,7 @@ import  { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {selectRestaurant} from './../actions';
 
-export default class RestaurantItem extends Component {
+class RestaurantItem extends Component {
    
        
   constructor()

@@ -6,8 +6,7 @@ import {EMPTY_REVIEW} from './../services/reviewService';
 import { connect } from 'react-redux'; 
 import { bindActionCreators } from 'redux';
 
-
-export default class EditReviewForm extends Component {
+class EditReviewForm extends Component {
    
        
         constructor()
