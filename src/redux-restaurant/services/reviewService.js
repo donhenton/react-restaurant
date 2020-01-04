@@ -1,4 +1,3 @@
-
 /*
  {
  "starRating": 2,
@@ -6,61 +5,60 @@
  "id": 7
  }
  */
- 
-        var rp = require('request-promise');
-        export default class ReviewService
-        {
 
-        constructor(baseURL)
-        {
-        this.data = {data: 'get a job' };
-                this.rootURL = baseURL+'/review';
-                let me = this;
-                 
-        }
+var rp = require('request-promise');
+export default class ReviewService {
 
-        //{changedReview: this.state.item.reviewDTOs[this.state.currentReviewIdx],restaurantId: this.state.item.id}  
-        processSaveReview(reviewId, restaurantId,changedReview)
-        {
-        let urlValue = this.rootURL + "/" + restaurantId + "/" + reviewId;
-                var options = {
-                method: 'PUT',
-                        uri: urlValue,
-                        body:  changedReview,
-                        json: true // Automatically stringifies the body to JSON 
-                };
-                return rp(options)
-                 
+    constructor(baseURL) {
+        this.data = { data: 'get a job' };
+        this.rootURL = baseURL;
+        let me = this;
 
-        }
-        processDeleteReview(restaurantId, reviewId)
-        {
-                let urlValue = this.rootURL + "/" + restaurantId + "/" + reviewId;
-                var options = {
-                method: 'DELETE',
-                        uri: urlValue 
-                };
-                return rp(options)
-                 
-        }
-        processAddReview(restaurantId, newReview)
-        {
-         
+    }
 
-        let urlValue = this.rootURL + "/" + restaurantId;
-                var options = {
-                method: 'POST',
-                        uri: urlValue,
-                        body:  newReview,
-                        json: true // Automatically stringifies the body to JSON 
-               };
-               return  rp(options) ;
+    //{changedReview: this.state.item.reviewDTOs[this.state.currentReviewIdx],restaurantId: this.state.item.id}  
+    processSaveReview(reviewId, restaurantId, changedReview) {
+        //okay 6
+        delete changedReview['id'];
+        delete changedReview['restaurantId']
+        let urlValue = this.rootURL + "/" + restaurantId + '/review/' + reviewId;
+        var options = {
+            method: 'PUT',
+            uri: urlValue,
+            body: changedReview,
+            json: true // Automatically stringifies the body to JSON 
+        };
+        return rp(options)
 
-        }
 
-        }
-        
- export const EMPTY_REVIEW =  {starRating: 2, reviewListing:"", stampDate:"", id: - 1};
- 
- 
- 
+    }
+    processDeleteReview(restaurantId, reviewId) {
+        //okay 7
+        let urlValue = this.rootURL + "/" + restaurantId + '/review/' + reviewId;
+        var options = {
+            method: 'DELETE',
+            uri: urlValue
+        };
+        return rp(options)
+
+    }
+    processAddReview(restaurantId, newReview) {
+
+        //okay 8
+        delete newReview['id'];
+        delete newReview['restaurantId']
+        newReview['stampDate'] = (new Date()).toISOString();
+        let urlValue = this.rootURL + "/" + restaurantId + '/review';
+        var options = {
+            method: 'POST',
+            uri: urlValue,
+            body: newReview,
+            json: true // Automatically stringifies the body to JSON 
+        };
+        return rp(options);
+
+    }
+
+}
+
+export const EMPTY_REVIEW = { starRating: 2, reviewListing: "", stampDate: "", id: -1 };
