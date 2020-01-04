@@ -96,7 +96,7 @@
          }
      }
      #tbodyContainer {
-         height: 125px;
+         height: 170px;
          overflow-y: scroll;
          td {
              border: thin solid $blue-color;
@@ -213,7 +213,7 @@
      }
      .editRestaurantContainer {
          border: $default-border;
-         width: 40%;
+         width: 45%;
          height: 200px;
          .editTable {
              width: 100%
