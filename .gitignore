@@ -1,8 +1,9 @@
 /node_modules
 bundle.js
 npm-debug.log
-/nbproject/private/
-/target/
+/nbproject 
+/public_html/
 .DS_Store
 /.DS_Store
 /src/bower/
+package-lock.json
