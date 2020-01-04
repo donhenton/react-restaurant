@@ -42,17 +42,20 @@ var WATCH_JS = ['./src/**/*.js'];
 var MAIN_HTML_FILE = ['./src/html/index.html'];
 
 function Bundle() {
-
+    var debug = true;
+    if (argv.production) {
+        debug = false;
+    }
     var Bundler = browserify({
         entries: './src/index.js',
         transform: [
             ["babelify", { "presets": ["es2015", "react"] }]
         ],
         extensions: ['.js'],
-        debug: true,
+        debug: debug,
         cache: {},
         packageCache: {},
-        fullPaths: true
+        fullPaths: debug
     });
     return Bundler
         .bundle()
@@ -76,7 +79,7 @@ gulp.task('copy-html', function() {
 
 gulp.task('clean', function() {
 
-    del(['target']);
+    del(['public_html']);
 
 });
 
@@ -159,5 +162,5 @@ gulp.task('serve', function(cb) {
 
 
 
-gulp.task('release', gulpsync.sync(['clean', 'build', 'sass']));
+gulp.task('release', gulpsync.sync(['clean', 'build', 'sass', 'copy-assets', 'copy-html']));
 gulp.task('dev', gulpsync.sync(['clean', 'build', 'sass', 'copy-assets', 'copy-html', 'serve']));
