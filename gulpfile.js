@@ -163,4 +163,4 @@ gulp.task('serve', function(cb) {
 
 
 gulp.task('release', gulpsync.sync(['clean', 'build', 'sass', 'copy-assets', 'copy-html']));
-gulp.task('dev', gulpsync.sync(['clean', 'build', 'sass', 'copy-assets', 'copy-html', 'serve']));
+gulp.task('dev', gulpsync.sync(['clean', 'build', 'sass', 'copy-assets', 'copy-html']));
