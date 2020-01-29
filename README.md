@@ -4,11 +4,10 @@ Restaurant Application in react js
 
 ## Demo Application
 
-This is the source for the application page located at heroku:
+This is the source for the application page located on aws:
 
-[http://donhenton-node.herokuapp.com/restaurantReact.doc](http://donhenton-node.herokuapp.com/restaurantReact.doc).
-
-The master branch is used to create the artifacts placed there
+<https://eat.awsdhenton.com>
+ 
 
 ```shell
 gulp release --production
